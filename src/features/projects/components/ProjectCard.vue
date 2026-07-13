@@ -12,7 +12,7 @@ defineProps({
     },
 });
 
-defineEmits(["launch", "configure-url", "edit", "delete"]);
+defineEmits(["launch", "manage"]);
 
 function initials(name) {
     return name
@@ -26,11 +26,11 @@ function initials(name) {
 
 <template>
     <article
-        class="group bg-panel hover:border-primary/30 flex min-h-56 flex-col rounded-xl border border-white/8 p-4 shadow-lg shadow-black/20 transition"
+        class="group bg-panel hover:border-primary/30 flex min-h-56 min-w-0 flex-col rounded-xl border border-white/8 p-4 shadow-lg shadow-black/20 transition"
     >
         <header class="flex items-start gap-3">
             <div
-                class="text-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-lg font-bold"
+                class="text-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/4 text-lg font-bold"
                 aria-hidden="true"
             >
                 {{ initials(project.name) }}
@@ -52,7 +52,7 @@ function initials(name) {
             {{ project.description || "No description added." }}
         </p>
 
-        <footer class="mt-4 border-t border-white/8 pt-3">
+        <footer class="mt-4 flex flex-col gap-2 border-t border-white/8 pt-3">
             <AppButton
                 variant="primary"
                 class="w-full"
@@ -62,30 +62,14 @@ function initials(name) {
             >
                 {{ isLaunching ? "Launching…" : "Launch workspace" }}
             </AppButton>
-            <div class="mt-2 flex justify-end gap-1">
-                <AppButton
-                    variant="ghost"
-                    :aria-label="`Configure URL for ${project.name}`"
-                    @click="$emit('configure-url', project)"
-                >
-                    {{ project.launchUrl ? "Edit URL" : "Add URL" }}
-                </AppButton>
-                <AppButton
-                    variant="ghost"
-                    :aria-label="`Edit ${project.name}`"
-                    @click="$emit('edit', project)"
-                >
-                    Edit
-                </AppButton>
-                <AppButton
-                    variant="ghost"
-                    :aria-label="`Delete ${project.name}`"
-                    class="hover:!text-red-300"
-                    @click="$emit('delete', project)"
-                >
-                    Delete
-                </AppButton>
-            </div>
+            <AppButton
+                variant="ghost"
+                class="w-full"
+                :aria-label="`Manage ${project.name}`"
+                @click="$emit('manage', project)"
+            >
+                Manage project →
+            </AppButton>
         </footer>
     </article>
 </template>

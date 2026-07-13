@@ -5,7 +5,9 @@ const repository = vi.hoisted(() => ({
     createProject: vi.fn(),
     deleteProject: vi.fn(),
     listProjects: vi.fn(),
+    saveProjectTerminalCommand: vi.fn(),
     saveProjectUrl: vi.fn(),
+    saveProjectUrls: vi.fn(),
     updateProject: vi.fn(),
 }));
 
@@ -27,6 +29,8 @@ const project = {
     lastOpened: null,
     createdAt: "2026-07-13 10:00:00",
     launchUrl: "",
+    launchUrls: [],
+    terminalCommand: "",
 };
 
 beforeEach(() => {
@@ -127,5 +131,19 @@ describe("projects store", () => {
             urlOpened: false,
         });
         expect(store.isLaunching(project.id)).toBe(false);
+    });
+
+    it("saves a terminal command and updates local state", async () => {
+        repository.saveProjectTerminalCommand.mockResolvedValue("pnpm dev");
+        const store = useProjectsStore();
+        store.projects = [project];
+
+        await store.saveProjectTerminalCommand(project.id, "pnpm dev");
+
+        expect(repository.saveProjectTerminalCommand).toHaveBeenCalledWith(
+            project.id,
+            "pnpm dev",
+        );
+        expect(store.projects[0].terminalCommand).toBe("pnpm dev");
     });
 });

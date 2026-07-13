@@ -11,6 +11,7 @@ import { launchProject } from "./projectLauncher";
 const project = {
     folderPath: "/projects/slingshot",
     launchUrl: "https://example.com/project",
+    launchUrls: ["https://example.com/project"],
 };
 
 beforeEach(() => {
@@ -33,7 +34,7 @@ describe("project launcher", () => {
 
     it("only opens VS Code when no URL is configured", async () => {
         await expect(
-            launchProject({ ...project, launchUrl: "" }),
+            launchProject({ ...project, launchUrl: "", launchUrls: [] }),
         ).resolves.toEqual({ editorOpened: true, urlOpened: false });
         expect(openUrl).not.toHaveBeenCalled();
     });
@@ -42,7 +43,7 @@ describe("project launcher", () => {
         openUrl.mockRejectedValue(new Error("private system detail"));
 
         await expect(launchProject(project)).rejects.toThrow(
-            "VS Code was opened, but the configured URL could not be opened.",
+            "VS Code was opened, but some configured URL(s) could not be opened.",
         );
     });
 });

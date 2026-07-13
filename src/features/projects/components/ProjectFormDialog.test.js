@@ -56,47 +56,15 @@ describe("ProjectFormDialog", () => {
         ]);
     });
 
-    it("prefills an existing project for editing", () => {
-        render(ProjectFormDialog, {
-            props: {
-                project: {
-                    id: 1,
-                    name: "Existing",
-                    description: "Existing project",
-                    folderPath: "/projects/existing",
-                },
-            },
-        });
-
-        expect(
-            screen.getByRole("heading", { name: "Edit project" }),
-        ).toBeInTheDocument();
-        expect(screen.getByLabelText(/Project name/)).toHaveValue("Existing");
-        expect(screen.getByLabelText(/Folder path/)).toHaveValue(
-            "/projects/existing",
-        );
-    });
-
-    it("keeps the existing path when folder selection is cancelled", async () => {
+    it("keeps an empty path when folder selection is cancelled", async () => {
         selectProjectFolder.mockResolvedValue(null);
-        render(ProjectFormDialog, {
-            props: {
-                project: {
-                    id: 1,
-                    name: "Existing",
-                    description: "",
-                    folderPath: "/projects/existing",
-                },
-            },
-        });
+        render(ProjectFormDialog);
 
         await fireEvent.click(
             screen.getByRole("button", { name: "Choose folder" }),
         );
 
-        expect(selectProjectFolder).toHaveBeenCalledWith("/projects/existing");
-        expect(screen.getByLabelText(/Folder path/)).toHaveValue(
-            "/projects/existing",
-        );
+        expect(selectProjectFolder).toHaveBeenCalledWith("");
+        expect(screen.getByLabelText(/Folder path/)).toHaveValue("");
     });
 });

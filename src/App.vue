@@ -1,20 +1,26 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import AppButton from "./components/ui/AppButton.vue";
 import ConfirmDialog from "./components/ui/ConfirmDialog.vue";
 import ToastRegion from "./components/ui/ToastRegion.vue";
 import ProjectCard from "./features/projects/components/ProjectCard.vue";
+import ProjectDetailPage from "./features/projects/components/ProjectDetailPage.vue";
 import ProjectFormDialog from "./features/projects/components/ProjectFormDialog.vue";
-import ProjectUrlDialog from "./features/projects/components/ProjectUrlDialog.vue";
 import { useNotificationsStore } from "./stores/notifications";
 import { useProjectsStore } from "./stores/projects";
 
 const projectsStore = useProjectsStore();
 const notifications = useNotificationsStore();
-const editingProject = ref(null);
 const deletingProject = ref(null);
-const configuringProject = ref(null);
+const selectedProjectId = ref(null);
 const isProjectFormOpen = ref(false);
+const isSavingConfiguration = ref(false);
+const projectDetailPage = ref(null);
+const selectedProject = computed(() =>
+    projectsStore.projects.find(
+        (project) => project.id === selectedProjectId.value,
+    ),
+);
 
 async function loadProjects() {
     try {
@@ -25,32 +31,19 @@ async function loadProjects() {
 }
 
 function openCreateDialog() {
-    editingProject.value = null;
-    isProjectFormOpen.value = true;
-}
-
-function openEditDialog(project) {
-    editingProject.value = project;
     isProjectFormOpen.value = true;
 }
 
 function closeProjectForm() {
     if (!projectsStore.isSaving) {
         isProjectFormOpen.value = false;
-        editingProject.value = null;
     }
 }
 
 async function saveProject(project) {
     try {
-        if (editingProject.value) {
-            await projectsStore.updateProject(editingProject.value.id, project);
-            notifications.add("Project updated.");
-        } else {
-            await projectsStore.createProject(project);
-            notifications.add("Project added.");
-        }
-
+        await projectsStore.createProject(project);
+        notifications.add("Project added.");
         closeProjectForm();
     } catch (error) {
         notifications.add(error.message, "error");
@@ -67,41 +60,54 @@ async function confirmDelete() {
     try {
         await projectsStore.deleteProject(project.id);
         deletingProject.value = null;
+        selectedProjectId.value = null;
         notifications.add("Project deleted.");
     } catch (error) {
         notifications.add(error.message, "error");
     }
 }
 
-async function saveProjectUrl(launchUrl) {
-    const project = configuringProject.value;
+async function saveProjectConfiguration(configuration) {
+    const projectId = selectedProjectId.value;
 
-    if (!project) {
+    if (!projectId) {
         return;
     }
 
+    isSavingConfiguration.value = true;
+
     try {
-        await projectsStore.saveProjectUrl(project.id, launchUrl);
-        configuringProject.value = null;
-        notifications.add(
-            launchUrl ? "Project URL saved." : "Project URL removed.",
+        await projectsStore.updateProject(projectId, configuration.project);
+        await projectsStore.saveProjectUrls(
+            projectId,
+            configuration.launchUrls,
         );
+        await projectsStore.saveProjectTerminalCommand(
+            projectId,
+            configuration.terminalCommand,
+        );
+        notifications.add("Project settings saved.");
     } catch (error) {
         notifications.add(error.message, "error");
+    } finally {
+        isSavingConfiguration.value = false;
     }
 }
 
 async function launchProject(project) {
     try {
-        const result = await projectsStore.launchProject(project);
-
-        if (result) {
-            notifications.add(
-                result.urlOpened
-                    ? "Workspace and project URL opened."
-                    : "Workspace opened in VS Code.",
-            );
+        await projectsStore.launchProject(project);
+        const urlCount =
+            (project.launchUrls || []).length || (project.launchUrl ? 1 : 0);
+        const opened = ["VS Code"].filter(Boolean);
+        if (urlCount > 0) {
+            opened.push(urlCount === 1 ? "project URL" : `${urlCount} URLs`);
         }
+        if (project.terminalCommand) {
+            await projectDetailPage.value?.startTerminal(project);
+            opened.push("terminal");
+        }
+        notifications.add(`${opened.join(", ")} opened.`);
     } catch (error) {
         notifications.add(error.message, "error");
     }
@@ -129,18 +135,36 @@ onMounted(loadProjects);
                         <h1 class="text-sm font-bold tracking-wide">
                             Slingshot
                         </h1>
-                        <p class="text-xs text-zinc-500">Project library</p>
+                        <p class="text-xs text-zinc-500">
+                            Project Launchpad
+                        </p>
                     </div>
                 </div>
-                <AppButton variant="primary" @click="openCreateDialog">
+
+                <AppButton
+                    v-if="selectedProject"
+                    aria-label="Back to projects"
+                    @click="selectedProjectId = null"
+                >
+                    ← Back
+                </AppButton>
+
+                <AppButton
+                    v-else
+                    variant="primary"
+                    @click="openCreateDialog"
+                >
                     <span aria-hidden="true">＋</span>
-                    Add project
+                    <span class="hidden sm:inline">Add project</span>
                 </AppButton>
             </div>
         </header>
 
         <main class="mx-auto max-w-7xl px-6 py-8">
-            <div class="mb-6 flex items-end justify-between">
+            <div
+                v-if="!selectedProject"
+                class="mb-6 flex flex-wrap items-end justify-between gap-4"
+            >
                 <div>
                     <p
                         class="text-primary text-xs font-semibold tracking-[0.18em] uppercase"
@@ -163,7 +187,7 @@ onMounted(loadProjects);
             </div>
 
             <div
-                v-if="projectsStore.isLoading"
+                v-if="projectsStore.isLoading && !selectedProject"
                 class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
             >
                 <div
@@ -175,9 +199,11 @@ onMounted(loadProjects);
 
             <section
                 v-else-if="
-                    projectsStore.error && projectsStore.projects.length === 0
+                    !selectedProject &&
+                    projectsStore.error &&
+                    projectsStore.projects.length === 0
                 "
-                class="flex min-h-80 flex-col items-center justify-center rounded-xl border border-red-500/20 bg-red-500/[0.04] p-8 text-center"
+                class="flex min-h-80 flex-col items-center justify-center rounded-xl border border-red-500/20 bg-red-500/4 p-8 text-center"
             >
                 <div class="mb-4 text-2xl text-red-300">!</div>
                 <h2 class="font-semibold">Could not load projects</h2>
@@ -190,7 +216,9 @@ onMounted(loadProjects);
             </section>
 
             <section
-                v-else-if="projectsStore.projects.length === 0"
+                v-else-if="
+                    !selectedProject && projectsStore.projects.length === 0
+                "
                 class="bg-panel/50 flex min-h-80 flex-col items-center justify-center rounded-xl border border-dashed border-white/10 p-8 text-center"
             >
                 <div
@@ -212,7 +240,7 @@ onMounted(loadProjects);
             </section>
 
             <section
-                v-else
+                v-else-if="!selectedProject"
                 aria-label="Projects"
                 class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
             >
@@ -222,16 +250,25 @@ onMounted(loadProjects);
                     :project="project"
                     :is-launching="projectsStore.isLaunching(project.id)"
                     @launch="launchProject"
-                    @configure-url="configuringProject = $event"
-                    @edit="openEditDialog"
-                    @delete="deletingProject = $event"
+                    @manage="selectedProjectId = $event.id"
                 />
             </section>
+
+            <ProjectDetailPage
+                v-else
+                ref="projectDetailPage"
+                :project="selectedProject"
+                :is-saving="projectsStore.isSaving || isSavingConfiguration"
+                :is-launching="projectsStore.isLaunching(selectedProject.id)"
+                @back="selectedProjectId = null"
+                @launch="launchProject"
+                @save="saveProjectConfiguration"
+                @delete="deletingProject = $event"
+            />
         </main>
 
         <ProjectFormDialog
             v-if="isProjectFormOpen"
-            :project="editingProject"
             :is-saving="projectsStore.isSaving"
             @close="closeProjectForm"
             @save="saveProject"
@@ -245,15 +282,6 @@ onMounted(loadProjects);
             @cancel="deletingProject = null"
             @confirm="confirmDelete"
         />
-
-        <ProjectUrlDialog
-            v-if="configuringProject"
-            :project="configuringProject"
-            :is-saving="projectsStore.isSaving"
-            @close="configuringProject = null"
-            @save="saveProjectUrl"
-        />
-
         <ToastRegion />
     </div>
 </template>

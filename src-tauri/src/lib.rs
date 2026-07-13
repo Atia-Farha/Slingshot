@@ -1,4 +1,5 @@
 mod platform;
+mod terminal;
 
 use std::path::PathBuf;
 use tauri_plugin_shell::ShellExt;
@@ -45,9 +46,22 @@ pub fn run() {
             sql: include_str!("../migrations/0003_rebuild_project_storage.sql"),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 4,
+            description: "add_terminal_action_constraint",
+            sql: include_str!("../migrations/0004_add_terminal_action_constraint.sql"),
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 5,
+            description: "allow_multiple_urls",
+            sql: include_str!("../migrations/0005_allow_multiple_urls.sql"),
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
+        .manage(terminal::TerminalState::default())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
@@ -56,7 +70,13 @@ pub fn run() {
                 .add_migrations("sqlite:slingshot.db", migrations)
                 .build(),
         )
-        .invoke_handler(tauri::generate_handler![launch_vscode])
+        .invoke_handler(tauri::generate_handler![
+            launch_vscode,
+            terminal::terminal_start,
+            terminal::terminal_write,
+            terminal::terminal_resize,
+            terminal::terminal_stop,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -3,7 +3,9 @@ import {
     createProject as insertProject,
     deleteProject as removeProject,
     listProjects,
+    saveProjectTerminalCommand as persistTerminalCommand,
     saveProjectUrl as persistProjectUrl,
+    saveProjectUrls as persistProjectUrls,
     updateProject as saveProject,
 } from "../repositories/projectRepository";
 import { launchProject as launchWorkspace } from "../services/projectLauncher";
@@ -71,10 +73,52 @@ export const useProjectsStore = defineStore("projects", {
                     this.projects[index] = {
                         ...this.projects[index],
                         launchUrl: savedUrl,
+                        launchUrls: savedUrl ? [savedUrl] : [],
                     };
                 }
 
                 return savedUrl;
+            });
+        },
+        async saveProjectUrls(projectId, launchUrls) {
+            return this.runSave(async () => {
+                const savedUrls = await persistProjectUrls(
+                    projectId,
+                    launchUrls,
+                );
+                const index = this.projects.findIndex(
+                    (project) => project.id === projectId,
+                );
+
+                if (index !== -1) {
+                    this.projects[index] = {
+                        ...this.projects[index],
+                        launchUrl: savedUrls[0] ?? "",
+                        launchUrls: savedUrls,
+                    };
+                }
+
+                return savedUrls;
+            });
+        },
+        async saveProjectTerminalCommand(projectId, command) {
+            return this.runSave(async () => {
+                const savedCommand = await persistTerminalCommand(
+                    projectId,
+                    command,
+                );
+                const index = this.projects.findIndex(
+                    (project) => project.id === projectId,
+                );
+
+                if (index !== -1) {
+                    this.projects[index] = {
+                        ...this.projects[index],
+                        terminalCommand: savedCommand,
+                    };
+                }
+
+                return savedCommand;
             });
         },
         async launchProject(project) {

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import AppButton from "../../../components/ui/AppButton.vue";
 import ModalDialog from "../../../components/ui/ModalDialog.vue";
 import {
@@ -9,11 +9,7 @@ import {
 } from "../projectValidation";
 import { selectProjectFolder } from "../../../services/folderPicker";
 
-const props = defineProps({
-    project: {
-        type: Object,
-        default: null,
-    },
+defineProps({
     isSaving: {
         type: Boolean,
         default: false,
@@ -21,10 +17,9 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["close", "save"]);
-const form = reactive({ ...EMPTY_PROJECT, ...props.project });
+const form = reactive({ ...EMPTY_PROJECT });
 const errors = ref({});
 const isPickingFolder = ref(false);
-const isEditing = computed(() => Boolean(props.project));
 
 function submit() {
     const normalizedProject = normalizeProjectInput(form);
@@ -55,7 +50,7 @@ async function chooseFolder() {
 
 <template>
     <ModalDialog
-        :title="isEditing ? 'Edit project' : 'Add project'"
+        title="Add project"
         description="Store the project details used by your development workspace."
         :prevent-close="isSaving"
         @close="$emit('close')"
@@ -149,13 +144,7 @@ async function chooseFolder() {
                     >Cancel</AppButton
                 >
                 <AppButton type="submit" variant="primary" :disabled="isSaving">
-                    {{
-                        isSaving
-                            ? "Saving…"
-                            : isEditing
-                              ? "Save changes"
-                              : "Add project"
-                    }}
+                    {{ isSaving ? "Saving…" : "Add project" }}
                 </AppButton>
             </footer>
         </form>

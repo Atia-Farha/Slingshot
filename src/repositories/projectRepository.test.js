@@ -15,6 +15,7 @@ import {
     createProject,
     deleteProject,
     listProjects,
+    saveProjectTerminalCommand,
     saveProjectUrl,
     updateProject,
 } from "./projectRepository";
@@ -28,6 +29,7 @@ const databaseRow = {
     last_opened: null,
     created_at: "2026-07-13 10:00:00",
     launch_url: null,
+    terminal_command: null,
 };
 
 beforeEach(() => {
@@ -37,7 +39,9 @@ beforeEach(() => {
 
 describe("project repository", () => {
     it("loads and maps project rows", async () => {
-        database.select.mockResolvedValue([databaseRow]);
+        database.select
+            .mockResolvedValueOnce([databaseRow]) // projects query
+            .mockResolvedValueOnce([]); // url rows query
 
         await expect(listProjects()).resolves.toEqual([
             {
@@ -49,6 +53,8 @@ describe("project repository", () => {
                 lastOpened: null,
                 createdAt: "2026-07-13 10:00:00",
                 launchUrl: "",
+                launchUrls: [],
+                terminalCommand: "",
             },
         ]);
         expect(load).toHaveBeenCalledWith("sqlite:slingshot.db");
@@ -59,7 +65,7 @@ describe("project repository", () => {
             lastInsertId: 7,
             rowsAffected: 1,
         });
-        database.select.mockResolvedValue([databaseRow]);
+        database.select.mockResolvedValueOnce([databaseRow]);
 
         await createProject({
             name: "Slingshot",
@@ -79,9 +85,9 @@ describe("project repository", () => {
 
     it("updates projects using a bound identifier", async () => {
         database.execute.mockResolvedValue({ rowsAffected: 1 });
-        database.select.mockResolvedValue([
-            { ...databaseRow, name: "Updated" },
-        ]);
+        database.select
+            .mockResolvedValueOnce([]) // url rows
+            .mockResolvedValueOnce([{ ...databaseRow, name: "Updated" }]); // project row
 
         const updated = await updateProject(7, {
             name: "Updated",
@@ -111,9 +117,14 @@ describe("project repository", () => {
             saveProjectUrl(7, "https://example.com/project"),
         ).resolves.toBe("https://example.com/project");
 
+        // First call is DELETE, second is INSERT
+        expect(database.execute).toHaveBeenCalledWith(
+            expect.stringContaining("DELETE FROM launch_actions"),
+            [7],
+        );
         expect(database.execute).toHaveBeenCalledWith(
             expect.stringContaining("INSERT INTO launch_actions"),
-            [7, "https://example.com/project"],
+            [7, "https://example.com/project", 0],
         );
     });
 
@@ -124,6 +135,29 @@ describe("project repository", () => {
 
         expect(database.execute).toHaveBeenCalledWith(
             expect.stringContaining("DELETE FROM launch_actions"),
+            [7],
+        );
+    });
+
+    it("saves a terminal command using bound values", async () => {
+        database.execute.mockResolvedValue({ rowsAffected: 1 });
+
+        await expect(saveProjectTerminalCommand(7, "pnpm dev")).resolves.toBe(
+            "pnpm dev",
+        );
+
+        expect(database.execute).toHaveBeenCalledWith(
+            expect.stringContaining("type, label, command"),
+            [7, "pnpm dev"],
+        );
+    });
+
+    it("removes a terminal command when given an empty value", async () => {
+        database.execute.mockResolvedValue({ rowsAffected: 1 });
+
+        await expect(saveProjectTerminalCommand(7, "")).resolves.toBe("");
+        expect(database.execute).toHaveBeenCalledWith(
+            expect.stringContaining("type = 'terminal'"),
             [7],
         );
     });
