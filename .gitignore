@@ -1,0 +1,71 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Dependencies
+node_modules
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Build outputs
+dist
+dist-ssr
+src-tauri/target/
+target/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editors & IDEs
+.vscode/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Cache & temp
+.cache
+.parcel-cache
+.nyc_output
+coverage
+*.lcov
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_*/
+
+# Tauri specific
+src-tauri/migrations/*.db*
+src-tauri/migrations/*.sqlite*
+
+# Misc
+Cargo.lock
+**/*.rs.bk
+*.pdb
+.history
+.ionide
+
+.codegraph
+.codex
+.agents
+PLAN.md
+AGENTS.md
