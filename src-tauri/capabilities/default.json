@@ -1,7 +1,16 @@
 {
     "$schema": "../gen/schemas/desktop-schema.json",
     "identifier": "default",
-    "description": "Core capability for the main window",
+    "description": "Project library and launch capability for the main window",
     "windows": ["main"],
-    "permissions": ["core:default"]
+    "permissions": [
+        "core:default",
+        "sql:default",
+        "sql:allow-execute",
+        "dialog:allow-open",
+        {
+            "identifier": "opener:allow-open-url",
+            "allow": [{ "url": "https://*" }, { "url": "http://*" }]
+        }
+    ]
 }

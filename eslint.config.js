@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import configPrettier from "eslint-config-prettier";
 import globals from "globals";
 import pluginVue from "eslint-plugin-vue";
 
@@ -32,4 +33,5 @@ export default [
             },
         },
     },
+    configPrettier,
 ];

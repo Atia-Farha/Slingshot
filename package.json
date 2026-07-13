@@ -25,6 +25,10 @@
     },
     "dependencies": {
         "@tauri-apps/api": "^2.11.1",
+        "@tauri-apps/plugin-dialog": "^2.7.1",
+        "@tauri-apps/plugin-opener": "^2.5.4",
+        "@tauri-apps/plugin-shell": "^2.3.5",
+        "@tauri-apps/plugin-sql": "^2.4.0",
         "pinia": "^3.0.4",
         "vue": "^3.5.39"
     },
@@ -37,6 +41,7 @@
         "@vitejs/plugin-vue": "^6.0.7",
         "@vitest/coverage-v8": "^4.1.10",
         "eslint": "^10.7.0",
+        "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-vue": "^10.9.2",
         "globals": "^17.7.0",
         "jsdom": "^29.1.1",
