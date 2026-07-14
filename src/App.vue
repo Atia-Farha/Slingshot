@@ -118,170 +118,271 @@ onMounted(loadProjects);
 
 <template>
     <div class="bg-jet min-h-screen text-zinc-100">
+        <!-- Header -->
         <header
-            class="bg-jet/95 sticky top-0 z-20 border-b border-white/8 backdrop-blur"
+            class="bg-jet/80 sticky top-0 z-20 border-b border-white/6 backdrop-blur-xl backdrop-saturate-150"
         >
             <div
-                class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6"
+                class="mx-auto flex h-14 max-w-7xl items-center justify-between px-6"
             >
-                <div class="flex items-center gap-3">
-                    <div
-                        class="bg-primary flex h-9 w-9 items-center justify-center rounded-lg text-lg font-black text-black"
+                <div class="flex items-center gap-1">
+                    <img
+                        src="/icon-mark.svg"
+                        alt=""
+                        class="h-8 w-8"
                         aria-hidden="true"
-                    >
-                        S
-                    </div>
-                    <div>
-                        <h1 class="text-sm font-bold tracking-wide">
+                    />
+                    <div class="flex items-baseline gap-2">
+                        <h1 class="text-sm font-bold tracking-tight">
                             Slingshot
                         </h1>
-                        <p class="text-xs text-zinc-500">
-                            Project Launchpad
-                        </p>
                     </div>
                 </div>
 
-                <AppButton
-                    v-if="selectedProject"
-                    aria-label="Back to projects"
-                    @click="selectedProjectId = null"
-                >
-                    ← Back
-                </AppButton>
+                <div class="flex items-center gap-2">
+                    <AppButton
+                        v-if="selectedProject"
+                        variant="ghost"
+                        aria-label="Back to projects"
+                        @click="selectedProjectId = null"
+                    >
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                            class="shrink-0"
+                        >
+                            <path
+                                d="M8.5 3L4.5 7L8.5 11"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        Back
+                    </AppButton>
 
-                <AppButton
-                    v-else
-                    variant="primary"
-                    @click="openCreateDialog"
-                >
-                    <span aria-hidden="true">＋</span>
-                    <span class="hidden sm:inline">Add project</span>
-                </AppButton>
+                    <AppButton
+                        v-else
+                        variant="primary"
+                        @click="openCreateDialog"
+                    >
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                            class="shrink-0"
+                        >
+                            <path
+                                d="M7 2.5V11.5M2.5 7H11.5"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                        <span class="hidden sm:inline">New project</span>
+                    </AppButton>
+                </div>
             </div>
         </header>
 
+        <!-- Main content -->
         <main class="mx-auto max-w-7xl px-6 py-8">
-            <div
-                v-if="!selectedProject"
-                class="mb-6 flex flex-wrap items-end justify-between gap-4"
-            >
-                <div>
-                    <p
-                        class="text-primary text-xs font-semibold tracking-[0.18em] uppercase"
+            <Transition name="page" mode="out-in">
+                <!-- Project list view -->
+                <div v-if="!selectedProject" key="list">
+                    <!-- View header -->
+                    <div
+                        class="mb-8 flex flex-wrap items-end justify-between gap-4"
                     >
-                        Workspace
-                    </p>
-                    <h2 class="mt-1 text-2xl font-semibold">Your projects</h2>
+                        <div>
+                            <p
+                                class="text-primary text-xs font-medium tracking-widest uppercase"
+                            >
+                                Workspace
+                            </p>
+                            <h2
+                                class="mt-1.5 text-2xl font-semibold tracking-tight"
+                            >
+                                Your projects
+                            </h2>
+                        </div>
+                        <p
+                            v-if="!projectsStore.isLoading"
+                            class="text-text-muted text-sm"
+                        >
+                            {{ projectsStore.projects.length }}
+                            {{
+                                projectsStore.projects.length === 1
+                                    ? "project"
+                                    : "projects"
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Loading state -->
+                    <div
+                        v-if="projectsStore.isLoading"
+                        class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+                    >
+                        <div
+                            v-for="index in 3"
+                            :key="index"
+                            class="skeleton h-56"
+                            :style="{ animationDelay: `${index * 100}ms` }"
+                        ></div>
+                    </div>
+
+                    <!-- Error state -->
+                    <section
+                        v-else-if="
+                            projectsStore.error &&
+                            projectsStore.projects.length === 0
+                        "
+                        class="section-card border-danger/20 bg-danger/5 flex min-h-80 flex-col items-center justify-center p-8 text-center"
+                    >
+                        <div
+                            class="bg-danger/10 text-danger mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                        >
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                            >
+                                <path
+                                    d="M10 6V10.5M10 13.5V14M18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10Z"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </div>
+                        <h2 class="font-semibold">Could not load projects</h2>
+                        <p class="text-text-secondary mt-2 max-w-md text-sm">
+                            {{ projectsStore.error }}
+                        </p>
+                        <AppButton class="mt-5" @click="loadProjects">
+                            Try again
+                        </AppButton>
+                    </section>
+
+                    <!-- Empty state -->
+                    <section
+                        v-else-if="projectsStore.projects.length === 0"
+                        class="section-card flex min-h-80 flex-col items-center justify-center border-dashed p-8 text-center"
+                    >
+                        <div
+                            class="bg-primary/10 mb-4 flex h-14 w-14 items-center justify-center rounded-2xl"
+                        >
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                class="text-primary"
+                            >
+                                <path
+                                    d="M12 5V19M5 12H19"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </div>
+                        <h2 class="text-lg font-semibold">No projects yet</h2>
+                        <p
+                            class="text-text-secondary mt-2 max-w-sm text-sm leading-6"
+                        >
+                            Add your first project to start building a reusable
+                            development workspace.
+                        </p>
+                        <AppButton
+                            variant="primary"
+                            class="mt-6"
+                            @click="openCreateDialog"
+                        >
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                class="shrink-0"
+                            >
+                                <path
+                                    d="M7 2.5V11.5M2.5 7H11.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                            Add project
+                        </AppButton>
+                    </section>
+
+                    <!-- Project grid -->
+                    <section
+                        v-else
+                        aria-label="Projects"
+                        class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+                    >
+                        <ProjectCard
+                            v-for="(project, index) in projectsStore.projects"
+                            :key="project.id"
+                            :project="project"
+                            :is-launching="
+                                projectsStore.isLaunching(project.id)
+                            "
+                            class="card-stagger"
+                            :style="{ animationDelay: `${index * 60}ms` }"
+                            @launch="launchProject"
+                            @manage="selectedProjectId = $event.id"
+                        />
+                    </section>
                 </div>
-                <p
-                    v-if="!projectsStore.isLoading"
-                    class="text-sm text-zinc-500"
-                >
-                    {{ projectsStore.projects.length }}
-                    {{
-                        projectsStore.projects.length === 1
-                            ? "project"
-                            : "projects"
-                    }}
-                </p>
-            </div>
 
-            <div
-                v-if="projectsStore.isLoading && !selectedProject"
-                class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
-            >
-                <div
-                    v-for="index in 3"
-                    :key="index"
-                    class="bg-panel h-56 animate-pulse rounded-xl border border-white/8"
-                ></div>
-            </div>
-
-            <section
-                v-else-if="
-                    !selectedProject &&
-                    projectsStore.error &&
-                    projectsStore.projects.length === 0
-                "
-                class="flex min-h-80 flex-col items-center justify-center rounded-xl border border-red-500/20 bg-red-500/4 p-8 text-center"
-            >
-                <div class="mb-4 text-2xl text-red-300">!</div>
-                <h2 class="font-semibold">Could not load projects</h2>
-                <p class="mt-2 max-w-md text-sm text-zinc-500">
-                    {{ projectsStore.error }}
-                </p>
-                <AppButton class="mt-5" @click="loadProjects"
-                    >Try again</AppButton
-                >
-            </section>
-
-            <section
-                v-else-if="
-                    !selectedProject && projectsStore.projects.length === 0
-                "
-                class="bg-panel/50 flex min-h-80 flex-col items-center justify-center rounded-xl border border-dashed border-white/10 p-8 text-center"
-            >
-                <div
-                    class="bg-primary/10 text-primary mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                >
-                    ◇
-                </div>
-                <h2 class="font-semibold">No projects yet</h2>
-                <p class="mt-2 max-w-sm text-sm leading-6 text-zinc-500">
-                    Add your first project to start building a reusable
-                    development workspace.
-                </p>
-                <AppButton
-                    variant="primary"
-                    class="mt-5"
-                    @click="openCreateDialog"
-                    >Add project</AppButton
-                >
-            </section>
-
-            <section
-                v-else-if="!selectedProject"
-                aria-label="Projects"
-                class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
-            >
-                <ProjectCard
-                    v-for="project in projectsStore.projects"
-                    :key="project.id"
-                    :project="project"
-                    :is-launching="projectsStore.isLaunching(project.id)"
+                <!-- Project detail view -->
+                <ProjectDetailPage
+                    v-else
+                    key="detail"
+                    ref="projectDetailPage"
+                    :project="selectedProject"
+                    :is-saving="projectsStore.isSaving || isSavingConfiguration"
+                    :is-launching="
+                        projectsStore.isLaunching(selectedProject.id)
+                    "
+                    @back="selectedProjectId = null"
                     @launch="launchProject"
-                    @manage="selectedProjectId = $event.id"
+                    @save="saveProjectConfiguration"
+                    @delete="deletingProject = $event"
                 />
-            </section>
-
-            <ProjectDetailPage
-                v-else
-                ref="projectDetailPage"
-                :project="selectedProject"
-                :is-saving="projectsStore.isSaving || isSavingConfiguration"
-                :is-launching="projectsStore.isLaunching(selectedProject.id)"
-                @back="selectedProjectId = null"
-                @launch="launchProject"
-                @save="saveProjectConfiguration"
-                @delete="deletingProject = $event"
-            />
+            </Transition>
         </main>
 
-        <ProjectFormDialog
-            v-if="isProjectFormOpen"
-            :is-saving="projectsStore.isSaving"
-            @close="closeProjectForm"
-            @save="saveProject"
-        />
+        <!-- Overlays -->
+        <Transition name="modal">
+            <ProjectFormDialog
+                v-if="isProjectFormOpen"
+                :is-saving="projectsStore.isSaving"
+                @close="closeProjectForm"
+                @save="saveProject"
+            />
+        </Transition>
 
-        <ConfirmDialog
-            v-if="deletingProject"
-            title="Delete project?"
-            :message="`Remove ${deletingProject.name} from Slingshot? This cannot be undone.`"
-            :is-working="projectsStore.isSaving"
-            @cancel="deletingProject = null"
-            @confirm="confirmDelete"
-        />
+        <Transition name="modal">
+            <ConfirmDialog
+                v-if="deletingProject"
+                title="Delete project?"
+                :message="`Remove ${deletingProject.name} from Slingshot? This cannot be undone.`"
+                :is-working="projectsStore.isSaving"
+                @cancel="deletingProject = null"
+                @confirm="confirmDelete"
+            />
+        </Transition>
+
         <ToastRegion />
     </div>
 </template>

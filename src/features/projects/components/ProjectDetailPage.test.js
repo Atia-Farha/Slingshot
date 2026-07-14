@@ -101,9 +101,7 @@ describe("ProjectDetailPage", () => {
         selectProjectFolder.mockResolvedValue("/projects/new-folder");
         render(ProjectDetailPage, { props: { project } });
 
-        await fireEvent.click(
-            screen.getByRole("button", { name: "Choose folder" }),
-        );
+        await fireEvent.click(screen.getByRole("button", { name: "Browse" }));
 
         expect(selectProjectFolder).toHaveBeenCalledWith("/projects/slingshot");
         expect(screen.getByLabelText(/Folder path/)).toHaveValue(

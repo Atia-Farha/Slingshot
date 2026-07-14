@@ -34,9 +34,7 @@ describe("ProjectFormDialog", () => {
             "  Slingshot  ",
         );
         selectProjectFolder.mockResolvedValue("/projects/slingshot");
-        await fireEvent.click(
-            screen.getByRole("button", { name: "Choose folder" }),
-        );
+        await fireEvent.click(screen.getByRole("button", { name: "Browse" }));
         await fireEvent.update(
             screen.getByLabelText("Description"),
             "  Desktop workspace  ",
@@ -60,9 +58,7 @@ describe("ProjectFormDialog", () => {
         selectProjectFolder.mockResolvedValue(null);
         render(ProjectFormDialog);
 
-        await fireEvent.click(
-            screen.getByRole("button", { name: "Choose folder" }),
-        );
+        await fireEvent.click(screen.getByRole("button", { name: "Browse" }));
 
         expect(selectProjectFolder).toHaveBeenCalledWith("");
         expect(screen.getByLabelText(/Folder path/)).toHaveValue("");

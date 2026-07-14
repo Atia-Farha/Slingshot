@@ -218,33 +218,39 @@ defineExpose({ close, start, stop });
     <section
         v-if="currentProject"
         aria-label="Embedded terminal"
-        class="bg-panel mt-6 overflow-hidden rounded-xl border border-white/10 shadow-xl shadow-black/30"
+        class="bg-panel mt-6 overflow-hidden rounded-xl border border-white/8 shadow-xl shadow-black/20"
     >
         <header
-            class="flex items-center justify-between gap-4 border-b border-white/8 bg-black/20 px-4 py-3"
+            class="flex items-center justify-between gap-4 border-b border-white/6 px-4 py-3"
         >
             <div class="min-w-0">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2.5">
                     <span
-                        class="h-2 w-2 rounded-full"
+                        class="h-2 w-2 rounded-full transition-colors duration-300"
                         :class="
                             status === 'running'
-                                ? 'bg-primary'
+                                ? 'bg-primary shadow-[0_0_8px_rgba(20,216,212,0.4)]'
                                 : status === 'starting' || status === 'stopping'
-                                  ? 'bg-amber-300'
+                                  ? 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
                                   : status === 'error'
-                                    ? 'bg-red-400'
-                                    : 'bg-zinc-600'
+                                    ? 'bg-danger shadow-[0_0_8px_rgba(239,68,68,0.4)]'
+                                    : 'bg-text-muted'
                         "
                         aria-hidden="true"
                     ></span>
-                    <h2 class="truncate text-sm font-semibold">
+                    <h2
+                        class="text-text-primary truncate text-sm font-semibold"
+                    >
                         {{ currentProject.name }} terminal
                     </h2>
-                    <span class="text-xs text-zinc-500">{{ status }}</span>
+                    <span
+                        class="text-text-muted rounded-full bg-white/5 px-2 py-0.5 text-xs"
+                    >
+                        {{ status }}
+                    </span>
                 </div>
                 <p
-                    class="mt-1 truncate font-mono text-xs text-zinc-500"
+                    class="text-text-muted mt-1 truncate font-mono text-xs"
                     :title="currentProject.terminalCommand"
                 >
                     {{ currentProject.terminalCommand }}
@@ -256,9 +262,34 @@ defineExpose({ close, start, stop });
                     variant="danger"
                     @click="stop"
                 >
+                    <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="currentColor"
+                        class="shrink-0"
+                    >
+                        <rect x="2" y="2" width="8" height="8" rx="1.5" />
+                    </svg>
                     Stop
                 </AppButton>
-                <AppButton variant="ghost" @click="close">Close</AppButton>
+                <AppButton variant="ghost" @click="close">
+                    <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        class="shrink-0"
+                    >
+                        <path
+                            d="M3 3L9 9M9 3L3 9"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                    Close
+                </AppButton>
             </div>
         </header>
         <div ref="terminalElement" class="h-80 bg-[#08090a] p-3"></div>

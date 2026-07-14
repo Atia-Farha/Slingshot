@@ -44,7 +44,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleKeydown));
 <template>
     <Teleport to="body">
         <div
-            class="fixed inset-0 z-40 flex items-center justify-center bg-black/75 p-5 backdrop-blur-sm"
+            class="fixed inset-0 z-40 flex items-center justify-center bg-black/80 p-5 backdrop-blur-md"
             @mousedown.self="requestClose"
         >
             <section
@@ -52,16 +52,19 @@ onBeforeUnmount(() => window.removeEventListener("keydown", handleKeydown));
                 role="dialog"
                 aria-modal="true"
                 :aria-labelledby="titleId"
-                class="bg-panel w-full max-w-lg overflow-hidden rounded-xl border border-white/10 shadow-2xl shadow-black/70"
+                class="modal-panel bg-panel w-full max-w-lg overflow-hidden rounded-2xl border border-white/8 shadow-2xl shadow-black/60"
             >
-                <header class="border-b border-white/8 px-5 py-4">
+                <header class="border-b border-white/6 px-6 py-5">
                     <h2
                         :id="titleId"
-                        class="text-base font-semibold text-zinc-50"
+                        class="text-text-primary text-base font-semibold tracking-tight"
                     >
                         {{ title }}
                     </h2>
-                    <p v-if="description" class="mt-1 text-sm text-zinc-500">
+                    <p
+                        v-if="description"
+                        class="text-text-secondary mt-1 text-sm"
+                    >
                         {{ description }}
                     </p>
                 </header>

@@ -40,8 +40,8 @@ beforeEach(() => {
 describe("project repository", () => {
     it("loads and maps project rows", async () => {
         database.select
-            .mockResolvedValueOnce([databaseRow]) // projects query
-            .mockResolvedValueOnce([]); // url rows query
+            .mockResolvedValueOnce([databaseRow])
+            .mockResolvedValueOnce([]);
 
         await expect(listProjects()).resolves.toEqual([
             {
@@ -86,8 +86,8 @@ describe("project repository", () => {
     it("updates projects using a bound identifier", async () => {
         database.execute.mockResolvedValue({ rowsAffected: 1 });
         database.select
-            .mockResolvedValueOnce([]) // url rows
-            .mockResolvedValueOnce([{ ...databaseRow, name: "Updated" }]); // project row
+            .mockResolvedValueOnce([])
+            .mockResolvedValueOnce([{ ...databaseRow, name: "Updated" }]);
 
         const updated = await updateProject(7, {
             name: "Updated",
@@ -117,7 +117,6 @@ describe("project repository", () => {
             saveProjectUrl(7, "https://example.com/project"),
         ).resolves.toBe("https://example.com/project");
 
-        // First call is DELETE, second is INSERT
         expect(database.execute).toHaveBeenCalledWith(
             expect.stringContaining("DELETE FROM launch_actions"),
             [7],

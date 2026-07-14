@@ -66,6 +66,7 @@ Cargo.lock
 
 .codegraph
 .codex
+.mimocode
 .agents
 PLAN.md
 AGENTS.md

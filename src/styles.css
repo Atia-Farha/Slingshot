@@ -2,11 +2,23 @@
 
 @theme {
     --color-jet: #050505;
-    --color-panel: #0d0d0d;
-    --color-primary: #32e6e2;
+    --color-panel: #0a0a0b;
+    --color-surface: #131316;
+    --color-primary: #14d8d4;
+    --color-primary-dim: #14d8d420;
+    --color-danger: #ef4444;
+    --color-danger-dim: #ef444420;
+    --color-text-primary: #f0f0f2;
+    --color-text-secondary: #a0a0a8;
+    --color-text-muted: #606068;
+    --color-border: rgba(255, 255, 255, 0.06);
+    --color-border-hover: rgba(255, 255, 255, 0.12);
     --font-sans:
         Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
+    --font-mono:
+        "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas,
+        "Liberation Mono", monospace;
 }
 
 @layer base {
@@ -15,10 +27,16 @@
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
     * {
         box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
     }
 
     body {
@@ -26,12 +44,45 @@
         min-height: 100vh;
         margin: 0;
         overflow-y: scroll;
-        background: #050505;
+        background: var(--color-jet);
+        color: var(--color-text-primary);
+        font-family: var(--font-sans);
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.14);
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
     }
 
     button,
     input,
-    textarea {
+    textarea,
+    select {
         font: inherit;
     }
 
@@ -39,32 +90,202 @@
     a {
         cursor: pointer;
     }
+
+    @media (prefers-reduced-motion: no-preference) {
+        a,
+        button,
+        input,
+        textarea,
+        select {
+            transition-duration: 150ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
 }
 
 @layer components {
     .app-input {
         width: 100%;
-        border: 1px solid rgb(255 255 255 / 10%);
-        border-radius: 0.375rem;
+        border: 1px solid var(--color-border);
+        border-radius: 0.5rem;
         outline: none;
-        background: rgb(255 255 255 / 4%);
+        background: rgba(255, 255, 255, 0.03);
         padding: 0.625rem 0.75rem;
-        color: #f4f4f5;
+        color: var(--color-text-primary);
+        font-size: 0.875rem;
         transition:
             border-color 150ms,
-            box-shadow 150ms;
+            box-shadow 150ms,
+            background 150ms;
     }
 
     .app-input::placeholder {
-        color: #52525b;
+        color: var(--color-text-muted);
+    }
+
+    .app-input:hover:not(:disabled):not([readonly]) {
+        box-shadow: 0 0 0 3px var(--color-primary-dim);
+        background: rgba(255, 255, 255, 0.04);
     }
 
     .app-input:focus {
-        border-color: #32e6e2;
-        box-shadow: 0 0 0 2px rgb(20 216 212 / 15%);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-primary-dim);
+        background: rgba(255, 255, 255, 0.04);
     }
 
     .app-input[aria-invalid="true"] {
-        border-color: rgb(248 113 113 / 70%);
+        border-color: rgb(239 68 68 / 50%);
+    }
+
+    .app-input[aria-invalid="true"]:hover:not(:disabled):not([readonly]) {
+        box-shadow: 0 0 0 3px var(--color-danger-dim);
+    }
+
+    .app-input[aria-invalid="true"]:focus {
+        border-color: rgb(239 68 68 / 50%);
+        box-shadow: 0 0 0 3px var(--color-danger-dim);
+    }
+
+    .app-input:disabled,
+    .app-input[readonly] {
+        opacity: 0.6;
+        cursor: default;
+    }
+
+    .section-card {
+        background: var(--color-panel);
+        border: 1px solid var(--color-border);
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        transition: border-color 150ms;
+    }
+
+    .section-card:hover {
+        border-color: var(--color-border-hover);
+    }
+
+    .glow-primary {
+        box-shadow:
+            0 0 20px var(--color-primary-dim),
+            0 0 40px rgba(20, 216, 212, 0.08);
+    }
+
+    .page-enter-active,
+    .page-leave-active {
+        transition:
+            opacity 180ms ease,
+            transform 180ms ease;
+    }
+
+    .page-enter-from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    .page-leave-to {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 150ms ease;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
+    }
+
+    .modal-enter-active,
+    .modal-leave-active {
+        transition: opacity 200ms ease;
+    }
+
+    .modal-enter-active .modal-panel,
+    .modal-leave-active .modal-panel {
+        transition:
+            opacity 200ms ease,
+            transform 200ms ease;
+    }
+
+    .modal-enter-from,
+    .modal-leave-to {
+        opacity: 0;
+    }
+
+    .modal-enter-from .modal-panel {
+        opacity: 0;
+        transform: scale(0.97) translateY(8px);
+    }
+
+    .modal-leave-to .modal-panel {
+        opacity: 0;
+        transform: scale(0.97) translateY(8px);
+    }
+
+    .toast-enter-active {
+        transition:
+            opacity 200ms ease,
+            transform 200ms ease;
+    }
+
+    .toast-leave-active {
+        transition:
+            opacity 150ms ease,
+            transform 150ms ease;
+    }
+
+    .toast-enter-from {
+        opacity: 0;
+        transform: translateX(16px);
+    }
+
+    .toast-leave-to {
+        opacity: 0;
+        transform: translateX(16px);
+    }
+
+    @keyframes card-enter {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card-stagger {
+        animation: card-enter 300ms ease both;
+    }
+
+    @keyframes skeleton-pulse {
+        0%,
+        100% {
+            opacity: 0.04;
+        }
+        50% {
+            opacity: 0.08;
+        }
+    }
+
+    .skeleton {
+        background: rgba(255, 255, 255, 0.04);
+        animation: skeleton-pulse 2s ease-in-out infinite;
+        border-radius: 0.75rem;
     }
 }
