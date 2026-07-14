@@ -10,6 +10,8 @@ export default [
             "node_modules/**",
             "src-tauri/gen/**",
             "src-tauri/target/**",
+            "site/.nuxt/**",
+            "site/.output/**",
         ],
     },
     js.configs.recommended,
