@@ -8,11 +8,11 @@ useSeoMeta({
     ogTitle: "Feedback — Slingshot",
     ogDescription:
         "Help us improve Slingshot. Bug reports, feature requests, or just a quick note.",
-    ogUrl: `${siteUrl}/feedback/`,
+    ogUrl: `${siteUrl}/feedback`,
     twitterTitle: "Feedback — Slingshot",
     twitterDescription:
         "Help us improve Slingshot. Bug reports, feature requests, or just a quick note.",
-    canonical: `${siteUrl}/feedback/`,
+    canonical: `${siteUrl}/feedback`,
 });
 
 useHead({
@@ -23,7 +23,7 @@ useHead({
                 "@context": "https://schema.org",
                 "@type": "ContactPage",
                 name: "Feedback — Slingshot",
-                url: `${siteUrl}/feedback/`,
+                url: `${siteUrl}/feedback`,
                 mainEntity: {
                     "@type": "Organization",
                     name: "Slingshot",
@@ -47,7 +47,7 @@ useHead({
                         "@type": "ListItem",
                         position: 2,
                         name: "Feedback",
-                        item: `${siteUrl}/feedback/`,
+                        item: `${siteUrl}/feedback`,
                     },
                 ],
             }),

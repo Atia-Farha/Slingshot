@@ -8,11 +8,11 @@ useSeoMeta({
     ogTitle: "About Slingshot",
     ogDescription:
         "Built by developers, for developers. Slingshot is free, open source, and cross-platform.",
-    ogUrl: `${siteUrl}/about/`,
+    ogUrl: `${siteUrl}/about`,
     twitterTitle: "About Slingshot",
     twitterDescription:
         "Built by developers, for developers. Slingshot is free, open source, and cross-platform.",
-    canonical: `${siteUrl}/about/`,
+    canonical: `${siteUrl}/about`,
 });
 
 useHead({
@@ -23,7 +23,7 @@ useHead({
                 "@context": "https://schema.org",
                 "@type": "AboutPage",
                 name: "About Slingshot",
-                url: `${siteUrl}/about/`,
+                url: `${siteUrl}/about`,
                 mainEntity: {
                     "@type": "Organization",
                     name: "Slingshot",
@@ -50,7 +50,7 @@ useHead({
                         "@type": "ListItem",
                         position: 2,
                         name: "About",
-                        item: `${siteUrl}/about/`,
+                        item: `${siteUrl}/about`,
                     },
                 ],
             }),

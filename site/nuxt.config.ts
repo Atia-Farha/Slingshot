@@ -22,7 +22,6 @@ export default defineNuxtConfig({
 
     site: {
         url: siteUrl,
-        trailingSlash: true,
     },
 
     sitemap: {
