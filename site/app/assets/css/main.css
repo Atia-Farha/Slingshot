@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: "Anton";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/anton-latin.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("/fonts/inter-latin.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+}
+
 @theme {
     --color-jet: #050505;
     --color-panel: #0a0a0b;
