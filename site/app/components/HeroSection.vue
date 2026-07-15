@@ -50,7 +50,7 @@
             >
                 <NuxtLink
                     to="/download"
-                    class="cta-glow border-primary/60 bg-primary inline-flex h-11 items-center gap-2.5 rounded-lg border px-6 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
+                    class="cta-glow border-primary/60 bg-primary inline-flex h-11 min-w-52 items-center justify-center gap-2.5 rounded-lg border px-6 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                 >
                     <svg
                         width="14"
@@ -70,7 +70,7 @@
                 </NuxtLink>
                 <NuxtLink
                     to="/#features"
-                    class="inline-flex h-11 items-center gap-2.5 rounded-lg border border-white/8 bg-white/5 px-6 text-sm font-semibold text-zinc-100 transition-all duration-300 hover:border-white/[0.14] hover:bg-white/8 active:scale-[0.98]"
+                    class="inline-flex h-11 min-w-52 items-center justify-center gap-2.5 rounded-lg border border-white/8 bg-white/5 px-6 text-sm font-semibold text-zinc-100 transition-all duration-300 hover:border-white/[0.14] hover:bg-white/8 active:scale-[0.98]"
                 >
                     What It Can Do
                 </NuxtLink>

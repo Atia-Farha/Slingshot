@@ -112,7 +112,7 @@ const values = [
 
                         <div class="relative flex gap-6">
                             <!-- Step icon -->
-                            <div class="hidden flex-shrink-0 md:flex">
+                            <div class="hidden shrink-0 md:flex">
                                 <div
                                     class="flex h-10 w-10 items-center justify-center rounded-xl border border-red-500/20 bg-red-500/10"
                                 >
@@ -198,7 +198,7 @@ const values = [
 
                         <div class="relative flex gap-6">
                             <!-- Step icon -->
-                            <div class="hidden flex-shrink-0 md:flex">
+                            <div class="hidden shrink-0 md:flex">
                                 <div
                                     class="border-primary/20 bg-primary/10 flex h-10 w-10 items-center justify-center rounded-xl border"
                                 >
