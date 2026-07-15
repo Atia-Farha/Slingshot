@@ -1,5 +1,8 @@
 <template>
-    <section aria-labelledby="cta-heading" class="relative overflow-hidden py-38">
+    <section
+        aria-labelledby="cta-heading"
+        class="relative overflow-hidden py-38"
+    >
         <div class="absolute inset-0">
             <!-- Base gradient — top -->
             <div

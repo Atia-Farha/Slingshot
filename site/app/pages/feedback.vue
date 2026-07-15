@@ -8,11 +8,11 @@ useSeoMeta({
     ogTitle: "Feedback — Slingshot",
     ogDescription:
         "Help us improve Slingshot. Bug reports, feature requests, or just a quick note.",
-    ogUrl: `${siteUrl}/feedback`,
+    ogUrl: `${siteUrl}/feedback/`,
     twitterTitle: "Feedback — Slingshot",
     twitterDescription:
         "Help us improve Slingshot. Bug reports, feature requests, or just a quick note.",
-    canonical: `${siteUrl}/feedback`,
+    canonical: `${siteUrl}/feedback/`,
 });
 
 useHead({
@@ -23,7 +23,7 @@ useHead({
                 "@context": "https://schema.org",
                 "@type": "ContactPage",
                 name: "Feedback — Slingshot",
-                url: `${siteUrl}/feedback`,
+                url: `${siteUrl}/feedback/`,
                 mainEntity: {
                     "@type": "Organization",
                     name: "Slingshot",
@@ -47,7 +47,7 @@ useHead({
                         "@type": "ListItem",
                         position: 2,
                         name: "Feedback",
-                        item: `${siteUrl}/feedback`,
+                        item: `${siteUrl}/feedback/`,
                     },
                 ],
             }),
@@ -183,7 +183,10 @@ async function handleSubmit() {
 <template>
     <div>
         <!-- Hero -->
-        <section aria-labelledby="feedback-hero-heading" class="relative overflow-hidden pt-32 pb-20">
+        <section
+            aria-labelledby="feedback-hero-heading"
+            class="relative overflow-hidden pt-32 pb-20"
+        >
             <!-- Background -->
             <div class="absolute inset-0">
                 <div
@@ -490,7 +493,10 @@ async function handleSubmit() {
             </div>
         </form>
 
-        <section aria-labelledby="feedback-cta-heading" class="relative overflow-hidden py-38">
+        <section
+            aria-labelledby="feedback-cta-heading"
+            class="relative overflow-hidden py-38"
+        >
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
                 <div
@@ -519,7 +525,10 @@ async function handleSubmit() {
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 id="feedback-cta-heading" class="text-3xl tracking-tight sm:text-4xl">
+                <h2
+                    id="feedback-cta-heading"
+                    class="text-3xl tracking-tight sm:text-4xl"
+                >
                     Prefer GitHub?
                 </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">

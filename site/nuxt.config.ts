@@ -22,6 +22,7 @@ export default defineNuxtConfig({
 
     site: {
         url: siteUrl,
+        trailingSlash: true,
     },
 
     sitemap: {
@@ -196,7 +197,8 @@ export default defineNuxtConfig({
             },
             "/og-image.png": {
                 headers: {
-                    "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400",
+                    "Cache-Control":
+                        "public, max-age=604800, stale-while-revalidate=86400",
                 },
             },
             "/favicons/**": {

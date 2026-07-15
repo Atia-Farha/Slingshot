@@ -69,7 +69,13 @@ onUnmounted(() => {
         >
             <!-- Brand -->
             <NuxtLink to="/" class="flex items-center gap-1">
-                <img src="/logo.svg" alt="Slingshot logo" width="28" height="28" class="h-7 w-7" />
+                <img
+                    src="/logo.svg"
+                    alt="Slingshot logo"
+                    width="28"
+                    height="28"
+                    class="h-7 w-7"
+                />
                 <span class="font-display text-[15px] tracking-wide"
                     >Slingshot</span
                 >

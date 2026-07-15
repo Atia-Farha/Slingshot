@@ -8,11 +8,11 @@ useSeoMeta({
     ogTitle: "Download Slingshot",
     ogDescription:
         "Free, open source dev environment launcher for macOS, Windows, and Linux.",
-    ogUrl: `${siteUrl}/download`,
+    ogUrl: `${siteUrl}/download/`,
     twitterTitle: "Download Slingshot",
     twitterDescription:
         "Free, open source dev environment launcher for macOS, Windows, and Linux.",
-    canonical: `${siteUrl}/download`,
+    canonical: `${siteUrl}/download/`,
 });
 
 useHead({
@@ -23,7 +23,7 @@ useHead({
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
                 name: "Slingshot",
-                url: `${siteUrl}/download`,
+                url: `${siteUrl}/download/`,
                 description:
                     "One-click dev environment launcher for developers.",
                 applicationCategory: "DeveloperApplication",
@@ -61,7 +61,7 @@ useHead({
                         "@type": "ListItem",
                         position: 2,
                         name: "Download",
-                        item: `${siteUrl}/download`,
+                        item: `${siteUrl}/download/`,
                     },
                 ],
             }),
@@ -368,7 +368,10 @@ const platforms = [
             </div>
         </section>
 
-        <section aria-labelledby="download-cta-heading" class="relative overflow-hidden py-38">
+        <section
+            aria-labelledby="download-cta-heading"
+            class="relative overflow-hidden py-38"
+        >
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
                 <div
@@ -397,7 +400,12 @@ const platforms = [
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 id="download-cta-heading" class="text-3xl tracking-tight sm:text-4xl">Open source</h2>
+                <h2
+                    id="download-cta-heading"
+                    class="text-3xl tracking-tight sm:text-4xl"
+                >
+                    Open source
+                </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
                     Slingshot is free and open source. View the source code on
                     GitHub.

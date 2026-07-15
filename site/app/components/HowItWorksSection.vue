@@ -16,7 +16,11 @@ const after = [
 </script>
 
 <template>
-    <section id="how-it-works" aria-labelledby="how-it-works-heading" class="relative overflow-hidden py-20">
+    <section
+        id="how-it-works"
+        aria-labelledby="how-it-works-heading"
+        class="relative overflow-hidden py-20"
+    >
         <!-- Background -->
         <div class="absolute inset-0">
             <div
@@ -39,7 +43,10 @@ const after = [
                 >
                     How it works
                 </p>
-                <h2 id="how-it-works-heading" class="mt-3 text-3xl font-bold sm:text-4xl">
+                <h2
+                    id="how-it-works-heading"
+                    class="mt-3 text-3xl font-bold sm:text-4xl"
+                >
                     From grind to one click
                 </h2>
                 <div

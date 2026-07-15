@@ -8,11 +8,11 @@ useSeoMeta({
     ogTitle: "About Slingshot",
     ogDescription:
         "Built by developers, for developers. Slingshot is free, open source, and cross-platform.",
-    ogUrl: `${siteUrl}/about`,
+    ogUrl: `${siteUrl}/about/`,
     twitterTitle: "About Slingshot",
     twitterDescription:
         "Built by developers, for developers. Slingshot is free, open source, and cross-platform.",
-    canonical: `${siteUrl}/about`,
+    canonical: `${siteUrl}/about/`,
 });
 
 useHead({
@@ -23,7 +23,7 @@ useHead({
                 "@context": "https://schema.org",
                 "@type": "AboutPage",
                 name: "About Slingshot",
-                url: `${siteUrl}/about`,
+                url: `${siteUrl}/about/`,
                 mainEntity: {
                     "@type": "Organization",
                     name: "Slingshot",
@@ -50,7 +50,7 @@ useHead({
                         "@type": "ListItem",
                         position: 2,
                         name: "About",
-                        item: `${siteUrl}/about`,
+                        item: `${siteUrl}/about/`,
                     },
                 ],
             }),
@@ -83,7 +83,10 @@ const values = [
 <template>
     <div>
         <!-- Hero -->
-        <section aria-labelledby="about-hero-heading" class="relative overflow-hidden pt-32 pb-20">
+        <section
+            aria-labelledby="about-hero-heading"
+            class="relative overflow-hidden pt-32 pb-20"
+        >
             <!-- Background -->
             <div class="absolute inset-0">
                 <div
@@ -322,7 +325,10 @@ const values = [
                         class="text-primary text-[11px] font-semibold tracking-widest uppercase"
                         >Our principles</span
                     >
-                    <h2 id="values-heading" class="mt-3 text-3xl font-bold sm:text-4xl">
+                    <h2
+                        id="values-heading"
+                        class="mt-3 text-3xl font-bold sm:text-4xl"
+                    >
                         What we believe
                     </h2>
                     <div
@@ -417,7 +423,10 @@ const values = [
             </div>
         </section>
 
-        <section aria-labelledby="about-cta-heading" class="relative overflow-hidden py-38">
+        <section
+            aria-labelledby="about-cta-heading"
+            class="relative overflow-hidden py-38"
+        >
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
                 <div
@@ -446,7 +455,10 @@ const values = [
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 id="about-cta-heading" class="text-3xl tracking-tight sm:text-4xl">
+                <h2
+                    id="about-cta-heading"
+                    class="text-3xl tracking-tight sm:text-4xl"
+                >
                     Help us make Slingshot better
                 </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
