@@ -48,6 +48,10 @@ export default defineNuxtConfig({
                     content: "strict-origin-when-cross-origin",
                 },
                 {
+                    name: "google-site-verification",
+                    content: "ombz00eG8vi57xR8pLJFnP4Lc_sEi3PJ7rl-6Nd0EqI",
+                },
+                {
                     name: "viewport",
                     content: "width=device-width, initial-scale=1",
                 },
