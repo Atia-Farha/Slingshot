@@ -1,6 +1,4 @@
 <script setup>
-import { useToast } from "../composables/useToast";
-
 const { toasts, remove } = useToast();
 </script>
 

@@ -34,6 +34,17 @@ const steps = [
                 <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
                     Three steps. That's it.
                 </h2>
+                <div
+                    class="mx-auto mt-5 h-px w-16"
+                    style="
+                        background: linear-gradient(
+                            90deg,
+                            transparent,
+                            rgba(20, 216, 212, 0.4),
+                            transparent
+                        );
+                    "
+                ></div>
             </div>
 
             <div class="relative">

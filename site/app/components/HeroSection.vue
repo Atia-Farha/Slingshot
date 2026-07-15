@@ -23,25 +23,26 @@
                 <span
                     class="bg-primary h-1.5 w-1.5 animate-pulse rounded-full"
                 ></span>
-                <span class="text-primary text-xs font-medium tracking-wide"
-                    >Tool for Developers</span
+                <span
+                    class="text-primary text-xs font-medium tracking-wide capitalize"
+                    >Your setup, automated</span
                 >
             </div>
 
             <h1
                 class="animate-fade-in-up animate-delay-100 text-5xl font-extrabold tracking-tight uppercase sm:text-6xl md:text-7xl"
             >
-                Start your project<br />
-                setup with<br />
-                <span class="text-primary">one click</span>
+                Launch your full<br />
+                dev environment<br />
+                <span class="text-primary">in one click</span>
             </h1>
 
             <p
-                class="animate-fade-in-up animate-delay-200 text-text-secondary mx-auto mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl"
+                class="animate-fade-in-up animate-delay-200 text-text-secondary mx-auto mt-6 max-w-2xl text-lg leading-relaxed"
             >
-                Instead of opening an editor, terminals, a browser, and running
-                the same commands for every project you work on — save that
-                routine once and replay it instantly.
+                Open your editor, terminals, browser, and dev servers — all
+                pre-configured per project. No manual setup, no repeated
+                commands, no wasted time.
             </p>
 
             <div
@@ -49,7 +50,7 @@
             >
                 <NuxtLink
                     to="/download"
-                    class="cta-glow border-primary/60 bg-primary inline-flex h-11 items-center gap-2.5 rounded-lg border px-6 text-sm font-bold text-black transition-all duration-200 hover:bg-[#0fc4c0] active:scale-[0.98]"
+                    class="cta-glow border-primary/60 bg-primary inline-flex h-11 items-center gap-2.5 rounded-lg border px-6 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                 >
                     <svg
                         width="14"
@@ -65,13 +66,13 @@
                             d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
                         />
                     </svg>
-                    Download for free
+                    Download for Free
                 </NuxtLink>
                 <NuxtLink
                     to="/#features"
-                    class="inline-flex h-11 items-center gap-2.5 rounded-lg border border-white/8 bg-white/5 px-6 text-sm font-semibold text-zinc-100 transition-all duration-200 hover:border-white/[0.14] hover:bg-white/8 active:scale-[0.98]"
+                    class="inline-flex h-11 items-center gap-2.5 rounded-lg border border-white/8 bg-white/5 px-6 text-sm font-semibold text-zinc-100 transition-all duration-300 hover:border-white/[0.14] hover:bg-white/8 active:scale-[0.98]"
                 >
-                    See what it does
+                    What It Can Do
                 </NuxtLink>
             </div>
         </div>

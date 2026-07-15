@@ -124,8 +124,7 @@ const platforms = [
                 <p
                     class="animate-fade-in-up animate-delay-200 text-text-secondary mx-auto mt-6 max-w-2xl text-lg leading-relaxed"
                 >
-                    Start your full dev environment with one click. Available
-                    for macOS, Windows, and Linux.
+                    One click. Every tool. Ready to code.
                 </p>
             </div>
         </section>
@@ -229,7 +228,7 @@ const platforms = [
                             ></div>
 
                             <!-- Download links -->
-                            <div class="space-y-2.5">
+                            <!-- <div class="space-y-2.5">
                                 <a
                                     v-for="v in p.versions"
                                     :key="v.label"
@@ -266,21 +265,34 @@ const platforms = [
                                         />
                                     </svg>
                                 </a>
+                            </div> -->
+
+                            <!-- Coming soon -->
+                            <div
+                                class="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-4 py-2"
+                            >
+                                <span
+                                    class="bg-text-muted h-1.5 w-1.5 rounded-full"
+                                ></span>
+                                <span
+                                    class="text-text-muted text-xs font-medium tracking-wide"
+                                    >Coming soon</span
+                                >
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-text-muted mt-8 text-center text-sm">
+                <!-- <p class="text-text-muted mt-8 text-center text-sm">
                     or get it from
                     <a
                         href="https://github.com/Atia-Farha/Slingshot/releases"
                         target="_blank"
                         rel="noopener"
-                        class="text-primary/70 hover:text-primary transition-colors duration-150"
+                        class="text-primary/70 hover:text-primary transition-colors duration-300"
                         >GitHub Releases</a
                     >
-                </p>
+                </p> -->
             </div>
         </section>
 
@@ -313,9 +325,7 @@ const platforms = [
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 class="text-3xl tracking-tight capitalize sm:text-4xl">
-                    Open source
-                </h2>
+                <h2 class="text-3xl tracking-tight sm:text-4xl">Open source</h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
                     Slingshot is free and open source. View the source code on
                     GitHub.
@@ -327,7 +337,7 @@ const platforms = [
                         href="https://github.com/Atia-Farha/Slingshot"
                         target="_blank"
                         rel="noopener"
-                        class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-200 hover:bg-[#0fc4c0] active:scale-[0.98]"
+                        class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                     >
                         View on GitHub
                         <svg

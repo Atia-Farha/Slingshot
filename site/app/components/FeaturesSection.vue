@@ -54,15 +54,26 @@ const features = [
                 >
                     Capabilities
                 </p>
-                <h2 class="mt-3 text-3xl tracking-tight capitalize sm:text-4xl">
+                <h2 class="mt-3 text-3xl tracking-tight sm:text-4xl">
                     Everything you need.<br class="hidden sm:inline" />
                     Nothing you don't.
                 </h2>
+                <div
+                    class="mx-auto mt-5 h-px w-16"
+                    style="
+                        background: linear-gradient(
+                            90deg,
+                            transparent,
+                            rgba(20, 216, 212, 0.4),
+                            transparent
+                        );
+                    "
+                ></div>
                 <p
                     class="text-text-secondary mx-auto mt-4 max-w-xl text-base leading-relaxed"
                 >
-                    Built for developers who repeat the same startup ritual
-                    every day. Save it once, launch it forever.
+                    Built for developers who repeat the same startup ritual.
+                    Save it once, launch it forever.
                 </p>
             </div>
 
@@ -73,7 +84,7 @@ const features = [
                 <div
                     v-for="feature in features"
                     :key="feature.title"
-                    class="feature-card section-card group relative overflow-hidden p-6"
+                    class="feature-card section-card group hover:border-primary/20 relative overflow-hidden p-6 transition-all duration-500 hover:shadow-[0_0_60px_-15px_rgba(20,216,212,0.15)]"
                     :class="{
                         'lg:col-span-2': feature.span === 'wide',
                         'lg:row-span-2': feature.span === 'tall',

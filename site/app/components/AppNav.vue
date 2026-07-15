@@ -38,14 +38,14 @@ const navLinks = [
             <div class="flex items-center gap-2">
                 <NuxtLink
                     to="/download"
-                    class="bg-primary hidden h-9 items-center gap-1.5 rounded-full px-5 text-sm font-bold text-black transition-all duration-200 hover:bg-[#0fc4c0] hover:shadow-[0_0_20px_rgba(20,216,212,0.3)] active:scale-[0.97] md:inline-flex"
+                    class="bg-primary hidden h-9 items-center gap-1.5 rounded-full px-5 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_20px_rgba(20,216,212,0.3)] active:scale-[0.97] md:inline-flex"
                 >
                     Download
                 </NuxtLink>
 
                 <!-- Hamburger button — mobile only -->
                 <button
-                    class="text-text-secondary hover:text-text-primary flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors duration-150 md:hidden"
+                    class="text-text-secondary hover:text-text-primary flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors duration-300 md:hidden"
                     aria-label="Toggle menu"
                     @click="isMobileMenuOpen = !isMobileMenuOpen"
                 >
@@ -72,7 +72,7 @@ const navLinks = [
                         v-for="link in navLinks"
                         :key="link.label"
                         :to="link.href"
-                        class="text-text-secondary hover:text-text-primary w-full rounded-xl px-4 py-3 text-center text-sm font-medium transition-colors duration-150 hover:bg-white/4"
+                        class="text-text-secondary hover:text-text-primary w-full rounded-xl px-4 py-3 text-center text-sm font-medium transition-colors duration-300 hover:bg-white/4"
                         @click="isMobileMenuOpen = false"
                     >
                         {{ link.label }}
@@ -80,7 +80,7 @@ const navLinks = [
                     <div class="mt-1 w-full border-t border-white/6 pt-3">
                         <NuxtLink
                             to="/download"
-                            class="bg-primary flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold text-black transition-all duration-200 hover:bg-[#0fc4c0] hover:shadow-[0_0_20px_rgba(20,216,212,0.3)] active:scale-[0.97]"
+                            class="bg-primary flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_20px_rgba(20,216,212,0.3)] active:scale-[0.97]"
                             @click="isMobileMenuOpen = false"
                         >
                             Download

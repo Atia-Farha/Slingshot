@@ -16,14 +16,13 @@
                     </NuxtLink>
 
                     <p class="text-sm leading-relaxed">
-                        Start your full dev environment with one click with
-                        Slingshot.
+                        Launch your full dev environment with one click.
                     </p>
 
                     <div class="mt-6 flex items-center gap-4">
                         <a
                             href="https://github.com/Atia-Farha/Slingshot"
-                            class="text-text-muted hover:text-primary/70 transition-colors duration-200"
+                            class="text-text-muted hover:text-primary/70 transition-colors duration-300"
                         >
                             <svg
                                 width="22"
@@ -38,7 +37,7 @@
                         </a>
                         <a
                             href="#"
-                            class="text-text-muted hover:text-primary/70 transition-colors duration-200"
+                            class="text-text-muted hover:text-primary/70 transition-colors duration-300"
                         >
                             <svg
                                 width="22"
@@ -65,7 +64,7 @@
                             <li>
                                 <NuxtLink
                                     to="/download"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     Download</NuxtLink
                                 >
@@ -73,7 +72,7 @@
                             <li>
                                 <NuxtLink
                                     to="/#features"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     Features</NuxtLink
                                 >
@@ -81,7 +80,7 @@
                             <li>
                                 <NuxtLink
                                     to="/#how-it-works"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     How it works</NuxtLink
                                 >
@@ -89,7 +88,7 @@
                             <li>
                                 <NuxtLink
                                     to="/#how-to-setup"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     How to setup</NuxtLink
                                 >
@@ -107,7 +106,7 @@
                             <li>
                                 <NuxtLink
                                     to="/about"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     About</NuxtLink
                                 >
@@ -115,9 +114,9 @@
                             <li>
                                 <NuxtLink
                                     to="/feedback"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Give Feedback</NuxtLink
+                                    Feedback</NuxtLink
                                 >
                             </li>
                         </ul>
@@ -133,14 +132,14 @@
                             <li>
                                 <a
                                     href="#"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                     >License</a
                                 >
                             </li>
                             <li>
                                 <a
                                     href="#"
-                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-150"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                     >Privacy</a
                                 >
                             </li>
@@ -175,7 +174,7 @@
                     href="https://atia-farha.netlify.app"
                     target="_blank"
                     rel="noopener"
-                    class="text-primary/60 hover:text-primary transition-colors duration-150"
+                    class="text-primary/60 hover:text-primary transition-colors duration-300"
                     >Atia Farha</a
                 >
             </p>

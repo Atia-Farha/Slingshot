@@ -48,6 +48,7 @@ export default defineNuxtConfig({
     },
 
     nitro: {
+        preset: "cloudflare_pages",
         routeRules: {
             "/**": {
                 headers: {

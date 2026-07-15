@@ -81,7 +81,7 @@
             <div class="mt-8 flex flex-col items-center justify-center gap-4">
                 <NuxtLink
                     to="/download"
-                    class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-200 hover:bg-[#0fc4c0] active:scale-[0.98]"
+                    class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                 >
                     <svg
                         width="16"
@@ -99,29 +99,6 @@
                     </svg>
                     Download
                 </NuxtLink>
-                <div class="text-text-muted flex items-center gap-2 text-sm">
-                    <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <rect
-                            x="3"
-                            y="11"
-                            width="18"
-                            height="11"
-                            rx="2"
-                            ry="2"
-                        />
-                        <path d="M7 11V7a5 5 0 0110 0v4" />
-                    </svg>
-                    Free forever. Open source.
-                </div>
             </div>
         </div>
     </section>

@@ -1,6 +1,4 @@
 <script setup>
-import { useToast } from "../composables/useToast";
-
 useHead({
     title: "Feedback | Slingshot",
 });
@@ -15,7 +13,7 @@ const feedbackTypes = [
 ];
 
 const MAX_LENGTHS = { name: 100, email: 254, message: 2000 };
-const RATE_LIMIT_MS = 60000;
+const RATE_LIMIT_MS = 15000;
 
 const form = reactive({
     name: "",
@@ -116,7 +114,9 @@ async function handleSubmit() {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         lastSubmitTime.value = Date.now();
-        success("Feedback sent successfully! Thank you for your input.");
+        success(
+            "Feedback sent successfully! Thank you for being part of our journey.",
+        );
         resetForm();
     } catch (err) {
         showError(
@@ -168,9 +168,8 @@ async function handleSubmit() {
                 <p
                     class="animate-fade-in-up animate-delay-100 text-text-secondary mx-auto mt-6 max-w-xl text-lg leading-relaxed"
                 >
-                    Your feedback shapes what Slingshot becomes. Bug reports,
-                    feature ideas, or just a quick "this works great" — it all
-                    helps.
+                    We're obsessed with building the best possible experience
+                    for you. Your feedback is the fuel that drives our roadmap.
                 </p>
             </div>
         </section>
@@ -352,7 +351,7 @@ async function handleSubmit() {
                     <button
                         type="submit"
                         :disabled="isSubmitting"
-                        class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-150 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+                        class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <svg
                             v-if="!isSubmitting"
@@ -430,8 +429,8 @@ async function handleSubmit() {
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 class="text-3xl tracking-tight capitalize sm:text-4xl">
-                    Prefer GitHub?
+                <h2 class="text-3xl tracking-tight sm:text-4xl">
+                    Prefer gitHub?
                 </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
                     Open an issue directly on GitHub for feature requests or bug
@@ -444,7 +443,7 @@ async function handleSubmit() {
                         href="https://github.com/Atia-Farha/Slingshot/issues/new"
                         target="_blank"
                         rel="noopener"
-                        class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-200 hover:bg-[#0fc4c0] active:scale-[0.98]"
+                        class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                     >
                         Open an Issue
                         <svg
