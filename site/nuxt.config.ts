@@ -52,6 +52,10 @@ export default defineNuxtConfig({
                     content: "ombz00eG8vi57xR8pLJFnP4Lc_sEi3PJ7rl-6Nd0EqI",
                 },
                 {
+                    name: "yandex-verification",
+                    content: "4bc2c6d27fc6bb5e",
+                },
+                {
                     name: "viewport",
                     content: "width=device-width, initial-scale=1",
                 },
