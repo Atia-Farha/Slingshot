@@ -86,7 +86,8 @@ const values = [
         </section>
 
         <!-- Story -->
-        <section class="relative">
+        <section aria-labelledby="story-heading" class="relative">
+            <h2 id="story-heading" class="sr-only-heading">Our Story</h2>
             <div class="mx-auto max-w-3xl space-y-6 px-6 py-4">
                 <!-- Problem -->
                 <div class="group relative">
@@ -126,6 +127,7 @@ const values = [
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         class="text-red-400"
+                                        aria-hidden="true"
                                     >
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="15" y1="9" x2="9" y2="15" />
@@ -140,11 +142,11 @@ const values = [
                                         class="text-[11px] font-semibold tracking-widest text-red-400/80 uppercase md:hidden"
                                         >01</span
                                     >
-                                    <h2
+                                    <h3
                                         class="text-xl font-semibold md:text-2xl"
                                     >
                                         The problem
-                                    </h2>
+                                    </h3>
                                 </div>
                                 <p
                                     class="text-text-secondary mt-4 text-[15px] leading-relaxed"
@@ -212,6 +214,7 @@ const values = [
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         class="text-primary"
+                                        aria-hidden="true"
                                     >
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
@@ -224,11 +227,11 @@ const values = [
                                         class="text-primary text-[11px] font-semibold tracking-widest uppercase md:hidden"
                                         >02</span
                                     >
-                                    <h2
+                                    <h3
                                         class="text-xl font-semibold md:text-2xl"
                                     >
                                         The solution
-                                    </h2>
+                                    </h3>
                                 </div>
                                 <p
                                     class="text-text-secondary mt-4 text-[15px] leading-relaxed"
@@ -255,11 +258,12 @@ const values = [
         </section>
 
         <!-- Values -->
-        <section class="relative pt-24 pb-4">
+        <section aria-labelledby="values-heading" class="relative pt-24 pb-4">
             <div class="mx-auto max-w-6xl px-6">
                 <!-- Section header -->
                 <div class="mb-16 text-center">
                     <span
+                        id="values-heading"
                         class="text-primary text-[11px] font-semibold tracking-widest uppercase"
                         >Our principles</span
                     >
@@ -301,6 +305,7 @@ const values = [
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     class="text-primary"
+                                    aria-hidden="true"
                                 >
                                     <polyline points="16 18 22 12 16 6" />
                                     <polyline points="8 6 2 12 8 18" />
@@ -316,6 +321,7 @@ const values = [
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     class="text-primary"
+                                    aria-hidden="true"
                                 >
                                     <path
                                         d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
@@ -332,6 +338,7 @@ const values = [
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     class="text-primary"
+                                    aria-hidden="true"
                                 >
                                     <circle cx="12" cy="12" r="10" />
                                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -405,3 +412,18 @@ const values = [
         </section>
     </div>
 </template>
+
+<style scoped>
+/* Hide visually but keep in a11y tree for section labelling */
+.sr-only-heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+</style>

@@ -96,6 +96,7 @@ const steps = [
                                 viewBox="0 0 2 48"
                                 fill="none"
                                 class="flow-arrow overflow-visible"
+                                aria-hidden="true"
                             >
                                 <line
                                     x1="1"

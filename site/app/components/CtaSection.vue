@@ -92,6 +92,7 @@
                         stroke-width="2.5"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        aria-hidden="true"
                     >
                         <path
                             d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"

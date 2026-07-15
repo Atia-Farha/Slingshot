@@ -103,6 +103,7 @@ const features = [
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <path
                                     d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"
@@ -128,6 +129,7 @@ const features = [
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <polyline points="4 17 10 11 4 5" />
                                 <line x1="12" y1="19" x2="20" y2="19" />
@@ -143,6 +145,7 @@ const features = [
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
                                 <path
@@ -160,6 +163,7 @@ const features = [
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <path
                                     d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
@@ -179,6 +183,7 @@ const features = [
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
                                 <polyline points="22 4 12 14.01 9 11.01" />
@@ -194,6 +199,7 @@ const features = [
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <circle cx="18" cy="18" r="3" />
                                 <circle cx="6" cy="6" r="3" />

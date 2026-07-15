@@ -4,15 +4,18 @@ const { toasts, remove } = useToast();
 
 <template>
     <div
+        role="log"
         aria-live="polite"
         aria-relevant="additions removals"
+        aria-label="Notifications"
         class="pointer-events-none fixed right-5 bottom-5 z-50 flex w-80 flex-col gap-2"
     >
         <TransitionGroup name="toast">
             <div
                 v-for="toast in toasts"
                 :key="toast.id"
-                role="status"
+                :role="toast.type === 'error' ? 'alert' : 'status'"
+                aria-atomic="true"
                 class="pointer-events-auto flex items-center gap-4 rounded-xl border px-4 py-3 text-sm shadow-xl shadow-black/40 backdrop-blur-sm"
                 :class="
                     toast.type === 'error'
@@ -31,7 +34,13 @@ const { toasts, remove } = useToast();
                     aria-label="Dismiss notification"
                     @click="remove(toast.id)"
                 >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        aria-hidden="true"
+                    >
                         <path
                             d="M4 4L10 10M10 4L4 10"
                             stroke="currentColor"

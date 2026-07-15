@@ -61,6 +61,7 @@
                         stroke-width="2.5"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        aria-hidden="true"
                     >
                         <path
                             d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
@@ -69,7 +70,7 @@
                     Download for Free
                 </NuxtLink>
                 <NuxtLink
-                    to="/#features"
+                    to="#features"
                     class="inline-flex h-11 min-w-52 items-center justify-center gap-2.5 rounded-lg border border-white/8 bg-white/5 px-6 text-sm font-semibold text-zinc-100 transition-all duration-300 hover:border-white/[0.14] hover:bg-white/8 active:scale-[0.98]"
                 >
                     What It Can Do

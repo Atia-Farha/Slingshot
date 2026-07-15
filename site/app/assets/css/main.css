@@ -34,7 +34,7 @@
     --color-danger: #ef4444;
     --color-text-primary: #f0f0f2;
     --color-text-secondary: #a0a0a8;
-    --color-text-muted: #606068;
+    --color-text-muted: #76767a;
     --color-border: rgba(255, 255, 255, 0.06);
     --color-border-hover: rgba(255, 255, 255, 0.12);
     --font-sans:
@@ -107,6 +107,41 @@
     button,
     select {
         cursor: pointer;
+    }
+
+    /* Screen reader only */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    /* Visible focus for keyboard users */
+    a:focus-visible,
+    button:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    input:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
     }
 }
 

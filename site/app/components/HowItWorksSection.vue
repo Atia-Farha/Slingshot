@@ -147,6 +147,7 @@ const after = [
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         class="text-red-400"
+                                        aria-hidden="true"
                                     >
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="15" y1="9" x2="9" y2="15" />
@@ -167,8 +168,8 @@ const after = [
                             </div>
                         </div>
 
-                        <div class="relative space-y-2.5">
-                            <div
+                        <ul class="relative space-y-2.5" role="list">
+                            <li
                                 v-for="(item, i) in before"
                                 :key="i"
                                 class="flex items-start gap-3 rounded-lg bg-white/3 px-4 py-3"
@@ -183,6 +184,7 @@ const after = [
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     class="mt-0.5 shrink-0 text-red-400/60"
+                                    aria-hidden="true"
                                 >
                                     <line x1="18" y1="6" x2="6" y2="18" />
                                     <line x1="6" y1="6" x2="18" y2="18" />
@@ -191,8 +193,8 @@ const after = [
                                     class="text-text-secondary text-sm leading-relaxed"
                                     >{{ item }}</span
                                 >
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
 
                         <!-- Time cost -->
                         <div
@@ -234,6 +236,7 @@ const after = [
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         class="text-primary"
+                                        aria-hidden="true"
                                     >
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
@@ -250,8 +253,8 @@ const after = [
                             </div>
                         </div>
 
-                        <div class="relative space-y-2.5">
-                            <div
+                        <ul class="relative space-y-2.5" role="list">
+                            <li
                                 v-for="(item, i) in after"
                                 :key="i"
                                 class="bg-primary/4 flex items-start gap-3 rounded-lg px-4 py-3"
@@ -266,14 +269,15 @@ const after = [
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     class="text-primary mt-0.5 shrink-0"
+                                    aria-hidden="true"
                                 >
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
                                 <span class="text-sm leading-relaxed">{{
                                     item
                                 }}</span>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
 
                         <!-- Time saved -->
                         <div

@@ -96,14 +96,17 @@ export default defineNuxtConfig({
         routeRules: {
             "/**": {
                 headers: {
+                    "Strict-Transport-Security":
+                        "max-age=63072000; includeSubDomains; preload",
                     "X-Content-Type-Options": "nosniff",
                     "X-Frame-Options": "DENY",
-                    "X-XSS-Protection": "1; mode=block",
                     "Referrer-Policy": "strict-origin-when-cross-origin",
                     "Permissions-Policy":
-                        "camera=(), microphone=(), geolocation=(), payment=()",
+                        "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), document-domain=(), encrypted-media=(), picture-in-picture=(), speaker=(), sync-xhr=(self)",
+                    "Cross-Origin-Opener-Policy": "same-origin",
+                    "Cross-Origin-Resource-Policy": "same-origin",
                     "Content-Security-Policy":
-                        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src 'self';",
+                        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
                 },
             },
             "/fonts/**": {
@@ -121,6 +124,7 @@ export default defineNuxtConfig({
 
     experimental: {
         renderJsonPayloads: false,
+        payloadExtraction: false,
     },
 
     future: {

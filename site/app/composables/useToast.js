@@ -3,7 +3,7 @@ let toastId = 0;
 const toasts = ref([]);
 
 export function useToast() {
-    function add(message, type = "success", duration = 4000) {
+    function add(message, type = "success", duration = 6000) {
         const id = ++toastId;
         toasts.value.push({ id, message, type });
         if (duration > 0) {

@@ -177,6 +177,7 @@ async function handleSubmit() {
         <!-- Feedback form -->
         <form
             id="feedback-form"
+            aria-label="Feedback form"
             class="bg-panel relative mx-auto max-w-xl overflow-hidden rounded-2xl border border-white/8"
             @submit.prevent="handleSubmit"
         >
@@ -223,18 +224,26 @@ async function handleSubmit() {
                                 Name <span class="text-primary">*</span>
                             </span>
                             <input
+                                id="feedback-name"
                                 v-model="form.name"
                                 type="text"
                                 name="name"
+                                autocomplete="name"
                                 :maxlength="MAX_LENGTHS.name"
                                 required
                                 class="app-input"
                                 :class="{ 'border-danger/50': formErrors.name }"
+                                :aria-describedby="
+                                    formErrors.name
+                                        ? 'feedback-name-error'
+                                        : undefined
+                                "
                                 placeholder="Your name"
                                 @input="formErrors.name = ''"
                             />
                             <span
                                 v-if="formErrors.name"
+                                id="feedback-name-error"
                                 class="text-danger text-xs"
                                 >{{ formErrors.name }}</span
                             >
@@ -246,20 +255,28 @@ async function handleSubmit() {
                                 <span class="text-primary">*</span>
                             </span>
                             <input
+                                id="feedback-email"
                                 v-model="form.email"
                                 type="email"
                                 name="email"
+                                autocomplete="email"
                                 :maxlength="MAX_LENGTHS.email"
                                 required
                                 class="app-input"
                                 :class="{
                                     'border-danger/50': formErrors.email,
                                 }"
+                                :aria-describedby="
+                                    formErrors.email
+                                        ? 'feedback-email-error'
+                                        : undefined
+                                "
                                 placeholder="you@example.com"
                                 @input="formErrors.email = ''"
                             />
                             <span
                                 v-if="formErrors.email"
+                                id="feedback-email-error"
                                 class="text-danger text-xs"
                                 >{{ formErrors.email }}</span
                             >
@@ -273,11 +290,17 @@ async function handleSubmit() {
                         </span>
                         <div class="relative">
                             <select
+                                id="feedback-type"
                                 v-model="form.type"
                                 name="type"
                                 required
                                 class="app-input appearance-none pr-10"
                                 :class="{ 'border-danger/50': formErrors.type }"
+                                :aria-describedby="
+                                    formErrors.type
+                                        ? 'feedback-type-error'
+                                        : undefined
+                                "
                                 @change="formErrors.type = ''"
                             >
                                 <option value="" disabled class="bg-surface">
@@ -302,12 +325,14 @@ async function handleSubmit() {
                                 stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                                aria-hidden="true"
                             >
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
                         </div>
                         <span
                             v-if="formErrors.type"
+                            id="feedback-type-error"
                             class="text-danger text-xs"
                             >{{ formErrors.type }}</span
                         >
@@ -319,6 +344,7 @@ async function handleSubmit() {
                             Message <span class="text-primary">*</span>
                         </span>
                         <textarea
+                            id="feedback-message"
                             v-model="form.message"
                             name="message"
                             :maxlength="MAX_LENGTHS.message"
@@ -326,16 +352,24 @@ async function handleSubmit() {
                             required
                             class="app-input resize-none"
                             :class="{ 'border-danger/50': formErrors.message }"
+                            :aria-describedby="
+                                formErrors.message
+                                    ? 'feedback-message-error'
+                                    : undefined
+                            "
                             placeholder="Tell us what's on your mind..."
                             @input="formErrors.message = ''"
                         ></textarea>
                         <div class="flex items-center justify-between">
                             <span
                                 v-if="formErrors.message"
+                                id="feedback-message-error"
                                 class="text-danger text-xs"
                                 >{{ formErrors.message }}</span
                             >
-                            <span class="text-text-muted ml-auto text-xs"
+                            <span
+                                class="text-text-muted ml-auto text-xs"
+                                aria-live="polite"
                                 >{{ form.message.length }}/{{
                                     MAX_LENGTHS.message
                                 }}</span
@@ -351,6 +385,7 @@ async function handleSubmit() {
                     <button
                         type="submit"
                         :disabled="isSubmitting"
+                        :aria-busy="isSubmitting"
                         class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <svg
@@ -363,6 +398,7 @@ async function handleSubmit() {
                             stroke-width="2.5"
                             stroke-linecap="round"
                             stroke-linejoin="round"
+                            aria-hidden="true"
                         >
                             <line x1="22" y1="2" x2="11" y2="13" />
                             <polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -374,6 +410,7 @@ async function handleSubmit() {
                             height="14"
                             viewBox="0 0 24 24"
                             fill="none"
+                            aria-hidden="true"
                         >
                             <circle
                                 cx="12"
@@ -430,7 +467,7 @@ async function handleSubmit() {
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
                 <h2 class="text-3xl tracking-tight sm:text-4xl">
-                    Prefer gitHub?
+                    Prefer GitHub?
                 </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
                     Open an issue directly on GitHub for feature requests or bug
@@ -442,7 +479,7 @@ async function handleSubmit() {
                     <a
                         href="https://github.com/Atia-Farha/Slingshot/issues/new"
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                     >
                         Open an Issue
@@ -455,6 +492,7 @@ async function handleSubmit() {
                             stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
+                            aria-hidden="true"
                         >
                             <path d="M7 17L17 7M17 7H7M17 7v10" />
                         </svg>
