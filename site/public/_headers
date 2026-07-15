@@ -1,0 +1,20 @@
+/55726c6130d148f38c88ae69a3ec3922.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=31536000, immutable
+
+/og-image.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/favicons/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/sitemap.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Content-Type: text/plain
+  Cache-Control: public, max-age=3600
