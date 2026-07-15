@@ -77,6 +77,12 @@
         scrollbar-width: thin;
         scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
     }
+
+    a,
+    button,
+    select {
+        cursor: pointer;
+    }
 }
 
 @layer components {
@@ -150,6 +156,36 @@
 
     .section-card:hover {
         border-color: var(--color-border-hover);
+    }
+
+    .app-input {
+        width: 100%;
+        border: 1px solid var(--color-border);
+        border-radius: 0.5rem;
+        outline: none;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 0.625rem 0.75rem;
+        color: var(--color-text-primary);
+        font-size: 0.875rem;
+        transition:
+            border-color 150ms,
+            box-shadow 150ms,
+            background 150ms;
+    }
+
+    .app-input::placeholder {
+        color: var(--color-text-muted);
+    }
+
+    .app-input:hover:not(:disabled):not([readonly]) {
+        box-shadow: 0 0 0 3px var(--color-primary-dim);
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .app-input:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-primary-dim);
+        background: rgba(255, 255, 255, 0.04);
     }
 
     .feature-icon {
