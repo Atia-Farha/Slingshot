@@ -1,6 +1,72 @@
 <script setup>
+const siteUrl = "https://sling-shot.pages.dev";
+
+useSeoMeta({
+    title: "Download | Slingshot",
+    description:
+        "Download Slingshot for free. Available for macOS, Windows, and Linux. Open your full dev environment with one click.",
+    ogTitle: "Download Slingshot",
+    ogDescription:
+        "Free, open source dev environment launcher for macOS, Windows, and Linux.",
+    ogUrl: `${siteUrl}/download`,
+    twitterTitle: "Download Slingshot",
+    twitterDescription:
+        "Free, open source dev environment launcher for macOS, Windows, and Linux.",
+    canonical: `${siteUrl}/download`,
+});
+
 useHead({
-    title: "Download Slingshot | One-click dev environments",
+    script: [
+        {
+            type: "application/ld+json",
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                name: "Slingshot",
+                url: `${siteUrl}/download`,
+                description:
+                    "One-click dev environment launcher for developers.",
+                applicationCategory: "DeveloperApplication",
+                operatingSystem: "Windows, macOS, Linux",
+                offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "USD",
+                },
+                downloadUrl:
+                    "https://github.com/Atia-Farha/Slingshot/releases/latest",
+                screenshot: `${siteUrl}/og-image.png`,
+                installUrl:
+                    "https://github.com/Atia-Farha/Slingshot/releases/latest",
+                author: {
+                    "@type": "Organization",
+                    name: "Slingshot",
+                    url: siteUrl,
+                },
+            }),
+        },
+        {
+            type: "application/ld+json",
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Home",
+                        item: siteUrl,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: "Download",
+                        item: `${siteUrl}/download`,
+                    },
+                ],
+            }),
+        },
+    ],
 });
 
 const platforms = [
@@ -59,6 +125,7 @@ const platforms = [
     <div>
         <!-- Hero -->
         <section
+            aria-labelledby="download-hero-heading"
             class="relative flex items-center justify-center overflow-hidden pt-32 pb-20"
         >
             <!-- Background -->
@@ -116,6 +183,7 @@ const platforms = [
                 </div>
 
                 <h1
+                    id="download-hero-heading"
                     class="animate-fade-in-up animate-delay-100 text-5xl font-extrabold tracking-tight uppercase sm:text-6xl md:text-7xl"
                 >
                     Download<br />
@@ -131,7 +199,7 @@ const platforms = [
         </section>
 
         <!-- Download cards -->
-        <section class="relative">
+        <section aria-label="Download options" class="relative">
             <div class="mx-auto max-w-6xl px-6">
                 <div class="grid gap-5 sm:grid-cols-3">
                     <!-- Platform card -->
@@ -300,7 +368,7 @@ const platforms = [
             </div>
         </section>
 
-        <section class="relative overflow-hidden py-38">
+        <section aria-labelledby="download-cta-heading" class="relative overflow-hidden py-38">
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
                 <div
@@ -329,7 +397,7 @@ const platforms = [
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 class="text-3xl tracking-tight sm:text-4xl">Open source</h2>
+                <h2 id="download-cta-heading" class="text-3xl tracking-tight sm:text-4xl">Open source</h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
                     Slingshot is free and open source. View the source code on
                     GitHub.

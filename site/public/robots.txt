@@ -1,2 +1,39 @@
+# https://www.robotstxt.org/robotstxt.html
 User-Agent: *
-Disallow:
+Allow: /
+
+# AI crawlers
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: CCBot
+Allow: /
+
+User-Agent: anthropic-ai
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+User-Agent: Bytespider
+Disallow: /
+
+User-Agent: AI2Bot
+Allow: /
+
+User-Agent: Meta-ExternalAgent
+Allow: /
+
+Sitemap: https://sling-shot.pages.dev/sitemap.xml

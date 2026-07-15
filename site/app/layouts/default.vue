@@ -6,7 +6,9 @@
         >
             Skip to content
         </a>
-        <AppNav />
+        <header>
+            <AppNav />
+        </header>
         <main id="main-content">
             <slot />
         </main>

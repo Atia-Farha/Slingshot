@@ -4,9 +4,9 @@ const hamburgerRef = ref(null);
 const mobileMenuRef = ref(null);
 
 const navLinks = [
-    { label: "Features", href: "#features" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "How to Setup", href: "#how-to-setup" },
+    { label: "Features", href: "/#features" },
+    { label: "How It Works", href: "/#how-it-works" },
+    { label: "How to Setup", href: "/#how-to-setup" },
     { label: "About", href: "/about" },
 ];
 
@@ -69,7 +69,7 @@ onUnmounted(() => {
         >
             <!-- Brand -->
             <NuxtLink to="/" class="flex items-center gap-1">
-                <img src="/logo.svg" alt="Slingshot" class="h-7 w-7" />
+                <img src="/logo.svg" alt="Slingshot logo" width="28" height="28" class="h-7 w-7" />
                 <span class="font-display text-[15px] tracking-wide"
                     >Slingshot</span
                 >

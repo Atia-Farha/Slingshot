@@ -22,7 +22,7 @@ const steps = [
 </script>
 
 <template>
-    <section id="how-to-setup" class="relative overflow-hidden pt-20 pb-38">
+    <section id="how-to-setup" aria-labelledby="how-to-setup-heading" class="relative overflow-hidden pt-20 pb-38">
         <div class="relative mx-auto max-w-6xl px-6">
             <!-- Section header -->
             <div class="mb-20 text-center">
@@ -31,7 +31,7 @@ const steps = [
                 >
                     Simple setup
                 </p>
-                <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                <h2 id="how-to-setup-heading" class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
                     Three steps. That's it.
                 </h2>
                 <div

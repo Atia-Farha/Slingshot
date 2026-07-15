@@ -80,6 +80,11 @@
         text-transform: capitalize;
     }
 
+    ::selection {
+        background: rgba(20, 216, 212, 0.3);
+        color: #f0f0f2;
+    }
+
     ::-webkit-scrollbar {
         width: 6px;
         height: 6px;

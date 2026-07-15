@@ -6,7 +6,7 @@
                     <NuxtLink to="/" class="flex items-center gap-1">
                         <img
                             src="/logo.svg"
-                            alt="Slingshot"
+                            alt="Slingshot logo"
                             class="ml-[-0.4rem] h-7 w-7"
                             loading="lazy"
                             width="28"
@@ -42,21 +42,6 @@
                                 />
                             </svg>
                         </a>
-                        <a
-                            href="#"
-                            class="text-text-muted hover:text-primary/70 transition-colors duration-300"
-                        >
-                            <svg
-                                width="22"
-                                height="22"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                            >
-                                <path
-                                    d="M13.604 8.4h-3.405V12h3.405c.995 0 1.801-.806 1.801-1.801 0-.993-.805-1.799-1.801-1.799zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804c2.319 0 4.2 1.88 4.2 4.199 0 2.321-1.881 4.201-4.201 4.201z"
-                                />
-                            </svg>
-                        </a>
                     </div>
                 </div>
 
@@ -78,7 +63,7 @@
                             </li>
                             <li>
                                 <NuxtLink
-                                    to="#features"
+                                    to="/#features"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     Features</NuxtLink
@@ -86,7 +71,7 @@
                             </li>
                             <li>
                                 <NuxtLink
-                                    to="#how-it-works"
+                                    to="/#how-it-works"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     How it works</NuxtLink
@@ -94,7 +79,7 @@
                             </li>
                             <li>
                                 <NuxtLink
-                                    to="#how-to-setup"
+                                    to="/#how-to-setup"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     How to setup</NuxtLink
@@ -181,7 +166,7 @@
                 <a
                     href="https://atia-farha.netlify.app"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer me"
                     class="text-primary/60 hover:text-primary transition-colors duration-300"
                     >Atia Farha</a
                 >

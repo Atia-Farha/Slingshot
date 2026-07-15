@@ -1,5 +1,5 @@
 <template>
-    <section class="relative overflow-hidden py-38">
+    <section aria-labelledby="cta-heading" class="relative overflow-hidden py-38">
         <div class="absolute inset-0">
             <!-- Base gradient — top -->
             <div
@@ -71,7 +71,7 @@
         </div>
 
         <div class="relative mx-auto max-w-2xl px-6 text-center">
-            <h2 class="text-3xl tracking-tight sm:text-4xl">
+            <h2 id="cta-heading" class="text-3xl tracking-tight sm:text-4xl">
                 Ready to stop repeating yourself?
             </h2>
             <p class="text-text-secondary mt-4 text-base leading-relaxed">

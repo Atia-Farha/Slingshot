@@ -24,10 +24,18 @@ export default defineNuxtConfig({
         url: siteUrl,
     },
 
+    sitemap: {
+        defaults: {
+            lastmod: new Date().toISOString(),
+            changefreq: "weekly",
+            priority: 0.7,
+        },
+    },
+
     app: {
         head: {
             title: "Slingshot | One-click dev environments",
-            htmlAttrs: { lang: "en" },
+            htmlAttrs: { lang: "en", dir: "ltr" },
             meta: [
                 {
                     name: "description",
@@ -39,32 +47,95 @@ export default defineNuxtConfig({
                     name: "referrer",
                     content: "strict-origin-when-cross-origin",
                 },
-                // Open Graph
+                {
+                    name: "viewport",
+                    content: "width=device-width, initial-scale=1",
+                },
+                {
+                    name: "author",
+                    content: "Atia Farha",
+                },
+                // Open Graph — image-only (title/description/url set per page)
                 { property: "og:type", content: "website" },
                 { property: "og:site_name", content: "Slingshot" },
+                { property: "og:locale", content: "en_US" },
                 {
-                    property: "og:title",
-                    content: "Slingshot | One-click dev environments",
+                    property: "og:image",
+                    content: `${siteUrl}/og-image.png`,
                 },
                 {
-                    property: "og:description",
-                    content:
-                        "Open your full dev environment — editor, terminals, browser tabs — with one click instead of repeating the same setup for every project.",
+                    property: "og:image:secure_url",
+                    content: `${siteUrl}/og-image.png`,
                 },
-                { property: "og:url", content: siteUrl },
-                // Twitter
+                {
+                    property: "og:image:type",
+                    content: "image/png",
+                },
+                {
+                    property: "og:image:width",
+                    content: "1200",
+                },
+                {
+                    property: "og:image:height",
+                    content: "630",
+                },
+                {
+                    property: "og:image:alt",
+                    content: "Slingshot — One-click dev environments",
+                },
+                // Twitter / X — image-only (title/description set per page)
                 { name: "twitter:card", content: "summary_large_image" },
                 {
-                    name: "twitter:title",
-                    content: "Slingshot | One-click dev environments",
+                    name: "twitter:image",
+                    content: `${siteUrl}/og-image.png`,
                 },
                 {
-                    name: "twitter:description",
-                    content:
-                        "Open your full dev environment — editor, terminals, browser tabs — with one click instead of repeating the same setup for every project.",
+                    name: "twitter:image:alt",
+                    content: "Slingshot — One-click dev environments",
+                },
+                // Pinterest
+                {
+                    name: "pinterest",
+                    content: "nopin",
+                },
+                // Windows
+                {
+                    name: "msapplication-TileColor",
+                    content: "#050505",
+                },
+                {
+                    name: "msapplication-TileImage",
+                    content: `${siteUrl}/favicons/mstile-150x150.png`,
                 },
             ],
             link: [
+                {
+                    rel: "icon",
+                    type: "image/x-icon",
+                    href: "/favicons/favicon.ico",
+                },
+                {
+                    rel: "icon",
+                    type: "image/png",
+                    sizes: "16x16",
+                    href: "/favicons/favicon-16x16.png",
+                },
+                {
+                    rel: "icon",
+                    type: "image/png",
+                    sizes: "32x32",
+                    href: "/favicons/favicon-32x32.png",
+                },
+                {
+                    rel: "apple-touch-icon",
+                    sizes: "180x180",
+                    href: "/favicons/apple-touch-icon.png",
+                },
+                {
+                    rel: "mask-icon",
+                    href: "/favicons/safari-pinned-tab.svg",
+                    color: "#14D8D4",
+                },
                 {
                     rel: "preload",
                     href: "/fonts/inter-latin.woff2",
@@ -106,7 +177,7 @@ export default defineNuxtConfig({
                     "Cross-Origin-Opener-Policy": "same-origin",
                     "Cross-Origin-Resource-Policy": "same-origin",
                     "Content-Security-Policy":
-                        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+                        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
                 },
             },
             "/fonts/**": {
@@ -115,6 +186,16 @@ export default defineNuxtConfig({
                 },
             },
             "/_nuxt/**": {
+                headers: {
+                    "Cache-Control": "public, max-age=31536000, immutable",
+                },
+            },
+            "/og-image.png": {
+                headers: {
+                    "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400",
+                },
+            },
+            "/favicons/**": {
                 headers: {
                     "Cache-Control": "public, max-age=31536000, immutable",
                 },

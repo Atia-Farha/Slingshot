@@ -46,7 +46,7 @@ const features = [
 </script>
 
 <template>
-    <section id="features" class="relative pt-38 pb-20">
+    <section id="features" aria-labelledby="features-heading" class="relative pt-38 pb-20">
         <div class="mx-auto max-w-6xl px-6">
             <div class="mb-16 text-center">
                 <p
@@ -54,7 +54,7 @@ const features = [
                 >
                     Capabilities
                 </p>
-                <h2 class="mt-3 text-3xl tracking-tight sm:text-4xl">
+                <h2 id="features-heading" class="mt-3 text-3xl tracking-tight sm:text-4xl">
                     Everything you need.<br class="hidden sm:inline" />
                     Nothing you don't.
                 </h2>

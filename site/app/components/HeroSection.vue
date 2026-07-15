@@ -1,5 +1,6 @@
 <template>
     <section
+        aria-label="Hero"
         class="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
         <!-- Semi-circle dome glow background -->

@@ -1,6 +1,61 @@
 <script setup>
-useHead({
+const siteUrl = "https://sling-shot.pages.dev";
+
+useSeoMeta({
     title: "About | Slingshot",
+    description:
+        "Slingshot was born from a simple frustration: why do developers repeat the same setup for every project? Learn about our open source mission.",
+    ogTitle: "About Slingshot",
+    ogDescription:
+        "Built by developers, for developers. Slingshot is free, open source, and cross-platform.",
+    ogUrl: `${siteUrl}/about`,
+    twitterTitle: "About Slingshot",
+    twitterDescription:
+        "Built by developers, for developers. Slingshot is free, open source, and cross-platform.",
+    canonical: `${siteUrl}/about`,
+});
+
+useHead({
+    script: [
+        {
+            type: "application/ld+json",
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "AboutPage",
+                name: "About Slingshot",
+                url: `${siteUrl}/about`,
+                mainEntity: {
+                    "@type": "Organization",
+                    name: "Slingshot",
+                    url: siteUrl,
+                    description: "Free, open source dev environment launcher.",
+                    logo: `${siteUrl}/logo.png`,
+                    sameAs: ["https://github.com/Atia-Farha/Slingshot"],
+                },
+            }),
+        },
+        {
+            type: "application/ld+json",
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Home",
+                        item: siteUrl,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: "About",
+                        item: `${siteUrl}/about`,
+                    },
+                ],
+            }),
+        },
+    ],
 });
 
 const values = [
@@ -28,7 +83,7 @@ const values = [
 <template>
     <div>
         <!-- Hero -->
-        <section class="relative overflow-hidden pt-32 pb-20">
+        <section aria-labelledby="about-hero-heading" class="relative overflow-hidden pt-32 pb-20">
             <!-- Background -->
             <div class="absolute inset-0">
                 <div
@@ -69,6 +124,7 @@ const values = [
                 </div>
 
                 <h1
+                    id="about-hero-heading"
                     class="animate-fade-in-up animate-delay-100 text-5xl font-extrabold tracking-tight uppercase sm:text-6xl md:text-7xl"
                 >
                     Built by<br />
@@ -263,11 +319,10 @@ const values = [
                 <!-- Section header -->
                 <div class="mb-16 text-center">
                     <span
-                        id="values-heading"
                         class="text-primary text-[11px] font-semibold tracking-widest uppercase"
                         >Our principles</span
                     >
-                    <h2 class="mt-3 text-3xl font-bold sm:text-4xl">
+                    <h2 id="values-heading" class="mt-3 text-3xl font-bold sm:text-4xl">
                         What we believe
                     </h2>
                     <div
@@ -362,7 +417,7 @@ const values = [
             </div>
         </section>
 
-        <section class="relative overflow-hidden py-38">
+        <section aria-labelledby="about-cta-heading" class="relative overflow-hidden py-38">
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
                 <div
@@ -391,7 +446,7 @@ const values = [
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 class="text-3xl tracking-tight sm:text-4xl">
+                <h2 id="about-cta-heading" class="text-3xl tracking-tight sm:text-4xl">
                     Help us make Slingshot better
                 </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">

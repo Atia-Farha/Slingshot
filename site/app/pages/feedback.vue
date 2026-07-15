@@ -1,6 +1,58 @@
 <script setup>
-useHead({
+const siteUrl = "https://sling-shot.pages.dev";
+
+useSeoMeta({
     title: "Feedback | Slingshot",
+    description:
+        "Share your feedback, bug reports, or feature ideas for Slingshot. We read every message.",
+    ogTitle: "Feedback — Slingshot",
+    ogDescription:
+        "Help us improve Slingshot. Bug reports, feature requests, or just a quick note.",
+    ogUrl: `${siteUrl}/feedback`,
+    twitterTitle: "Feedback — Slingshot",
+    twitterDescription:
+        "Help us improve Slingshot. Bug reports, feature requests, or just a quick note.",
+    canonical: `${siteUrl}/feedback`,
+});
+
+useHead({
+    script: [
+        {
+            type: "application/ld+json",
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ContactPage",
+                name: "Feedback — Slingshot",
+                url: `${siteUrl}/feedback`,
+                mainEntity: {
+                    "@type": "Organization",
+                    name: "Slingshot",
+                    url: siteUrl,
+                },
+            }),
+        },
+        {
+            type: "application/ld+json",
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Home",
+                        item: siteUrl,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: "Feedback",
+                        item: `${siteUrl}/feedback`,
+                    },
+                ],
+            }),
+        },
+    ],
 });
 
 const { success, error: showError } = useToast();
@@ -131,7 +183,7 @@ async function handleSubmit() {
 <template>
     <div>
         <!-- Hero -->
-        <section class="relative overflow-hidden pt-32 pb-20">
+        <section aria-labelledby="feedback-hero-heading" class="relative overflow-hidden pt-32 pb-20">
             <!-- Background -->
             <div class="absolute inset-0">
                 <div
@@ -159,6 +211,7 @@ async function handleSubmit() {
 
             <div class="relative mx-auto max-w-4xl px-6 text-center">
                 <h1
+                    id="feedback-hero-heading"
                     class="animate-fade-in-up text-5xl font-extrabold tracking-tight uppercase sm:text-6xl"
                 >
                     Help us<br />
@@ -437,7 +490,7 @@ async function handleSubmit() {
             </div>
         </form>
 
-        <section class="relative overflow-hidden py-38">
+        <section aria-labelledby="feedback-cta-heading" class="relative overflow-hidden py-38">
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
                 <div
@@ -466,7 +519,7 @@ async function handleSubmit() {
             </div>
 
             <div class="relative mx-auto max-w-2xl px-6 text-center">
-                <h2 class="text-3xl tracking-tight sm:text-4xl">
+                <h2 id="feedback-cta-heading" class="text-3xl tracking-tight sm:text-4xl">
                     Prefer GitHub?
                 </h2>
                 <p class="text-text-secondary mt-4 text-base leading-relaxed">
