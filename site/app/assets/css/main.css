@@ -6,7 +6,7 @@
     --color-surface: #131316;
     --color-primary: #14d8d4;
     --color-primary-dim: #14d8d420;
-    --color-primary-glow: #14d8d440;
+
     --color-danger: #ef4444;
     --color-text-primary: #f0f0f2;
     --color-text-secondary: #a0a0a8;
@@ -264,13 +264,6 @@
     .animate-delay-300 {
         animation-delay: 0.3s;
     }
-    .animate-delay-400 {
-        animation-delay: 0.4s;
-    }
-    .animate-delay-500 {
-        animation-delay: 0.5s;
-    }
-
     @keyframes flow-down {
         from {
             stroke-dashoffset: 0;

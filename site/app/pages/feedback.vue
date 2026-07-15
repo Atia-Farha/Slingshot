@@ -1,8 +1,6 @@
 <script setup>
 import { useToast } from "../composables/useToast";
 
-const config = useRuntimeConfig();
-
 useHead({
     title: "Feedback | Slingshot",
 });
@@ -38,23 +36,24 @@ function resetForm() {
     Object.keys(formErrors).forEach((k) => (formErrors[k] = ""));
 }
 
-function sanitizeInput(str) {
-    return str
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#x27;")
-        .replace(/\//g, "&#x2F;");
-}
-
 function validateEmail(email) {
-    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    const re =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     if (!email) return "Email is required.";
     if (email.length > MAX_LENGTHS.email) return "Email is too long.";
     if (!re.test(email)) return "Please enter a valid email address.";
-    const disposableDomains = ["tempmail.com", "throwaway.email", "guerrillamail.com", "mailinator.com", "yopmail.com", "trashmail.com", "fakeinbox.com"];
+    const disposableDomains = [
+        "tempmail.com",
+        "throwaway.email",
+        "guerrillamail.com",
+        "mailinator.com",
+        "yopmail.com",
+        "trashmail.com",
+        "fakeinbox.com",
+    ];
     const domain = email.split("@")[1]?.toLowerCase();
-    if (disposableDomains.includes(domain)) return "Please use a permanent email address.";
+    if (disposableDomains.includes(domain))
+        return "Please use a permanent email address.";
     return "";
 }
 
@@ -67,15 +66,24 @@ function validateName(name) {
 
 function validateType(type) {
     if (!type) return "Please select a feedback type.";
-    if (!feedbackTypes.some((t) => t.value === type)) return "Invalid feedback type.";
+    if (!feedbackTypes.some((t) => t.value === type))
+        return "Invalid feedback type.";
     return "";
 }
 
 function validateMessage(message) {
     if (!message.trim()) return "Message is required.";
-    if (message.length > MAX_LENGTHS.message) return `Message must be ${MAX_LENGTHS.message} characters or less.`;
-    const spamPatterns = [/(.)\1{10,}/i, /https?:\/\/[^\s]+/i, /<script/i, /javascript:/i, /on\w+\s*=/i];
-    if (spamPatterns.some((p) => p.test(message))) return "Message contains disallowed content.";
+    if (message.length > MAX_LENGTHS.message)
+        return `Message must be ${MAX_LENGTHS.message} characters or less.`;
+    const spamPatterns = [
+        /(.)\1{10,}/i,
+        /https?:\/\/[^\s]+/i,
+        /<script/i,
+        /javascript:/i,
+        /on\w+\s*=/i,
+    ];
+    if (spamPatterns.some((p) => p.test(message)))
+        return "Message contains disallowed content.";
     return "";
 }
 
@@ -85,12 +93,6 @@ function validateForm() {
     formErrors.type = validateType(form.type);
     formErrors.message = validateMessage(form.message);
     return !Object.values(formErrors).some((e) => e);
-}
-
-function generateCSRFToken() {
-    const array = new Uint8Array(32);
-    crypto.getRandomValues(array);
-    return Array.from(array, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 async function handleSubmit() {
@@ -110,30 +112,16 @@ async function handleSubmit() {
     isSubmitting.value = true;
 
     try {
-        const formData = new URLSearchParams();
-        formData.append("form-name", "feedback-form");
-        formData.append("name", sanitizeInput(form.name.trim()));
-        formData.append("email", form.email.trim().toLowerCase());
-        formData.append("type", form.type);
-        formData.append("message", sanitizeInput(form.message.trim()));
-        formData.append("csrf-token", generateCSRFToken());
-        formData.append("timestamp", Date.now().toString());
-
-        const response = await fetch("/", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: formData.toString(),
-        });
-
-        if (!response.ok) {
-            throw new Error("Submission failed. Please try again.");
-        }
+        // Simulate submission (no backend)
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         lastSubmitTime.value = Date.now();
         success("Feedback sent successfully! Thank you for your input.");
         resetForm();
     } catch (err) {
-        showError(err.message || "Something went wrong. Please try again later.");
+        showError(
+            err.message || "Something went wrong. Please try again later.",
+        );
     } finally {
         isSubmitting.value = false;
     }
@@ -190,22 +178,9 @@ async function handleSubmit() {
         <!-- Feedback form -->
         <form
             id="feedback-form"
-            name="feedback-form"
-            data-netlify="true"
-            data-netlify-recaptcha="true"
-            method="POST"
-            data-netlify-honeypot="bot-field"
             class="bg-panel relative mx-auto max-w-xl overflow-hidden rounded-2xl border border-white/8"
             @submit.prevent="handleSubmit"
         >
-            <input type="hidden" name="form-name" value="feedback-form" />
-            <input type="hidden" name="bot-field" />
-            <div class="absolute left-[-9999px]" aria-hidden="true">
-                <input type="text" name="fax" tabindex="-1" autocomplete="off" />
-                <input type="text" name="website" tabindex="-1" autocomplete="off" />
-                <input type="text" name="company" tabindex="-1" autocomplete="off" />
-            </div>
-
             <!-- Top edge glow -->
             <div
                 class="absolute inset-x-0 top-0 h-px"
@@ -278,7 +253,9 @@ async function handleSubmit() {
                                 :maxlength="MAX_LENGTHS.email"
                                 required
                                 class="app-input"
-                                :class="{ 'border-danger/50': formErrors.email }"
+                                :class="{
+                                    'border-danger/50': formErrors.email,
+                                }"
                                 placeholder="you@example.com"
                                 @input="formErrors.email = ''"
                             />
@@ -368,17 +345,6 @@ async function handleSubmit() {
                     </label>
                 </div>
 
-                <!-- Netlify reCAPTCHA -->
-                <div
-                    v-if="config.public.recaptchaSiteKey"
-                    class="mt-4 flex justify-center"
-                >
-                    <div
-                        class="netlify-recaptcha"
-                        :data-sitekey="config.public.recaptchaSiteKey"
-                    ></div>
-                </div>
-
                 <!-- Submit -->
                 <footer
                     class="flex flex-col items-center justify-center gap-4 px-0 pt-6"
@@ -425,7 +391,7 @@ async function handleSubmit() {
                                 class="opacity-75"
                             />
                         </svg>
-                        {{ isSubmitting ? "Sending..." : "Send feedback" }}
+                        {{ isSubmitting ? "Submitting..." : "Submit" }}
                     </button>
 
                     <span class="text-text-muted text-xs"
