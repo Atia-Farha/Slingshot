@@ -25,7 +25,7 @@ const props = defineProps({
 <template>
     <NuxtLayout>
         <section
-            class="relative flex min-h-[80vh] items-center justify-center overflow-hidden pt-32 pb-20"
+            class="relative flex min-h-[80vh] items-center justify-center overflow-hidden pt-32 pb-24"
         >
             <div class="absolute inset-0">
                 <!-- Base gradient — bottom -->
