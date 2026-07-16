@@ -2,6 +2,12 @@ const MAX_LENGTHS = { name: 100, email: 254, message: 2000 };
 const MAX_BODY_SIZE = 4096;
 const RATE_LIMIT_MS = 15000;
 const VALID_TYPES = ["bug", "feature", "feedback", "question"];
+const TABLE_MAP = {
+    bug: "bugs",
+    feature: "features",
+    feedback: "feedback",
+    question: "questions",
+};
 
 const CORS_HEADERS = {
     "Access-Control-Allow-Origin": "https://sling-shot.pages.dev",
@@ -192,9 +198,9 @@ async function handlePost(context) {
     // --- 3. Server-side rate limiting via D1 ---
     try {
         const rateCheck = await env.DB.prepare(
-            "SELECT created_at FROM feedback WHERE ip = ? ORDER BY created_at DESC LIMIT 1",
+            "SELECT created_at FROM bugs WHERE ip = ? UNION ALL SELECT created_at FROM features WHERE ip = ? UNION ALL SELECT created_at FROM feedback WHERE ip = ? UNION ALL SELECT created_at FROM questions WHERE ip = ? ORDER BY created_at DESC LIMIT 1",
         )
-            .bind(ip)
+            .bind(ip, ip, ip, ip)
             .first();
 
         if (rateCheck) {
@@ -264,12 +270,13 @@ async function handlePost(context) {
     const cleanName = sanitizeString(name);
     const cleanEmail = sanitizeString(email);
     const cleanMessage = sanitizeString(message);
+    const table = TABLE_MAP[type];
 
     try {
         await env.DB.prepare(
-            "INSERT INTO feedback (name, email, type, message, ip) VALUES (?, ?, ?, ?, ?)",
+            `INSERT INTO ${table} (name, email, message, ip) VALUES (?, ?, ?, ?)`,
         )
-            .bind(cleanName, cleanEmail, type, cleanMessage, ip)
+            .bind(cleanName, cleanEmail, cleanMessage, ip)
             .run();
     } catch (err) {
         console.error("D1 insert failed:", err.message);
@@ -281,7 +288,11 @@ async function handlePost(context) {
     }
 
     // --- 7. Send email via Resend ---
-    if (env.RESEND_API_KEY && env.RESEND_TO_EMAIL) {
+    if (!env.RESEND_API_KEY || !env.RESEND_TO_EMAIL) {
+        console.error(
+            "Email skipped: RESEND_API_KEY or RESEND_TO_EMAIL not bound",
+        );
+    } else {
         try {
             const safeName = escapeHtml(cleanName);
             const safeEmail = escapeHtml(cleanEmail);

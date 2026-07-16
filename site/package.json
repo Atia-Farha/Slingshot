@@ -7,10 +7,7 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare",
-        "d1:create": "wrangler d1 create slingshot-feedback",
-        "d1:migrate": "wrangler d1 execute slingshot-feedback --remote --file=./functions/schemas/001_feedback.sql",
-        "d1:studio": "wrangler d1 execute slingshot-feedback --remote --command='SELECT * FROM feedback ORDER BY created_at DESC LIMIT 50'"
+        "postinstall": "nuxt prepare"
     },
     "dependencies": {
         "@nuxtjs/sitemap": "^8.2.2",
