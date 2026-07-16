@@ -1,7 +1,7 @@
 <script setup>
-const {
-    public: { siteUrl, turnstileSiteKey },
-} = useRuntimeConfig();
+const { public: publicConfig } = useRuntimeConfig();
+const siteUrl = publicConfig.siteUrl;
+const turnstileSiteKey = publicConfig.turnstileSiteKey;
 
 useSeoMeta({
     title: "Feedback | Slingshot",
@@ -600,7 +600,9 @@ async function handleSubmit() {
                     class="flex flex-col items-center justify-center gap-4 px-0 pt-6"
                 >
                     <!-- Turnstile -->
-                    <div class="w-full">
+                    <div
+                        class="flex w-full flex-col items-center justify-center gap-2"
+                    >
                         <div id="cf-turnstile" class="cf-turnstile"></div>
                         <span
                             v-if="turnstileError"
