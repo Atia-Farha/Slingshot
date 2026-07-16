@@ -87,7 +87,34 @@ const lastUpdated = "July 16, 2026";
         </section>
 
         <!-- Content -->
-        <section class="mx-auto max-w-3xl px-6">
+        <section class="relative mx-auto max-w-3xl overflow-hidden px-6 pb-4">
+            <div class="absolute inset-0">
+                <!-- Base gradient — bottom -->
+                <div
+                    class="absolute inset-0"
+                    style="
+                        background: radial-gradient(
+                            ellipse 80% 30% at 50% 100%,
+                            rgba(20, 216, 212, 0.1) 0%,
+                            transparent 60%
+                        );
+                    "
+                ></div>
+
+                <!-- Bottom edge glow -->
+                <div
+                    class="absolute inset-x-0 bottom-0 h-px"
+                    style="
+                        background: linear-gradient(
+                            90deg,
+                            transparent 10%,
+                            rgba(20, 216, 212, 0.15) 50%,
+                            transparent 90%
+                        );
+                    "
+                ></div>
+            </div>
+
             <div class="space-y-10 text-[15px] leading-relaxed">
                 <div>
                     <h2 class="mb-3 text-xl font-semibold">Overview</h2>
@@ -221,33 +248,6 @@ const lastUpdated = "July 16, 2026";
                         >.
                     </p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Bottom gradient -->
-        <section class="relative overflow-hidden py-48">
-            <div class="absolute inset-0">
-                <div
-                    class="absolute inset-0"
-                    style="
-                        background: radial-gradient(
-                            ellipse 80% 30% at 50% 100%,
-                            rgba(20, 216, 212, 0.1) 0%,
-                            transparent 60%
-                        );
-                    "
-                ></div>
-                <div
-                    class="absolute inset-x-0 bottom-0 h-px"
-                    style="
-                        background: linear-gradient(
-                            90deg,
-                            transparent 10%,
-                            rgba(20, 216, 212, 0.15) 50%,
-                            transparent 90%
-                        );
-                    "
-                ></div>
             </div>
         </section>
     </div>
