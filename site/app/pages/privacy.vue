@@ -92,7 +92,7 @@ useHead({
 
         <!-- Content (rendered from Markdown) -->
         <section class="relative overflow-hidden px-6 pb-38">
-            <div class="absolute inset-x-0 bottom-0 h-[32em]">
+            <div class="absolute inset-x-0 bottom-0 h-[32em] pointer-events-none">
                 <div
                     class="absolute inset-0"
                     style="
