@@ -140,7 +140,7 @@ export async function onRequestPost(context) {
 
     // --- 0. Check required bindings ---
     if (!env.DB) {
-        context.log.error("D1 database not bound");
+        console.error("D1 database not bound");
         return jsonResponse(
             {
                 error: "Service temporarily unavailable. Please try again later.",
@@ -151,7 +151,7 @@ export async function onRequestPost(context) {
     }
 
     if (!env.TURNSTILE_SECRET) {
-        context.log.error("TURNSTILE_SECRET not bound");
+        console.error("TURNSTILE_SECRET not bound");
         return jsonResponse(
             {
                 error: "Service temporarily unavailable. Please try again later.",
@@ -217,7 +217,7 @@ export async function onRequestPost(context) {
             }
         }
     } catch (err) {
-        context.log.warn("Rate limit check failed:", err.message);
+        console.warn("Rate limit check failed:", err.message);
     }
 
     // --- 4. Verify Turnstile ---
@@ -237,7 +237,7 @@ export async function onRequestPost(context) {
             env.TURNSTILE_SECRET,
         );
     } catch (err) {
-        context.log.error("Turnstile verification error:", err.message);
+        console.error("Turnstile verification error:", err.message);
     }
 
     if (!turnstileValid) {
@@ -280,7 +280,7 @@ export async function onRequestPost(context) {
             .bind(cleanName, cleanEmail, type, cleanMessage, ip)
             .run();
     } catch (err) {
-        context.log.error("D1 insert failed:", err.message);
+        console.error("D1 insert failed:", err.message);
         return jsonResponse(
             { error: "Something went wrong. Please try again later." },
             500,
@@ -326,14 +326,10 @@ export async function onRequestPost(context) {
 
             if (!resendRes.ok) {
                 const resendErr = await resendRes.text();
-                context.log.error(
-                    "Resend API error:",
-                    resendRes.status,
-                    resendErr,
-                );
+                console.error("Resend API error:", resendRes.status, resendErr);
             }
         } catch (err) {
-            context.log.error("Resend email failed:", err.message);
+            console.error("Resend email failed:", err.message);
         }
     }
 

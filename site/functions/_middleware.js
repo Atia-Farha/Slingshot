@@ -1,6 +1,8 @@
 export async function onRequest(context) {
-    // Skip middleware for API routes and non-HTML responses
-    if (context.url.pathname.startsWith("/api/")) {
+    const url = new URL(context.request.url);
+
+    // Skip middleware for API routes
+    if (url.pathname.startsWith("/api/")) {
         return context.next();
     }
 
