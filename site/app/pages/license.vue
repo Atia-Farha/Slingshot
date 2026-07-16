@@ -1,5 +1,5 @@
 <script setup>
-import rawMd from "~/legal/privacy.md?raw";
+import rawMd from "~/legal/license.md?raw";
 import { useMarkdown } from "~/composables/useMarkdown";
 
 const {
@@ -10,17 +10,15 @@ const lastUpdated = "July 17, 2026";
 const { html } = useMarkdown(rawMd, { date: lastUpdated });
 
 useSeoMeta({
-    title: "Privacy Policy | Slingshot",
-    description:
-        "How Slingshot handles your data across the desktop application and website. We collect minimal data and respect your privacy.",
-    ogTitle: "Privacy Policy — Slingshot",
-    ogDescription:
-        "How Slingshot handles your data across the desktop application and website. We collect minimal data and respect your privacy.",
-    ogUrl: `${siteUrl}/privacy`,
-    twitterTitle: "Privacy Policy — Slingshot",
+    title: "License | Slingshot",
+    description: "Human-readable summary of the Slingshot license (AGPL v3).",
+    ogTitle: "License — Slingshot",
+    ogDescription: "Human-readable summary of the Slingshot license (AGPL v3).",
+    ogUrl: `${siteUrl}/license`,
+    twitterTitle: "License — Slingshot",
     twitterDescription:
-        "How Slingshot handles your data across the desktop application and website. We collect minimal data and respect your privacy.",
-    canonical: `${siteUrl}/privacy`,
+        "Human-readable summary of the Slingshot license (AGPL v3).",
+    canonical: `${siteUrl}/license`,
 });
 
 useHead({
@@ -30,8 +28,8 @@ useHead({
             innerHTML: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "WebPage",
-                name: "Privacy Policy — Slingshot",
-                url: `${siteUrl}/privacy`,
+                name: "License — Slingshot",
+                url: `${siteUrl}/license`,
                 isPartOf: {
                     "@type": "WebSite",
                     name: "Slingshot",
@@ -47,7 +45,7 @@ useHead({
     <div>
         <!-- Hero -->
         <section
-            aria-labelledby="privacy-hero-heading"
+            aria-labelledby="license-hero-heading"
             class="relative overflow-hidden pt-32 pb-20"
         >
             <div class="absolute inset-0">
@@ -76,11 +74,10 @@ useHead({
 
             <div class="relative mx-auto max-w-4xl px-6 text-center">
                 <h1
-                    id="privacy-hero-heading"
+                    id="license-hero-heading"
                     class="animate-fade-in-up text-5xl font-extrabold tracking-tight uppercase sm:text-6xl"
                 >
-                    Privacy<br />
-                    <span class="text-primary">policy</span>
+                    <span class="text-primary">License</span>
                 </h1>
                 <p
                     class="animate-fade-in-up animate-delay-100 text-text-muted mx-auto mt-4 text-sm"
@@ -125,7 +122,6 @@ useHead({
 </template>
 
 <style scoped>
-/* Section dividers rendered from <!-- SECTION: ... --> comments */
 :deep(.legal-section-divider) {
     border-top: 1px solid rgba(20, 216, 212, 0.1);
     padding-top: 1.5rem;
@@ -136,7 +132,6 @@ useHead({
     color: var(--color-text-muted, rgba(255, 255, 255, 0.4));
 }
 
-/* Headings */
 :deep(.legal-content h2) {
     margin-bottom: 0.75rem;
     font-size: 1.25rem;
@@ -144,12 +139,10 @@ useHead({
     color: var(--color-text-primary, #fff);
 }
 
-/* Paragraphs */
 :deep(.legal-content p) {
     color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
 }
 
-/* Lists */
 :deep(.legal-content ul),
 :deep(.legal-content ol) {
     margin-left: 1.25rem;
@@ -168,13 +161,11 @@ useHead({
     margin-bottom: 0;
 }
 
-/* Bold text */
 :deep(.legal-content strong) {
     color: var(--color-text-primary, #fff);
     font-weight: 600;
 }
 
-/* Inline code */
 :deep(.legal-content code) {
     background: var(--color-surface, rgba(255, 255, 255, 0.05));
     color: rgba(20, 216, 212, 0.7);
@@ -184,7 +175,6 @@ useHead({
     font-size: 0.875em;
 }
 
-/* Links */
 :deep(.legal-content a) {
     color: rgba(20, 216, 212, 0.7);
     text-decoration: none;
@@ -195,12 +185,32 @@ useHead({
     color: rgba(20, 216, 212, 1);
 }
 
-/* Ordered lists — keep numbering compact */
 :deep(.legal-content ol) {
     list-style-type: decimal;
 }
 
 :deep(.legal-content ul) {
     list-style-type: disc;
+}
+
+/* Tables */
+:deep(.legal-content table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+:deep(.legal-content th),
+:deep(.legal-content td) {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(20, 216, 212, 0.1);
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+    font-size: 0.875rem;
+}
+
+:deep(.legal-content th) {
+    color: var(--color-text-primary, #fff);
+    font-weight: 600;
 }
 </style>

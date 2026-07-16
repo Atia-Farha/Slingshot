@@ -664,9 +664,15 @@ async function handleSubmit() {
                         <span class="text-text-muted text-xs"
                             >By submitting, you agree to our
                             <NuxtLink
+                                to="/terms"
+                                class="text-primary/60 hover:text-primary transition-colors"
+                                >Terms of Service</NuxtLink
+                            >
+                            and
+                            <NuxtLink
                                 to="/privacy"
                                 class="text-primary/60 hover:text-primary transition-colors"
-                                >privacy policy</NuxtLink
+                                >Privacy Policy</NuxtLink
                             >.</span
                         >
                     </footer>

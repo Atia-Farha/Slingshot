@@ -30,3 +30,7 @@ Production desktop build:
 ```sh
 pnpm tauri build
 ```
+
+## License
+
+Slingshot is licensed under the [GNU Affero General Public License v3 (AGPL v3)](./LICENSE). See the [license page](https://sling-shot.pages.dev/license) for a human-readable summary.

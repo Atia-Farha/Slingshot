@@ -7,13 +7,13 @@
                         <img
                             src="/logo.svg"
                             alt="Slingshot logo"
-                            class="ml-[-0.4rem] h-7 w-7"
+                            class="ml-[-0.4rem] h-9 w-9"
                             loading="lazy"
-                            width="28"
-                            height="28"
+                            width="36"
+                            height="36"
                         />
                         <span
-                            class="text-primary font-display text-[15px] tracking-wide"
+                            class="text-primary font-display text-xl tracking-wide"
                             >Slingshot</span
                         >
                     </NuxtLink>
@@ -48,7 +48,7 @@
                 <div class="flex flex-col gap-12 sm:flex-row sm:gap-24">
                     <div>
                         <h3
-                            class="text-text-primary mb-4 text-xs font-semibold tracking-wider uppercase"
+                            class="text-text-primary mb-4 text-sm font-semibold tracking-wider uppercase"
                         >
                             Product
                         </h3>
@@ -90,7 +90,7 @@
 
                     <div>
                         <h3
-                            class="text-text-primary mb-4 text-xs font-semibold tracking-wider uppercase"
+                            class="text-text-primary mb-4 text-sm font-semibold tracking-wider uppercase"
                         >
                             Community
                         </h3>
@@ -116,16 +116,25 @@
 
                     <div>
                         <h3
-                            class="text-text-primary mb-4 text-xs font-semibold tracking-wider uppercase"
+                            class="text-text-primary mb-4 text-sm font-semibold tracking-wider uppercase"
                         >
                             Legal
                         </h3>
                         <ul class="space-y-2.5" role="list">
                             <li>
-                                <span
-                                    class="text-text-muted text-sm capitalize"
-                                    aria-disabled="true"
-                                    >License</span
+                                <NuxtLink
+                                    to="/license"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
+                                >
+                                    License</NuxtLink
+                                >
+                            </li>
+                            <li>
+                                <NuxtLink
+                                    to="/terms"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
+                                >
+                                    Terms</NuxtLink
                                 >
                             </li>
                             <li>
@@ -134,6 +143,14 @@
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
                                     Privacy</NuxtLink
+                                >
+                            </li>
+                            <li>
+                                <NuxtLink
+                                    to="/security"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
+                                >
+                                    Security</NuxtLink
                                 >
                             </li>
                         </ul>

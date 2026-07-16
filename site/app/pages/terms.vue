@@ -1,5 +1,5 @@
 <script setup>
-import rawMd from "~/legal/privacy.md?raw";
+import rawMd from "~/legal/terms.md?raw";
 import { useMarkdown } from "~/composables/useMarkdown";
 
 const {
@@ -10,17 +10,17 @@ const lastUpdated = "July 17, 2026";
 const { html } = useMarkdown(rawMd, { date: lastUpdated });
 
 useSeoMeta({
-    title: "Privacy Policy | Slingshot",
+    title: "Terms of Service | Slingshot",
     description:
-        "How Slingshot handles your data across the desktop application and website. We collect minimal data and respect your privacy.",
-    ogTitle: "Privacy Policy — Slingshot",
+        "Terms governing the use of the Slingshot desktop application, website, and feedback form.",
+    ogTitle: "Terms of Service — Slingshot",
     ogDescription:
-        "How Slingshot handles your data across the desktop application and website. We collect minimal data and respect your privacy.",
-    ogUrl: `${siteUrl}/privacy`,
-    twitterTitle: "Privacy Policy — Slingshot",
+        "Terms governing the use of the Slingshot desktop application, website, and feedback form.",
+    ogUrl: `${siteUrl}/terms`,
+    twitterTitle: "Terms of Service — Slingshot",
     twitterDescription:
-        "How Slingshot handles your data across the desktop application and website. We collect minimal data and respect your privacy.",
-    canonical: `${siteUrl}/privacy`,
+        "Terms governing the use of the Slingshot desktop application, website, and feedback form.",
+    canonical: `${siteUrl}/terms`,
 });
 
 useHead({
@@ -30,8 +30,8 @@ useHead({
             innerHTML: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "WebPage",
-                name: "Privacy Policy — Slingshot",
-                url: `${siteUrl}/privacy`,
+                name: "Terms of Service — Slingshot",
+                url: `${siteUrl}/terms`,
                 isPartOf: {
                     "@type": "WebSite",
                     name: "Slingshot",
@@ -47,7 +47,7 @@ useHead({
     <div>
         <!-- Hero -->
         <section
-            aria-labelledby="privacy-hero-heading"
+            aria-labelledby="terms-hero-heading"
             class="relative overflow-hidden pt-32 pb-20"
         >
             <div class="absolute inset-0">
@@ -76,11 +76,11 @@ useHead({
 
             <div class="relative mx-auto max-w-4xl px-6 text-center">
                 <h1
-                    id="privacy-hero-heading"
+                    id="terms-hero-heading"
                     class="animate-fade-in-up text-5xl font-extrabold tracking-tight uppercase sm:text-6xl"
                 >
-                    Privacy<br />
-                    <span class="text-primary">policy</span>
+                    Terms of<br />
+                    <span class="text-primary">service</span>
                 </h1>
                 <p
                     class="animate-fade-in-up animate-delay-100 text-text-muted mx-auto mt-4 text-sm"
@@ -195,7 +195,7 @@ useHead({
     color: rgba(20, 216, 212, 1);
 }
 
-/* Ordered lists — keep numbering compact */
+/* Ordered / unordered lists */
 :deep(.legal-content ol) {
     list-style-type: decimal;
 }

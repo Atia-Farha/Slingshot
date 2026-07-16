@@ -3,6 +3,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 const siteUrl = "https://sling-shot.pages.dev";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 export default defineNuxtConfig({
     compatibilityDate: "2025-07-15",
     devtools: { enabled: false },
@@ -186,8 +188,9 @@ export default defineNuxtConfig({
                         "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), document-domain=(), encrypted-media=(), picture-in-picture=(), speaker=(), sync-xhr=(self)",
                     "Cross-Origin-Opener-Policy": "same-origin",
                     "Cross-Origin-Resource-Policy": "same-origin",
-                    "Content-Security-Policy":
-                        "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'nonce-{NONCE}'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+                    "Content-Security-Policy": isDev
+                        ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'"
+                        : "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'nonce-{NONCE}'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
                 },
             },
             "/fonts/**": {
