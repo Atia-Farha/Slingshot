@@ -287,6 +287,26 @@ async function handlePost(context) {
             const safeType = escapeHtml(type);
             const safeMessage = escapeHtml(cleanMessage);
 
+            const TYPE_LABELS = {
+                bug: "Bug Report",
+                feature: "Feature Request",
+                feedback: "General Feedback",
+                question: "Question",
+            };
+            const typeLabel = TYPE_LABELS[type] || type;
+
+            const now = new Date();
+            const timeStr = now.toLocaleString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+                timeZone: "Asia/Dhaka",
+                timeZoneName: "short",
+            });
+
             const resendRes = await fetch("https://api.resend.com/emails", {
                 method: "POST",
                 headers: {
@@ -296,18 +316,105 @@ async function handlePost(context) {
                 body: JSON.stringify({
                     from: "Slingshot Feedback <onboarding@resend.dev>",
                     to: env.RESEND_TO_EMAIL,
-                    subject: `[Slingshot] ${safeType}: ${safeName}`,
+                    subject: `[Slingshot] ${typeLabel}`,
                     html: `
-                        <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
-                            <h2 style="color:#14D8D4;">New ${safeType}</h2>
-                            <table style="width:100%;border-collapse:collapse;">
-                                <tr><td style="padding:8px 0;font-weight:600;">Name:</td><td>${safeName}</td></tr>
-                                <tr><td style="padding:8px 0;font-weight:600;">Email:</td><td>${safeEmail}</td></tr>
-                                <tr><td style="padding:8px 0;font-weight:600;vertical-align:top;">Message:</td><td style="white-space:pre-wrap;">${safeMessage}</td></tr>
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:24px 10px;margin:0;background-color:#050505;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+                                            <!-- Card -->
+                                            <tr>
+                                                <td style="background-color:#0a0a0b;border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden;">
+
+                                                    <!-- Top glow -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="height:1px;background:linear-gradient(90deg,transparent,rgba(20,216,212,0.5),transparent);"></td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Header -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:46px 24px 0;text-align:center;">
+                                                                <div style="display:inline-block;background:rgba(20,216,212,0.1);border:1px solid rgba(20,216,212,0.2);border-radius:999px;padding:6px 16px;margin-bottom:16px;">
+                                                                    <span style="font-size:12px;font-weight:600;letter-spacing:0.05em;color:#14D8D4;text-transform:uppercase;">SLINGSHOT</span>
+                                                                </div>
+                                                                <h1 style="margin:0;font-size:24px;font-weight:700;color:#f0f0f2;">New ${typeLabel}</h1>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Divider -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:32px;">
+                                                                <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(20,216,212,0.3),transparent);"></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Name -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:0 24px;">
+                                                                <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#76767a;text-transform:uppercase;letter-spacing:0.05em;">Name</p>
+                                                                <p style="margin:0;font-size:15px;color:#f0f0f2;">${safeName}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Email -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:20px 24px 0;">
+                                                                <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#76767a;text-transform:uppercase;letter-spacing:0.05em;">Email</p>
+                                                                <p style="margin:0;font-size:15px;color:#a0a0a8;">${safeEmail}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Message -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:20px 24px 0;">
+                                                                <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#76767a;text-transform:uppercase;letter-spacing:0.05em;">Message</p>
+                                                                <p style="margin:0;font-size:15px;color:#f0f0f2;line-height:1.6;">${safeMessage}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Divider -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:32px 32px 0;">
+                                                                <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(20,216,212,0.3),transparent);"></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Footer -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="padding:20px 24px;text-align:center;">
+                                                                <p style="margin:0;font-size:12px;color:#76767a;">${timeStr}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <!-- Bottom glow -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="height:1px;background:linear-gradient(90deg,transparent,rgba(20,216,212,0.5),transparent);"></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
                             </table>
-                            <hr style="margin:20px 0;border-color:#333;" />
-                            <p style="color:#888;font-size:12px;">Received at ${new Date().toISOString()}</p>
-                        </div>
                     `,
                 }),
             });
