@@ -87,7 +87,7 @@ const lastUpdated = "July 16, 2026";
         </section>
 
         <!-- Content -->
-        <section class="mx-auto max-w-3xl px-6 pb-32">
+        <section class="mx-auto max-w-3xl px-6 pb-20">
             <div class="space-y-10 text-[15px] leading-relaxed">
                 <div>
                     <h2 class="mb-3 text-xl font-semibold">Overview</h2>
@@ -225,7 +225,7 @@ const lastUpdated = "July 16, 2026";
         </section>
 
         <!-- Bottom gradient -->
-        <section class="relative overflow-hidden py-20">
+        <section class="relative overflow-hidden py-38">
             <div class="absolute inset-0">
                 <div
                     class="absolute inset-0"
