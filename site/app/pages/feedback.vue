@@ -1,5 +1,7 @@
 <script setup>
-const siteUrl = "https://sling-shot.pages.dev";
+const {
+    public: { siteUrl },
+} = useRuntimeConfig();
 
 useSeoMeta({
     title: "Feedback | Slingshot",
@@ -52,10 +54,19 @@ useHead({
                 ],
             }),
         },
+        {
+            src: "https://challenges.cloudflare.com/turnstile/v0/api.js",
+            async: true,
+        },
     ],
 });
 
 const { success, error: showError } = useToast();
+
+const config = useRuntimeConfig();
+const turnstileToken = ref("");
+const turnstileWidgetId = ref(null);
+const turnstileError = ref("");
 
 const feedbackTypes = [
     { value: "bug", label: "Bug Report", icon: "bug" },
@@ -78,12 +89,44 @@ const isSubmitting = ref(false);
 const lastSubmitTime = ref(0);
 const formErrors = reactive({ name: "", email: "", type: "", message: "" });
 
+onMounted(() => {
+    const interval = setInterval(() => {
+        if (window.turnstile) {
+            clearInterval(interval);
+            turnstileWidgetId.value = window.turnstile.render("#cf-turnstile", {
+                sitekey: config.public.turnstileSiteKey,
+                callback: (token) => {
+                    turnstileToken.value = token;
+                    turnstileError.value = "";
+                },
+                "expired-callback": () => {
+                    turnstileToken.value = "";
+                },
+                "error-callback": () => {
+                    turnstileError.value =
+                        "Verification failed. Please refresh.";
+                    turnstileToken.value = "";
+                },
+                theme: "dark",
+            });
+        }
+    }, 100);
+});
+
+function resetTurnstile() {
+    if (window.turnstile && turnstileWidgetId.value !== null) {
+        window.turnstile.reset(turnstileWidgetId.value);
+        turnstileToken.value = "";
+    }
+}
+
 function resetForm() {
     form.name = "";
     form.email = "";
     form.type = "";
     form.message = "";
     Object.keys(formErrors).forEach((k) => (formErrors[k] = ""));
+    resetTurnstile();
 }
 
 function validateEmail(email) {
@@ -100,6 +143,21 @@ function validateEmail(email) {
         "yopmail.com",
         "trashmail.com",
         "fakeinbox.com",
+        "10minutemail.com",
+        "guerrillamailblock.com",
+        "grr.la",
+        "dispostable.com",
+        "sharklasers.com",
+        "spam4.me",
+        "bccto.me",
+        "chacuo.net",
+        "disposableemailaddresses.emailmiser.com",
+        "tempinbox.com",
+        "tempail.com",
+        "tempomail.fr",
+        "temporaryemail.net",
+        "temporaryforwarding.com",
+        "throwawayemailaddress.com",
     ];
     const domain = email.split("@")[1]?.toLowerCase();
     if (disposableDomains.includes(domain))
@@ -154,6 +212,11 @@ async function handleSubmit() {
         return;
     }
 
+    if (!turnstileToken.value) {
+        turnstileError.value = "Please complete the verification.";
+        return;
+    }
+
     if (!validateForm()) {
         showError("Please fix the errors in the form.");
         return;
@@ -162,18 +225,32 @@ async function handleSubmit() {
     isSubmitting.value = true;
 
     try {
-        // Simulate submission (no backend)
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const res = await $fetch("/api/feedback", {
+            method: "POST",
+            body: {
+                name: form.name.trim(),
+                email: form.email.trim(),
+                type: form.type,
+                message: form.message.trim(),
+                turnstileToken: turnstileToken.value,
+            },
+        });
 
-        lastSubmitTime.value = Date.now();
-        success(
-            "Feedback sent successfully! Thank you for being part of our journey.",
-        );
-        resetForm();
+        if (res.success) {
+            lastSubmitTime.value = Date.now();
+            success(
+                "Feedback sent successfully! Thank you for being part of our journey.",
+            );
+            resetForm();
+        }
     } catch (err) {
-        showError(
-            err.message || "Something went wrong. Please try again later.",
-        );
+        const data = err?.data;
+        const message =
+            data?.error ||
+            (data?.errors && Object.values(data.errors)[0]) ||
+            "Something went wrong. Please try again later.";
+        showError(message);
+        resetTurnstile();
     } finally {
         isSubmitting.value = false;
     }
@@ -438,6 +515,16 @@ async function handleSubmit() {
                 <footer
                     class="flex flex-col items-center justify-center gap-4 px-0 pt-6"
                 >
+                    <!-- Turnstile -->
+                    <div class="w-full">
+                        <div id="cf-turnstile" class="cf-turnstile"></div>
+                        <span
+                            v-if="turnstileError"
+                            class="text-danger mt-1 text-xs"
+                            role="alert"
+                            >{{ turnstileError }}</span
+                        >
+                    </div>
                     <button
                         type="submit"
                         :disabled="isSubmitting"

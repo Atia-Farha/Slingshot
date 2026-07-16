@@ -9,7 +9,10 @@ export default defineNuxtConfig({
     telemetry: false,
 
     runtimeConfig: {
-        public: {},
+        public: {
+            siteUrl,
+            turnstileSiteKey: "",
+        },
     },
 
     css: ["~/assets/css/main.css"],
@@ -184,7 +187,7 @@ export default defineNuxtConfig({
                     "Cross-Origin-Opener-Policy": "same-origin",
                     "Cross-Origin-Resource-Policy": "same-origin",
                     "Content-Security-Policy":
-                        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+                        "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
                 },
             },
             "/fonts/**": {

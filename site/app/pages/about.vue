@@ -1,5 +1,7 @@
 <script setup>
-const siteUrl = "https://sling-shot.pages.dev";
+const {
+    public: { siteUrl },
+} = useRuntimeConfig();
 
 useSeoMeta({
     title: "About | Slingshot",
