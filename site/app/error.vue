@@ -52,7 +52,7 @@ const props = defineProps({
 
             <!-- Content -->
             <section
-                class="relative z-10 flex min-h-[80vh] items-center justify-center px-6 pt-32 pb-20"
+                class="relative z-10 flex min-h-[80vh] items-center justify-center px-6 pt-32 pb-16"
             >
                 <div class="text-center">
                     <p
@@ -75,7 +75,7 @@ const props = defineProps({
             </section>
 
             <!-- Bottom gradient -->
-            <section class="relative overflow-hidden py-38">
+            <section class="relative overflow-hidden py-48">
                 <div class="absolute inset-0">
                     <div
                         class="absolute inset-0"
