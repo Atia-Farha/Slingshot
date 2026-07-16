@@ -87,7 +87,7 @@ const lastUpdated = "July 16, 2026";
         </section>
 
         <!-- Content -->
-        <section class="relative mx-auto max-w-3xl overflow-hidden px-6 pb-4">
+        <section class="relative mx-auto max-w-3xl overflow-hidden px-6 pb-38">
             <div class="absolute inset-0 w-full">
                 <!-- Base gradient — bottom -->
                 <div
