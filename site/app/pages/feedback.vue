@@ -67,6 +67,8 @@ const config = useRuntimeConfig();
 const turnstileToken = ref("");
 const turnstileWidgetId = ref(null);
 const turnstileError = ref("");
+const turnstileLoaded = ref(false);
+let turnstileLoadTimeout = null;
 
 const feedbackTypes = [
     { value: "bug", label: "Bug Report", icon: "bug" },
@@ -77,6 +79,8 @@ const feedbackTypes = [
 
 const MAX_LENGTHS = { name: 100, email: 254, message: 2000 };
 const RATE_LIMIT_MS = 15000;
+const REQUEST_TIMEOUT_MS = 30000;
+const TURNSTILE_LOAD_TIMEOUT_MS = 10000;
 
 const form = reactive({
     name: "",
@@ -89,10 +93,15 @@ const isSubmitting = ref(false);
 const lastSubmitTime = ref(0);
 const formErrors = reactive({ name: "", email: "", type: "", message: "" });
 
+let turnstileCheckInterval = null;
+
 onMounted(() => {
-    const interval = setInterval(() => {
+    turnstileCheckInterval = setInterval(() => {
         if (window.turnstile) {
-            clearInterval(interval);
+            clearInterval(turnstileCheckInterval);
+            turnstileCheckInterval = null;
+            turnstileLoaded.value = true;
+
             turnstileWidgetId.value = window.turnstile.render("#cf-turnstile", {
                 sitekey: config.public.turnstileSiteKey,
                 callback: (token) => {
@@ -101,22 +110,39 @@ onMounted(() => {
                 },
                 "expired-callback": () => {
                     turnstileToken.value = "";
+                    turnstileError.value =
+                        "Verification expired. Please complete it again.";
                 },
                 "error-callback": () => {
                     turnstileError.value =
-                        "Verification failed. Please refresh.";
+                        "Verification failed. Please refresh the page.";
                     turnstileToken.value = "";
                 },
                 theme: "dark",
             });
         }
     }, 100);
+
+    turnstileLoadTimeout = setTimeout(() => {
+        if (!turnstileLoaded.value) {
+            clearInterval(turnstileCheckInterval);
+            turnstileCheckInterval = null;
+            turnstileError.value =
+                "Security verification failed to load. Please refresh the page.";
+        }
+    }, TURNSTILE_LOAD_TIMEOUT_MS);
+});
+
+onUnmounted(() => {
+    if (turnstileCheckInterval) clearInterval(turnstileCheckInterval);
+    if (turnstileLoadTimeout) clearTimeout(turnstileLoadTimeout);
 });
 
 function resetTurnstile() {
     if (window.turnstile && turnstileWidgetId.value !== null) {
         window.turnstile.reset(turnstileWidgetId.value);
         turnstileToken.value = "";
+        turnstileError.value = "";
     }
 }
 
@@ -203,6 +229,53 @@ function validateForm() {
     return !Object.values(formErrors).some((e) => e);
 }
 
+function extractErrorMessage(err) {
+    // Network error (no internet, DNS failure, CORS block)
+    if (err?.name === "TypeError" || err?.message?.includes("fetch")) {
+        return "Network error. Please check your connection and try again.";
+    }
+
+    // Request timeout
+    if (err?.name === "AbortError" || err?.message?.includes("timeout")) {
+        return "Request timed out. Please try again.";
+    }
+
+    // Server returned JSON error response
+    const data = err?.data;
+    if (data) {
+        // Structured validation errors from API
+        if (data.errors && typeof data.errors === "object") {
+            const firstError = Object.values(data.errors)[0];
+            if (firstError) return firstError;
+        }
+        // Simple error message from API
+        if (typeof data.error === "string") return data.error;
+    }
+
+    // HTTP status-based fallback
+    if (err?.statusCode || err?.status) {
+        const status = err.statusCode || err.status;
+        if (status === 503)
+            return "Service temporarily unavailable. Please try again later.";
+        if (status === 500)
+            return "Something went wrong on our end. Please try again later.";
+        if (status === 413)
+            return "Your message is too long. Please shorten it.";
+        if (status === 429) return "Please wait before submitting again.";
+        if (status === 403) return "Verification failed. Please try again.";
+        if (status === 400)
+            return "Invalid request. Please refresh and try again.";
+    }
+
+    // Non-JSON response (HTML error page from Cloudflare/origin)
+    if (err?.data && typeof err.data !== "object") {
+        return "Something went wrong. Please try again later.";
+    }
+
+    // Last resort
+    return "Something went wrong. Please try again later.";
+}
+
 async function handleSubmit() {
     if (isSubmitting.value) return;
 
@@ -224,9 +297,13 @@ async function handleSubmit() {
 
     isSubmitting.value = true;
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
     try {
         const res = await $fetch("/api/feedback", {
             method: "POST",
+            signal: controller.signal,
             body: {
                 name: form.name.trim(),
                 email: form.email.trim(),
@@ -236,22 +313,31 @@ async function handleSubmit() {
             },
         });
 
+        // Handle case where response is not the expected shape
+        if (!res || typeof res !== "object") {
+            showError("Something went wrong. Please try again later.");
+            resetTurnstile();
+            return;
+        }
+
         if (res.success) {
             lastSubmitTime.value = Date.now();
             success(
                 "Feedback sent successfully! Thank you for being part of our journey.",
             );
             resetForm();
+        } else {
+            // API returned a response but not success — shouldn't happen, but handle it
+            showError(
+                res.error || "Something went wrong. Please try again later.",
+            );
+            resetTurnstile();
         }
     } catch (err) {
-        const data = err?.data;
-        const message =
-            data?.error ||
-            (data?.errors && Object.values(data.errors)[0]) ||
-            "Something went wrong. Please try again later.";
-        showError(message);
+        showError(extractErrorMessage(err));
         resetTurnstile();
     } finally {
+        clearTimeout(timeoutId);
         isSubmitting.value = false;
     }
 }
@@ -527,7 +613,7 @@ async function handleSubmit() {
                     </div>
                     <button
                         type="submit"
-                        :disabled="isSubmitting"
+                        :disabled="isSubmitting || !turnstileLoaded"
                         :aria-busy="isSubmitting"
                         class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
                     >

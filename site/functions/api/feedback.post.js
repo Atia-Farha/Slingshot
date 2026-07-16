@@ -137,12 +137,36 @@ async function verifyTurnstile(token, ip, secret) {
 
 export async function onRequestPost(context) {
     const { env, request } = context;
+
+    // --- 0. Check required bindings ---
+    if (!env.DB) {
+        context.log.error("D1 database not bound");
+        return jsonResponse(
+            {
+                error: "Service temporarily unavailable. Please try again later.",
+            },
+            503,
+            CORS_HEADERS,
+        );
+    }
+
+    if (!env.TURNSTILE_SECRET) {
+        context.log.error("TURNSTILE_SECRET not bound");
+        return jsonResponse(
+            {
+                error: "Service temporarily unavailable. Please try again later.",
+            },
+            503,
+            CORS_HEADERS,
+        );
+    }
+
     const ip =
         request.headers.get("cf-connecting-ip") ||
         request.headers.get("x-forwarded-for") ||
         "unknown";
 
-    // --- 0. Body size check ---
+    // --- 1. Body size check ---
     const contentLength = parseInt(
         request.headers.get("content-length") || "0",
         10,
@@ -151,7 +175,7 @@ export async function onRequestPost(context) {
         return jsonResponse({ error: "Request too large." }, 413, CORS_HEADERS);
     }
 
-    // --- 1. Parse body ---
+    // --- 2. Parse body ---
     let body;
     try {
         body = await request.json();
@@ -163,9 +187,17 @@ export async function onRequestPost(context) {
         );
     }
 
-    const { name, email, type, message, turnstileToken } = body || {};
+    if (!body || typeof body !== "object") {
+        return jsonResponse(
+            { error: "Invalid request body." },
+            400,
+            CORS_HEADERS,
+        );
+    }
 
-    // --- 2. Server-side rate limiting via D1 ---
+    const { name, email, type, message, turnstileToken } = body;
+
+    // --- 3. Server-side rate limiting via D1 ---
     try {
         const rateCheck = await env.DB.prepare(
             "SELECT created_at FROM feedback WHERE ip = ? ORDER BY created_at DESC LIMIT 1",
@@ -184,11 +216,11 @@ export async function onRequestPost(context) {
                 );
             }
         }
-    } catch {
-        // If rate limit check fails, continue (don't block legitimate submissions)
+    } catch (err) {
+        context.log.warn("Rate limit check failed:", err.message);
     }
 
-    // --- 3. Verify Turnstile ---
+    // --- 4. Verify Turnstile ---
     if (!turnstileToken || typeof turnstileToken !== "string") {
         return jsonResponse(
             { error: "Please complete the verification." },
@@ -197,11 +229,17 @@ export async function onRequestPost(context) {
         );
     }
 
-    const turnstileValid = await verifyTurnstile(
-        turnstileToken,
-        ip,
-        env.TURNSTILE_SECRET,
-    );
+    let turnstileValid = false;
+    try {
+        turnstileValid = await verifyTurnstile(
+            turnstileToken,
+            ip,
+            env.TURNSTILE_SECRET,
+        );
+    } catch (err) {
+        context.log.error("Turnstile verification error:", err.message);
+    }
+
     if (!turnstileValid) {
         return jsonResponse(
             { error: "Verification failed. Please try again." },
@@ -210,7 +248,7 @@ export async function onRequestPost(context) {
         );
     }
 
-    // --- 4. Server-side validation ---
+    // --- 5. Server-side validation ---
     const errors = {};
     const nameErr = validateName(name);
     const emailErr = validateEmail(email);
@@ -230,7 +268,7 @@ export async function onRequestPost(context) {
         );
     }
 
-    // --- 5. Sanitize and store in D1 ---
+    // --- 6. Sanitize and store in D1 ---
     const cleanName = sanitizeString(name);
     const cleanEmail = sanitizeString(email);
     const cleanMessage = sanitizeString(message);
@@ -250,8 +288,8 @@ export async function onRequestPost(context) {
         );
     }
 
-    // --- 6. Send email via Resend ---
-    if (env.RESEND_API_KEY) {
+    // --- 7. Send email via Resend ---
+    if (env.RESEND_API_KEY && env.RESEND_TO_EMAIL) {
         try {
             const safeName = escapeHtml(cleanName);
             const safeEmail = escapeHtml(cleanEmail);
@@ -259,7 +297,7 @@ export async function onRequestPost(context) {
             const safeIp = escapeHtml(ip);
             const safeMessage = escapeHtml(cleanMessage);
 
-            await fetch("https://api.resend.com/emails", {
+            const resendRes = await fetch("https://api.resend.com/emails", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -285,9 +323,17 @@ export async function onRequestPost(context) {
                     `,
                 }),
             });
+
+            if (!resendRes.ok) {
+                const resendErr = await resendRes.text();
+                context.log.error(
+                    "Resend API error:",
+                    resendRes.status,
+                    resendErr,
+                );
+            }
         } catch (err) {
             context.log.error("Resend email failed:", err.message);
-            // Don't fail the request — data is already stored
         }
     }
 

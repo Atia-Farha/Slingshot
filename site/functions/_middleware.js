@@ -1,4 +1,9 @@
 export async function onRequest(context) {
+    // Skip middleware for API routes and non-HTML responses
+    if (context.url.pathname.startsWith("/api/")) {
+        return context.next();
+    }
+
     const nonce = crypto.randomUUID().replace(/-/g, "");
 
     const response = await context.next();
