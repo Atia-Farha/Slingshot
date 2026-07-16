@@ -70,5 +70,32 @@ const props = defineProps({
                 </NuxtLink>
             </div>
         </section>
+
+        <!-- Bottom gradient -->
+        <section class="relative overflow-hidden py-20">
+            <div class="absolute inset-0">
+                <div
+                    class="absolute inset-0"
+                    style="
+                        background: radial-gradient(
+                            ellipse 80% 30% at 50% 100%,
+                            rgba(20, 216, 212, 0.1) 0%,
+                            transparent 60%
+                        );
+                    "
+                ></div>
+                <div
+                    class="absolute inset-x-0 bottom-0 h-px"
+                    style="
+                        background: linear-gradient(
+                            90deg,
+                            transparent 10%,
+                            rgba(20, 216, 212, 0.15) 50%,
+                            transparent 90%
+                        );
+                    "
+                ></div>
+            </div>
+        </section>
     </NuxtLayout>
 </template>
