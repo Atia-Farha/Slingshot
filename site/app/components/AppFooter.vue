@@ -129,10 +129,11 @@
                                 >
                             </li>
                             <li>
-                                <span
-                                    class="text-text-muted text-sm capitalize"
-                                    aria-disabled="true"
-                                    >Privacy</span
+                                <NuxtLink
+                                    to="/privacy"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
+                                >
+                                    Privacy</NuxtLink
                                 >
                             </li>
                         </ul>

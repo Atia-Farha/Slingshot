@@ -21,6 +21,12 @@ export async function onRequest(context) {
         `<script nonce="${nonce}"`,
     );
 
+    // Add nonce to all inline <style> tags
+    html = html.replace(
+        /<style(?=[\s>])(?!.*nonce)/g,
+        `<style nonce="${nonce}"`,
+    );
+
     // Replace CSP placeholder with actual nonce
     const csp = response.headers.get("content-security-policy") || "";
     const newHeaders = new Headers(response.headers);

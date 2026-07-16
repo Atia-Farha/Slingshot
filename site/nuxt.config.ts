@@ -152,21 +152,21 @@ export default defineNuxtConfig({
                     href: "/fonts/inter-latin.woff2",
                     as: "font",
                     type: "font/woff2",
-                    crossorigin: "",
+                    crossorigin: "anonymous",
                 },
                 {
                     rel: "preload",
                     href: "/fonts/anton-latin.woff2",
                     as: "font",
                     type: "font/woff2",
-                    crossorigin: "",
+                    crossorigin: "anonymous",
                 },
                 {
                     rel: "preload",
                     href: "/fonts/jetbrains-mono-latin.woff2",
                     as: "font",
                     type: "font/woff2",
-                    crossorigin: "",
+                    crossorigin: "anonymous",
                 },
             ],
         },
@@ -187,7 +187,7 @@ export default defineNuxtConfig({
                     "Cross-Origin-Opener-Policy": "same-origin",
                     "Cross-Origin-Resource-Policy": "same-origin",
                     "Content-Security-Policy":
-                        "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+                        "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'nonce-{NONCE}'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
                 },
             },
             "/fonts/**": {

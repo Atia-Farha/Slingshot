@@ -76,7 +76,6 @@ const feedbackTypes = [
 ];
 
 const MAX_LENGTHS = { name: 100, email: 254, message: 2000 };
-const RATE_LIMIT_MS = 15000;
 const REQUEST_TIMEOUT_MS = 30000;
 const TURNSTILE_LOAD_TIMEOUT_MS = 10000;
 
@@ -88,7 +87,6 @@ const form = reactive({
 });
 
 const isSubmitting = ref(false);
-const lastSubmitTime = ref(0);
 const formErrors = reactive({ name: "", email: "", type: "", message: "" });
 
 let turnstileCheckInterval = null;
@@ -277,12 +275,6 @@ function extractErrorMessage(err) {
 async function handleSubmit() {
     if (isSubmitting.value) return;
 
-    const now = Date.now();
-    if (now - lastSubmitTime.value < RATE_LIMIT_MS) {
-        showError("Please wait before submitting again.");
-        return;
-    }
-
     if (!turnstileToken.value) {
         turnstileError.value = "Please complete the verification.";
         return;
@@ -319,7 +311,6 @@ async function handleSubmit() {
         }
 
         if (res.success) {
-            lastSubmitTime.value = Date.now();
             success(
                 "Feedback sent successfully! Thank you for being part of our journey.",
             );
@@ -392,279 +383,296 @@ async function handleSubmit() {
         </section>
 
         <!-- Feedback form -->
-        <form
-            id="feedback-form"
-            aria-label="Feedback form"
-            class="bg-panel relative mx-auto max-w-xl overflow-hidden rounded-2xl border border-white/8"
-            @submit.prevent="handleSubmit"
-        >
-            <!-- Top edge glow -->
-            <div
-                class="absolute inset-x-0 top-0 h-px"
-                style="
-                    background: linear-gradient(
-                        90deg,
-                        transparent,
-                        rgba(20, 216, 212, 0.4),
-                        transparent
-                    );
-                "
-            ></div>
+        <section class="flex w-full items-center justify-center">
+            <form
+                id="feedback-form"
+                aria-label="Feedback form"
+                class="bg-panel relative mx-3 w-full max-w-xl overflow-hidden rounded-2xl border border-white/8"
+                @submit.prevent="handleSubmit"
+            >
+                <!-- Top edge glow -->
+                <div
+                    class="absolute inset-x-0 top-0 h-px"
+                    style="
+                        background: linear-gradient(
+                            90deg,
+                            transparent,
+                            rgba(20, 216, 212, 0.4),
+                            transparent
+                        );
+                    "
+                ></div>
 
-            <!-- Bottom edge glow -->
-            <div
-                class="absolute inset-x-0 bottom-0 h-px"
-                style="
-                    background: linear-gradient(
-                        90deg,
-                        transparent,
-                        rgba(20, 216, 212, 0.4),
-                        transparent
-                    );
-                "
-            ></div>
+                <!-- Bottom edge glow -->
+                <div
+                    class="absolute inset-x-0 bottom-0 h-px"
+                    style="
+                        background: linear-gradient(
+                            90deg,
+                            transparent,
+                            rgba(20, 216, 212, 0.4),
+                            transparent
+                        );
+                    "
+                ></div>
 
-            <div class="p-8 sm:p-10">
-                <!-- Header -->
-                <div class="mt-6 mb-12 text-center">
-                    <h2 class="text-primary text-3xl">Send feedback</h2>
-                    <p class="text-text-muted mt-1.5 text-sm">
-                        We read every message you send
-                    </p>
-                </div>
+                <div class="p-8 sm:p-10">
+                    <!-- Header -->
+                    <div class="mt-6 mb-12 text-center">
+                        <h2 class="text-primary text-3xl">Send feedback</h2>
+                        <p class="text-text-muted mt-1.5 text-sm">
+                            We read every message you send
+                        </p>
+                    </div>
 
-                <div class="grid gap-4">
-                    <!-- Name & Email row -->
-                    <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="grid gap-4">
+                        <!-- Name & Email row -->
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <label class="grid gap-2 text-sm">
+                                <span class="text-text-primary font-medium">
+                                    Name <span class="text-primary">*</span>
+                                </span>
+                                <input
+                                    id="feedback-name"
+                                    v-model="form.name"
+                                    type="text"
+                                    name="name"
+                                    autocomplete="name"
+                                    :maxlength="MAX_LENGTHS.name"
+                                    required
+                                    class="app-input"
+                                    :class="{
+                                        'border-danger/50': formErrors.name,
+                                    }"
+                                    :aria-describedby="
+                                        formErrors.name
+                                            ? 'feedback-name-error'
+                                            : undefined
+                                    "
+                                    placeholder="Your name"
+                                    @input="formErrors.name = ''"
+                                />
+                                <span
+                                    v-if="formErrors.name"
+                                    id="feedback-name-error"
+                                    class="text-danger text-xs"
+                                    >{{ formErrors.name }}</span
+                                >
+                            </label>
+
+                            <label class="grid gap-2 text-sm">
+                                <span class="text-text-primary font-medium">
+                                    Email
+                                    <span class="text-primary">*</span>
+                                </span>
+                                <input
+                                    id="feedback-email"
+                                    v-model="form.email"
+                                    type="email"
+                                    name="email"
+                                    autocomplete="email"
+                                    :maxlength="MAX_LENGTHS.email"
+                                    required
+                                    class="app-input"
+                                    :class="{
+                                        'border-danger/50': formErrors.email,
+                                    }"
+                                    :aria-describedby="
+                                        formErrors.email
+                                            ? 'feedback-email-error'
+                                            : undefined
+                                    "
+                                    placeholder="you@example.com"
+                                    @input="formErrors.email = ''"
+                                />
+                                <span
+                                    v-if="formErrors.email"
+                                    id="feedback-email-error"
+                                    class="text-danger text-xs"
+                                    >{{ formErrors.email }}</span
+                                >
+                            </label>
+                        </div>
+
+                        <!-- Type -->
                         <label class="grid gap-2 text-sm">
                             <span class="text-text-primary font-medium">
-                                Name <span class="text-primary">*</span>
+                                Type <span class="text-primary">*</span>
                             </span>
-                            <input
-                                id="feedback-name"
-                                v-model="form.name"
-                                type="text"
-                                name="name"
-                                autocomplete="name"
-                                :maxlength="MAX_LENGTHS.name"
-                                required
-                                class="app-input"
-                                :class="{ 'border-danger/50': formErrors.name }"
-                                :aria-describedby="
-                                    formErrors.name
-                                        ? 'feedback-name-error'
-                                        : undefined
-                                "
-                                placeholder="Your name"
-                                @input="formErrors.name = ''"
-                            />
+                            <div class="relative">
+                                <select
+                                    id="feedback-type"
+                                    v-model="form.type"
+                                    name="type"
+                                    required
+                                    class="app-input appearance-none pr-10"
+                                    :class="{
+                                        'border-danger/50': formErrors.type,
+                                    }"
+                                    :aria-describedby="
+                                        formErrors.type
+                                            ? 'feedback-type-error'
+                                            : undefined
+                                    "
+                                    @change="formErrors.type = ''"
+                                >
+                                    <option
+                                        value=""
+                                        disabled
+                                        class="bg-surface"
+                                    >
+                                        Select a type
+                                    </option>
+                                    <option
+                                        v-for="t in feedbackTypes"
+                                        :key="t.value"
+                                        :value="t.value"
+                                        class="bg-surface"
+                                    >
+                                        {{ t.label }}
+                                    </option>
+                                </select>
+                                <svg
+                                    class="text-text-muted pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </div>
                             <span
-                                v-if="formErrors.name"
-                                id="feedback-name-error"
+                                v-if="formErrors.type"
+                                id="feedback-type-error"
                                 class="text-danger text-xs"
-                                >{{ formErrors.name }}</span
+                                >{{ formErrors.type }}</span
                             >
                         </label>
 
+                        <!-- Message -->
                         <label class="grid gap-2 text-sm">
                             <span class="text-text-primary font-medium">
-                                Email
-                                <span class="text-primary">*</span>
+                                Message <span class="text-primary">*</span>
                             </span>
-                            <input
-                                id="feedback-email"
-                                v-model="form.email"
-                                type="email"
-                                name="email"
-                                autocomplete="email"
-                                :maxlength="MAX_LENGTHS.email"
+                            <textarea
+                                id="feedback-message"
+                                v-model="form.message"
+                                name="message"
+                                :maxlength="MAX_LENGTHS.message"
+                                rows="5"
                                 required
-                                class="app-input"
+                                class="app-input resize-none"
                                 :class="{
-                                    'border-danger/50': formErrors.email,
+                                    'border-danger/50': formErrors.message,
                                 }"
                                 :aria-describedby="
-                                    formErrors.email
-                                        ? 'feedback-email-error'
+                                    formErrors.message
+                                        ? 'feedback-message-error'
                                         : undefined
                                 "
-                                placeholder="you@example.com"
-                                @input="formErrors.email = ''"
-                            />
-                            <span
-                                v-if="formErrors.email"
-                                id="feedback-email-error"
-                                class="text-danger text-xs"
-                                >{{ formErrors.email }}</span
-                            >
+                                placeholder="Tell us what's on your mind..."
+                                @input="formErrors.message = ''"
+                            ></textarea>
+                            <div class="flex items-center justify-between">
+                                <span
+                                    v-if="formErrors.message"
+                                    id="feedback-message-error"
+                                    class="text-danger text-xs"
+                                    >{{ formErrors.message }}</span
+                                >
+                                <span
+                                    class="text-text-muted ml-auto text-xs"
+                                    aria-live="polite"
+                                    >{{ form.message.length }}/{{
+                                        MAX_LENGTHS.message
+                                    }}</span
+                                >
+                            </div>
                         </label>
                     </div>
 
-                    <!-- Type -->
-                    <label class="grid gap-2 text-sm">
-                        <span class="text-text-primary font-medium">
-                            Type <span class="text-primary">*</span>
-                        </span>
-                        <div class="relative">
-                            <select
-                                id="feedback-type"
-                                v-model="form.type"
-                                name="type"
-                                required
-                                class="app-input appearance-none pr-10"
-                                :class="{ 'border-danger/50': formErrors.type }"
-                                :aria-describedby="
-                                    formErrors.type
-                                        ? 'feedback-type-error'
-                                        : undefined
-                                "
-                                @change="formErrors.type = ''"
+                    <!-- Submit -->
+                    <footer
+                        class="flex flex-col items-center justify-center gap-4 px-0 pt-6"
+                    >
+                        <!-- Turnstile -->
+                        <div
+                            class="flex w-full flex-col items-center justify-center gap-2"
+                        >
+                            <div id="cf-turnstile" class="cf-turnstile"></div>
+                            <span
+                                v-if="turnstileError"
+                                class="text-danger mt-1 text-xs"
+                                role="alert"
+                                >{{ turnstileError }}</span
                             >
-                                <option value="" disabled class="bg-surface">
-                                    Select a type
-                                </option>
-                                <option
-                                    v-for="t in feedbackTypes"
-                                    :key="t.value"
-                                    :value="t.value"
-                                    class="bg-surface"
-                                >
-                                    {{ t.label }}
-                                </option>
-                            </select>
+                        </div>
+                        <button
+                            type="submit"
+                            :disabled="isSubmitting || !turnstileLoaded"
+                            :aria-busy="isSubmitting"
+                            class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+                        >
                             <svg
-                                class="text-text-muted pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
-                                width="16"
-                                height="16"
+                                v-if="!isSubmitting"
+                                width="14"
+                                height="14"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
+                                stroke-width="2.5"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 aria-hidden="true"
                             >
-                                <polyline points="6 9 12 15 18 9" />
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
                             </svg>
-                        </div>
-                        <span
-                            v-if="formErrors.type"
-                            id="feedback-type-error"
-                            class="text-danger text-xs"
-                            >{{ formErrors.type }}</span
-                        >
-                    </label>
+                            <svg
+                                v-else
+                                class="animate-spin"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                aria-hidden="true"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    stroke-width="3"
+                                    stroke-linecap="round"
+                                    class="opacity-25"
+                                />
+                                <path
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                                    fill="currentColor"
+                                    class="opacity-75"
+                                />
+                            </svg>
+                            {{ isSubmitting ? "Submitting..." : "Submit" }}
+                        </button>
 
-                    <!-- Message -->
-                    <label class="grid gap-2 text-sm">
-                        <span class="text-text-primary font-medium">
-                            Message <span class="text-primary">*</span>
-                        </span>
-                        <textarea
-                            id="feedback-message"
-                            v-model="form.message"
-                            name="message"
-                            :maxlength="MAX_LENGTHS.message"
-                            rows="5"
-                            required
-                            class="app-input resize-none"
-                            :class="{ 'border-danger/50': formErrors.message }"
-                            :aria-describedby="
-                                formErrors.message
-                                    ? 'feedback-message-error'
-                                    : undefined
-                            "
-                            placeholder="Tell us what's on your mind..."
-                            @input="formErrors.message = ''"
-                        ></textarea>
-                        <div class="flex items-center justify-between">
-                            <span
-                                v-if="formErrors.message"
-                                id="feedback-message-error"
-                                class="text-danger text-xs"
-                                >{{ formErrors.message }}</span
-                            >
-                            <span
-                                class="text-text-muted ml-auto text-xs"
-                                aria-live="polite"
-                                >{{ form.message.length }}/{{
-                                    MAX_LENGTHS.message
-                                }}</span
-                            >
-                        </div>
-                    </label>
+                        <span class="text-text-muted text-xs"
+                            >By submitting, you agree to our
+                            <NuxtLink
+                                to="/privacy"
+                                class="text-primary/60 hover:text-primary transition-colors"
+                                >privacy policy</NuxtLink
+                            >.</span
+                        >
+                    </footer>
                 </div>
-
-                <!-- Submit -->
-                <footer
-                    class="flex flex-col items-center justify-center gap-4 px-0 pt-6"
-                >
-                    <!-- Turnstile -->
-                    <div
-                        class="flex w-full flex-col items-center justify-center gap-2"
-                    >
-                        <div id="cf-turnstile" class="cf-turnstile"></div>
-                        <span
-                            v-if="turnstileError"
-                            class="text-danger mt-1 text-xs"
-                            role="alert"
-                            >{{ turnstileError }}</span
-                        >
-                    </div>
-                    <button
-                        type="submit"
-                        :disabled="isSubmitting || !turnstileLoaded"
-                        :aria-busy="isSubmitting"
-                        class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <svg
-                            v-if="!isSubmitting"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                        >
-                            <line x1="22" y1="2" x2="11" y2="13" />
-                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                        </svg>
-                        <svg
-                            v-else
-                            class="animate-spin"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            aria-hidden="true"
-                        >
-                            <circle
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                stroke-width="3"
-                                stroke-linecap="round"
-                                class="opacity-25"
-                            />
-                            <path
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                                fill="currentColor"
-                                class="opacity-75"
-                            />
-                        </svg>
-                        {{ isSubmitting ? "Submitting..." : "Submit" }}
-                    </button>
-
-                    <span class="text-text-muted text-xs"
-                        >We'll never share your email.</span
-                    >
-                </footer>
-            </div>
-        </form>
+            </form>
+        </section>
 
         <section
             aria-labelledby="feedback-cta-heading"
