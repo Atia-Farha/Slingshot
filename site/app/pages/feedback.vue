@@ -1,6 +1,6 @@
 <script setup>
 const {
-    public: { siteUrl },
+    public: { siteUrl, turnstileSiteKey },
 } = useRuntimeConfig();
 
 useSeoMeta({
@@ -62,8 +62,6 @@ useHead({
 });
 
 const { success, error: showError } = useToast();
-
-const config = useRuntimeConfig();
 const turnstileToken = ref("");
 const turnstileWidgetId = ref(null);
 const turnstileError = ref("");
@@ -103,7 +101,7 @@ onMounted(() => {
             turnstileLoaded.value = true;
 
             turnstileWidgetId.value = window.turnstile.render("#cf-turnstile", {
-                sitekey: config.public.turnstileSiteKey,
+                sitekey: turnstileSiteKey,
                 callback: (token) => {
                     turnstileToken.value = token;
                     turnstileError.value = "";
