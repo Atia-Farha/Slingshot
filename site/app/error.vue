@@ -25,34 +25,9 @@ const props = defineProps({
 <template>
     <NuxtLayout>
         <div class="relative min-h-[80vh]">
-            <!-- Background -->
-            <div class="absolute inset-0">
-                <div
-                    class="absolute inset-0"
-                    style="
-                        background: radial-gradient(
-                            ellipse 60% 50% at 50% 50%,
-                            rgba(20, 216, 212, 0.06) 0%,
-                            transparent 70%
-                        );
-                    "
-                ></div>
-                <div
-                    class="absolute inset-x-0 top-0 h-px"
-                    style="
-                        background: linear-gradient(
-                            90deg,
-                            transparent 10%,
-                            rgba(20, 216, 212, 0.15) 50%,
-                            transparent 90%
-                        );
-                    "
-                ></div>
-            </div>
-
             <!-- Content -->
             <section
-                class="relative z-10 flex min-h-[80vh] items-center justify-center px-6 pt-32 pb-16"
+                class="relative z-10 flex min-h-[80vh] items-center justify-center px-6 pt-32"
             >
                 <div class="text-center">
                     <p

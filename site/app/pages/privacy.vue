@@ -87,7 +87,7 @@ const lastUpdated = "July 16, 2026";
         </section>
 
         <!-- Content -->
-        <section class="mx-auto max-w-3xl px-6 pb-4">
+        <section class="mx-auto max-w-3xl px-6">
             <div class="space-y-10 text-[15px] leading-relaxed">
                 <div>
                     <h2 class="mb-3 text-xl font-semibold">Overview</h2>
