@@ -144,7 +144,7 @@ You are solely responsible for:
 
 Slingshot is open source software provided without service-level agreements, guaranteed support, or commitments to maintain or update the Application. We may, at our discretion, provide updates, bug fixes, or new features, but we are under no obligation to do so.
 
-Community support is available through [GitHub Issues](https://github.com/Atia-Farha/Slingshot/issues) and our [feedback page](/feedback). We do not guarantee response times or resolution of any reported issue.
+Community support is available through our [feedback page](/feedback) or by emailing [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me). We do not guarantee response times or resolution of any reported issue.
 
 ## Modifications to these Terms
 
@@ -180,4 +180,4 @@ Our failure to exercise or enforce any right or provision of these Terms shall n
 
 ## Contact
 
-Questions about these Terms? Open an issue on our [GitHub repository](https://github.com/Atia-Farha/Slingshot/issues) or visit our [feedback page](/feedback).
+Questions about these Terms? Submit a question through our [feedback form](/feedback) or email us at [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me).

@@ -22,7 +22,7 @@
                         Launch your full dev environment with one click.
                     </p>
 
-                    <div class="mt-6 flex items-center gap-4">
+                    <div class="my-6 flex items-center gap-4">
                         <a
                             href="https://github.com/Atia-Farha/Slingshot"
                             target="_blank"
@@ -42,7 +42,31 @@
                                 />
                             </svg>
                         </a>
+                        <a
+                            href="mailto:slingshot.dev@proton.me"
+                            aria-label="Email"
+                            class="text-text-muted hover:text-primary/70 transition-colors duration-300"
+                        >
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67z"
+                                />
+                                <path
+                                    d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908z"
+                                />
+                            </svg>
+                        </a>
                     </div>
+
+                    <p class="text-text-muted text-xs">
+                        &copy; {{ new Date().getFullYear() }} Slingshot
+                    </p>
                 </div>
 
                 <div class="flex flex-col gap-12 sm:flex-row sm:gap-24">
@@ -58,32 +82,32 @@
                                     to="/download"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Download</NuxtLink
-                                >
+                                    Download
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/#features"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Features</NuxtLink
-                                >
+                                    Features
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/#how-it-works"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    How it works</NuxtLink
-                                >
+                                    How it works
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/#how-to-setup"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    How to setup</NuxtLink
-                                >
+                                    How to setup
+                                </NuxtLink>
                             </li>
                         </ul>
                     </div>
@@ -100,16 +124,24 @@
                                     to="/about"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    About</NuxtLink
+                                    About
+                                </NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink
+                                    to="/contributors"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
+                                    Contributors
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/feedback"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Feedback</NuxtLink
-                                >
+                                    Feedback
+                                </NuxtLink>
                             </li>
                         </ul>
                     </div>
@@ -126,32 +158,32 @@
                                     to="/license"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    License</NuxtLink
-                                >
+                                    License
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/terms"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Terms</NuxtLink
-                                >
+                                    Terms
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/privacy"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Privacy</NuxtLink
-                                >
+                                    Privacy
+                                </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink
                                     to="/security"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >
-                                    Security</NuxtLink
-                                >
+                                    Security
+                                </NuxtLink>
                             </li>
                         </ul>
                     </div>
@@ -169,25 +201,6 @@
                 "
             >
                 SLINGSHOT
-            </p>
-        </div>
-
-        <div
-            class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-white/4 px-6 py-5 sm:flex-row"
-        >
-            <span class="text-text-muted text-xs"
-                >&copy; {{ new Date().getFullYear() }} Slingshot</span
-            >
-
-            <p class="text-text-muted text-xs">
-                Developed by
-                <a
-                    href="https://atia-farha.netlify.app"
-                    target="_blank"
-                    rel="noopener noreferrer me"
-                    class="text-primary/60 hover:text-primary transition-colors duration-300"
-                    >Atia Farha</a
-                >
             </p>
         </div>
     </footer>

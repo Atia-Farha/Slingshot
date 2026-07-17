@@ -160,30 +160,6 @@ const platforms = [
             </div>
 
             <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
-                <div
-                    class="animate-fade-in-up border-primary/20 bg-primary/6 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
-                >
-                    <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="text-primary"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
-                        />
-                    </svg>
-                    <span class="text-primary text-xs font-medium tracking-wide"
-                        >Free & Open Source</span
-                    >
-                </div>
-
                 <h1
                     id="download-hero-heading"
                     class="animate-fade-in-up animate-delay-100 text-5xl font-extrabold tracking-tight uppercase sm:text-6xl md:text-7xl"
@@ -413,7 +389,7 @@ const platforms = [
                     GitHub.
                 </p>
                 <div
-                    class="mt-8 flex flex-col items-center justify-center gap-4"
+                    class="mt-10 flex flex-col items-center justify-center gap-4"
                 >
                     <a
                         href="https://github.com/Atia-Farha/Slingshot"

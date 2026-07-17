@@ -64,10 +64,12 @@ Cargo.lock
 .history
 .ionide
 
+labels.sh
+PLAN.md
+SEO.md
+
 .codegraph
 .codex
 .mimocode
 .agents
-PLAN.md
 AGENTS.md
-SEO.md

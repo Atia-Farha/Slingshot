@@ -14,7 +14,7 @@ If you discover a security vulnerability in Slingshot, please report it responsi
 
 ### How to report
 
-Report vulnerabilities through [GitHub Security Advisories](https://github.com/Atia-Farha/Slingshot/security/advisories/new), which provides a private, encrypted channel for disclosure.
+Report vulnerabilities through [GitHub Security Advisories](https://github.com/Atia-Farha/Slingshot/security/advisories/new), which provides a private, encrypted channel for disclosure. Alternatively, you can email us at [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me).
 
 Include the following in your report:
 
@@ -89,5 +89,5 @@ To stay informed about security updates, watch the [GitHub repository](https://g
 
 ## Contact
 
-- **Security reports:** [GitHub Security Advisories](https://github.com/Atia-Farha/Slingshot/security/advisories/new)
-- **General questions:** [GitHub Issues](https://github.com/Atia-Farha/Slingshot/issues) or [Feedback Page](/feedback)
+- **Security reports:** [GitHub Security Advisories](https://github.com/Atia-Farha/Slingshot/security/advisories/new) (recommended), [Feedback Page](/feedback), or [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me)
+- **General questions:** [Feedback Page](/feedback) or [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me)

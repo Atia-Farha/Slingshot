@@ -185,12 +185,12 @@ export default defineNuxtConfig({
                     "X-Frame-Options": "DENY",
                     "Referrer-Policy": "strict-origin-when-cross-origin",
                     "Permissions-Policy":
-                        "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), document-domain=(), encrypted-media=(), picture-in-picture=(), speaker=(), sync-xhr=(self)",
+                        "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), autoplay=(), encrypted-media=(), picture-in-picture=(), sync-xhr=(self)",
                     "Cross-Origin-Opener-Policy": "same-origin",
                     "Cross-Origin-Resource-Policy": "same-origin",
                     "Content-Security-Policy": isDev
-                        ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'"
-                        : "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'nonce-{NONCE}'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+                        ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.github.com"
+                        : "default-src 'self'; script-src 'self' 'nonce-{NONCE}' https://challenges.cloudflare.com; style-src 'self' 'nonce-{NONCE}'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.github.com; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
                 },
             },
             "/fonts/**": {

@@ -723,7 +723,7 @@ async function handleSubmit() {
                     reports with your OS, app version, and steps to reproduce.
                 </p>
                 <div
-                    class="mt-8 flex flex-col items-center justify-center gap-4"
+                    class="mt-10 flex flex-col items-center justify-center gap-4"
                 >
                     <a
                         href="https://github.com/Atia-Farha/Slingshot/issues/new"

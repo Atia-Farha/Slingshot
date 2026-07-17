@@ -66,7 +66,7 @@ const props = defineProps({
                 </p>
                 <NuxtLink
                     to="/"
-                    class="border-primary/60 bg-primary mt-8 inline-flex h-11 items-center gap-2.5 rounded-lg border px-6 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
+                    class="border-primary/60 bg-primary mt-10 inline-flex h-11 items-center gap-2.5 rounded-lg border px-6 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"
                 >
                     Back to Home
                 </NuxtLink>

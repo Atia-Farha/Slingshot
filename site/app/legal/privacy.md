@@ -231,4 +231,4 @@ If the Slingshot project is archived, abandoned, or otherwise discontinued:
 
 ## Contact
 
-For privacy-related questions, data access requests, deletion requests, or any concerns about this policy, submit a request through our [feedback form](/feedback).
+For privacy-related questions, data access requests, deletion requests, or any concerns about this policy, submit a request through our [feedback form](/feedback) or email us at [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me).

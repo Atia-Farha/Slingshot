@@ -26,7 +26,7 @@
                 ></span>
                 <span
                     class="text-primary text-xs font-medium tracking-wide capitalize"
-                    >Your setup, automated</span
+                    >Free & Open Source</span
                 >
             </div>
 

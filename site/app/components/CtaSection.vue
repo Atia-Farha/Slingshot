@@ -81,7 +81,8 @@
                 Free and open source. Works on macOS, Windows, and Linux. No
                 account required.
             </p>
-            <div class="mt-8 flex flex-col items-center justify-center gap-4">
+
+            <div class="mt-10 flex flex-col items-center justify-center gap-4">
                 <NuxtLink
                     to="/download"
                     class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"

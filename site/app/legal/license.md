@@ -66,12 +66,12 @@ Slingshot includes third-party dependencies, each with their own licenses. Depen
 - `src-tauri/Cargo.lock` — Rust dependency licenses
 - `site/package.json` — JavaScript dependency licenses
 
-We comply with all applicable open source licenses. If you have questions about a specific dependency's license, please open an issue.
+We comply with all applicable open source licenses. If you have questions about a specific dependency's license, please submit a question through our [feedback form](/feedback) or email us at [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me).
 
 ## Reporting license violations
 
-If you believe someone is violating the AGPL v3 terms when using Slingshot, please [open an issue](https://github.com/Atia-Farha/Slingshot/issues) or visit our [feedback page](/feedback). License violations undermine the freedoms the AGPL v3 is designed to protect.
+If you believe someone is violating the AGPL v3 terms when using Slingshot, please submit a report through our [feedback form](/feedback) or email us at [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me). License violations undermine the freedoms the AGPL v3 is designed to protect.
 
 ## Questions?
 
-If you are unsure whether your intended use is permitted, check the [GNU AGPL v3 FAQ](https://www.gnu.org/licenses/agpl-3.0.en.html#FAQ) for common edge cases. If your question isn't answered there, open an issue on our [GitHub repository](https://github.com/Atia-Farha/Slingshot/issues) or visit our [feedback page](/feedback).
+If you are unsure whether your intended use is permitted, check the [GNU AGPL v3 FAQ](https://www.gnu.org/licenses/agpl-3.0.en.html#FAQ) for common edge cases. If your question isn't answered there, submit a question through our [feedback form](/feedback) or email us at [slingshot.dev@proton.me](mailto:slingshot.dev@proton.me).
