@@ -137,6 +137,14 @@
                             </li>
                             <li>
                                 <NuxtLink
+                                    to="/code-of-conduct"
+                                    class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
+                                >
+                                    Code of Conduct
+                                </NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink
                                     to="/feedback"
                                     class="text-text-secondary hover:text-text-primary text-sm capitalize transition-colors duration-300"
                                 >

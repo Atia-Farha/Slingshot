@@ -665,13 +665,13 @@ async function handleSubmit() {
                             >By submitting, you agree to our
                             <NuxtLink
                                 to="/terms"
-                                class="text-primary/60 hover:text-primary transition-colors"
+                                class="text-primary/60 hover:text-primary transition-colors duration-300"
                                 >Terms of Service</NuxtLink
                             >
                             and
                             <NuxtLink
                                 to="/privacy"
-                                class="text-primary/60 hover:text-primary transition-colors"
+                                class="text-primary/60 hover:text-primary transition-colors duration-300"
                                 >Privacy Policy</NuxtLink
                             >.</span
                         >

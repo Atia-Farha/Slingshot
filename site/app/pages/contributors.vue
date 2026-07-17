@@ -69,15 +69,6 @@ const paginatedContributors = computed(() => {
     return filteredContributors.value.slice(start, start + perPage);
 });
 
-const showingRange = computed(() => {
-    const start = (currentPage.value - 1) * perPage + 1;
-    const end = Math.min(
-        currentPage.value * perPage,
-        filteredContributors.value.length,
-    );
-    return { start, end };
-});
-
 const goToPage = (page) => {
     currentPage.value = page;
     window.scrollTo({ top: 0, behavior: "smooth" });
