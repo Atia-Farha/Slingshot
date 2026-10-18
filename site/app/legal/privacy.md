@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 description: How Slingshot handles your data across the desktop application and website.
-lastUpdated: "July 17, 2026"
+lastUpdated: 'July 17, 2026'
 ---
 
 **In short:** The Slingshot desktop application runs entirely on your machine and sends zero data to any server. The only data we collect is what you voluntarily enter in the Website's feedback form (name, email, message, and feedback type). You can verify all of this by reading the [open source code](https://github.com/Atia-Farha/Slingshot).

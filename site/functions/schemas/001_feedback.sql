@@ -1,37 +1,37 @@
 CREATE TABLE IF NOT EXISTS bugs (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
-  message TEXT NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  created_at TEXT DEFAULT (datetime('now'))
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
+    message TEXT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS features (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
-  message TEXT NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  created_at TEXT DEFAULT (datetime('now'))
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
+    message TEXT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS feedback (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
-  message TEXT NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  created_at TEXT DEFAULT (datetime('now'))
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
+    message TEXT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS questions (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
-  message TEXT NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  created_at TEXT DEFAULT (datetime('now'))
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    status TEXT DEFAULT 'new' CHECK(status IN ('new', 'read', 'archived')),
+    message TEXT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
 );
 
 CREATE INDEX IF NOT EXISTS idx_bugs_created ON bugs(created_at);

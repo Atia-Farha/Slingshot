@@ -1,90 +1,99 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => {
-    class MockChannel {
-        onmessage = undefined;
-    }
+	class MockChannel {
+		onmessage = undefined;
+	}
 
-    return {
-        invoke: vi.fn(),
-        MockChannel,
-    };
+	return {
+		invoke: vi.fn(),
+		MockChannel,
+	};
 });
 
-vi.mock("@tauri-apps/api/core", () => ({
-    Channel: mocks.MockChannel,
-    invoke: mocks.invoke,
+vi.mock('@tauri-apps/api/core', () => ({
+	Channel: mocks.MockChannel,
+	invoke: mocks.invoke,
 }));
 
-import {
-    resizeTerminal,
-    startTerminal,
-    stopTerminal,
-    writeTerminal,
-} from "./terminalClient";
+import { resizeTerminal, startTerminal, stopTerminal, writeTerminal } from './terminalClient';
 
 beforeEach(() => {
-    mocks.invoke.mockReset();
+	mocks.invoke.mockReset();
 });
 
-describe("terminal client", () => {
-    it("starts a terminal with channels and bounded dimensions", async () => {
-        mocks.invoke.mockResolvedValue(4);
-        const handlers = { onData: vi.fn(), onExit: vi.fn() };
+describe('terminal client', () => {
+	it('starts a terminal with channels and bounded dimensions', async () => {
+		mocks.invoke.mockResolvedValue(4);
+		const handlers = { onData: vi.fn(), onExit: vi.fn() };
 
-        const result = await startTerminal(
-            {
-                folderPath: "/projects/slingshot",
-                terminalCommand: "pnpm dev",
-            },
-            { cols: 100, rows: 30 },
-            handlers,
-        );
+		const result = await startTerminal(
+			{
+				folderPath: '/projects/slingshot',
+				terminalCommand: 'pnpm dev',
+			},
+			{ cols: 100, rows: 30 },
+			handlers,
+		);
 
-        expect(result.sessionId).toBe(4);
-        expect(result.channels).toHaveLength(2);
-        expect(result.channels[0].onmessage).toBe(handlers.onData);
-        expect(result.channels[1].onmessage).toBe(handlers.onExit);
-        expect(mocks.invoke).toHaveBeenCalledWith("terminal_start", {
-            request: {
-                folderPath: "/projects/slingshot",
-                command: "pnpm dev",
-                cols: 100,
-                rows: 30,
-            },
-            onData: expect.any(mocks.MockChannel),
-            onExit: expect.any(mocks.MockChannel),
-        });
-    });
+		expect(result.sessionId).toBe(4);
+		expect(result.channels).toHaveLength(2);
+		expect(result.channels[0].onmessage).toBe(handlers.onData);
+		expect(result.channels[1].onmessage).toBe(handlers.onExit);
+		expect(mocks.invoke).toHaveBeenCalledWith('terminal_start', {
+			request: {
+				folderPath: '/projects/slingshot',
+				command: 'pnpm dev',
+				cols: 100,
+				rows: 30,
+			},
+			onData: expect.any(mocks.MockChannel),
+			onExit: expect.any(mocks.MockChannel),
+		});
+	});
 
-    it("writes, resizes, and stops through scoped commands", async () => {
-        mocks.invoke.mockResolvedValue(undefined);
+	it('writes, resizes, and stops through scoped commands', async () => {
+		mocks.invoke.mockResolvedValue(undefined);
 
-        await writeTerminal(4, "q");
-        await resizeTerminal(4, { cols: 120, rows: 40 });
-        await stopTerminal(4);
+		await writeTerminal(4, 'q');
+		await resizeTerminal(4, { cols: 120, rows: 40 });
+		await stopTerminal(4);
 
-        expect(mocks.invoke).toHaveBeenNthCalledWith(1, "terminal_write", {
-            sessionId: 4,
-            data: "q",
-        });
-        expect(mocks.invoke).toHaveBeenNthCalledWith(2, "terminal_resize", {
-            sessionId: 4,
-            cols: 120,
-            rows: 40,
-        });
-        expect(mocks.invoke).toHaveBeenNthCalledWith(3, "terminal_stop", {
-            sessionId: 4,
-        });
-    });
+		expect(mocks.invoke).toHaveBeenNthCalledWith(1, 'terminal_write', {
+			sessionId: 4,
+			data: 'q',
+		});
+		expect(mocks.invoke).toHaveBeenNthCalledWith(2, 'terminal_resize', {
+			sessionId: 4,
+			cols: 120,
+			rows: 40,
+		});
+		expect(mocks.invoke).toHaveBeenNthCalledWith(3, 'terminal_stop', {
+			sessionId: 4,
+		});
+	});
 
-    it("converts rejected IPC calls into Error objects", async () => {
-        mocks.invoke.mockRejectedValue(
-            "Terminal session is no longer running.",
-        );
+	it('converts rejected IPC calls into Error objects', async () => {
+		mocks.invoke.mockRejectedValue('Terminal session is no longer running.');
 
-        await expect(writeTerminal(4, "q")).rejects.toThrow(
-            "Terminal session is no longer running.",
-        );
-    });
+		await expect(writeTerminal(4, 'q')).rejects.toThrow('Terminal session is no longer running.');
+	});
+
+	it('falls back to the generic message when the rejection cause is not a string', async () => {
+		mocks.invoke.mockRejectedValue({ code: 'INTERNAL' });
+
+		await expect(startTerminal({ folderPath: '/p', terminalCommand: 'ls' }, { cols: 80, rows: 24 }, { onData: vi.fn(), onExit: vi.fn() })).rejects.toThrow('The embedded terminal could not be started.');
+	});
+
+	it('wraps resize rejection with a friendly message', async () => {
+		mocks.invoke.mockRejectedValue({ code: 'TERMINAL_LOST' });
+
+		await expect(resizeTerminal(4, { cols: 80, rows: 24 })).rejects.toThrow('Terminal size could not be updated.');
+	});
+
+	it('wraps stop rejection with a friendly message', async () => {
+		mocks.invoke.mockRejectedValue({ code: 'TERMINAL_LOST' });
+
+		await expect(stopTerminal(4)).rejects.toThrow('Terminal process could not be stopped.');
+	});
 });

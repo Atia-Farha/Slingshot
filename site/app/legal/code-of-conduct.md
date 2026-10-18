@@ -1,7 +1,7 @@
 ---
 title: Code of Conduct
 description: Community standards and expectations for the Slingshot project.
-lastUpdated: "July 17, 2026"
+lastUpdated: 'July 17, 2026'
 ---
 
 **In short:** We are committed to making our community welcoming, safe, and equitable for all. We pledge to be respectful, constructive, and inclusive. This Code of Conduct applies to all community spaces and when officially representing the community.

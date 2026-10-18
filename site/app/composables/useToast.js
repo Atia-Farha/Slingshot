@@ -1,28 +1,23 @@
-let toastId = 0;
-
 const toasts = ref([]);
 
 export function useToast() {
-    function add(message, type = "success", duration = 6000) {
-        const id = ++toastId;
-        toasts.value.push({ id, message, type });
-        if (duration > 0) {
-            setTimeout(() => remove(id), duration);
-        }
-        return id;
-    }
+	function add(message, type = 'success', duration = 6000) {
+		const id = crypto.randomUUID();
+		toasts.value.push({ id, message, type });
 
-    function remove(id) {
-        toasts.value = toasts.value.filter((t) => t.id !== id);
-    }
+		if (duration > 0) setTimeout(() => remove(id), duration);
+		return id;
+	}
 
-    function success(message, duration) {
-        return add(message, "success", duration);
-    }
+	function remove(id) {
+		toasts.value = toasts.value.filter((t) => t.id !== id);
+	}
 
-    function error(message, duration) {
-        return add(message, "error", duration);
-    }
-
-    return { toasts, add, remove, success, error };
+	return {
+		toasts,
+		add,
+		remove,
+		success: (message, duration) => add(message, 'success', duration),
+		error: (message, duration) => add(message, 'error', duration),
+	};
 }

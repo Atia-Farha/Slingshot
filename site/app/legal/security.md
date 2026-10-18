@@ -1,7 +1,7 @@
 ---
 title: Security Policy
 description: How to report security vulnerabilities in Slingshot.
-lastUpdated: "July 17, 2026"
+lastUpdated: 'July 17, 2026'
 ---
 
 **In short:** If you find a security vulnerability in Slingshot, please report it responsibly through [GitHub Security Advisories](https://github.com/Atia-Farha/Slingshot/security/advisories/new). Do not open a public issue. We will acknowledge your report and work with you to understand and address the issue.

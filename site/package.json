@@ -1,26 +1,26 @@
 {
-    "name": "site",
-    "type": "module",
-    "private": true,
-    "scripts": {
-        "build": "nuxt build",
-        "dev": "nuxt dev",
-        "generate": "nuxt generate",
-        "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
-    },
-    "dependencies": {
-        "@nuxtjs/sitemap": "^8.2.2",
-        "@types/markdown-it": "^14.1.2",
-        "markdown-it": "^14.3.0",
-        "nuxt": "^4.4.8",
-        "vue": "^3.5.39",
-        "vue-router": "^5.1.0"
-    },
-    "devDependencies": {
-        "@nuxt/eslint-config": "^1.16.0",
-        "@tailwindcss/vite": "^4.3.2",
-        "tailwindcss": "^4.3.2",
-        "wrangler": "^4.110.0"
-    }
+	"name": "site",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@nuxtjs/sitemap": "^8.2.2",
+		"@types/markdown-it": "^14.1.2",
+		"isomorphic-dompurify": "^2.16.0",
+		"markdown-it": "^14.3.0",
+		"nuxt": "^4.4.8",
+		"vue": "^3.5.39"
+	},
+	"devDependencies": {
+		"@nuxt/eslint-config": "^1.16.0",
+		"@tailwindcss/vite": "^4.3.2",
+		"tailwindcss": "^4.3.2",
+		"wrangler": "^4.110.0"
+	}
 }

@@ -1,16 +1,16 @@
 {
-    "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "default",
-    "description": "Project library and launch capability for the main window",
-    "windows": ["main"],
-    "permissions": [
-        "core:default",
-        "sql:default",
-        "sql:allow-execute",
-        "dialog:allow-open",
-        {
-            "identifier": "opener:allow-open-url",
-            "allow": [{ "url": "https://*" }, { "url": "http://*" }]
-        }
-    ]
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "default",
+	"description": "Project library and launch capability for the main window",
+	"windows": ["main"],
+	"permissions": [
+		"core:default",
+		"sql:allow-select",
+		"sql:allow-execute",
+		"dialog:allow-open",
+		{
+			"identifier": "opener:allow-open-url",
+			"allow": [{ "url": "https://*" }, { "url": "http://localhost" }, { "url": "http://localhost:*" }, { "url": "http://127.0.0.1" }, { "url": "http://127.0.0.1:*" }]
+		}
+	]
 }

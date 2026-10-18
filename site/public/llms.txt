@@ -1,0 +1,45 @@
+# Slingshot
+
+> Slingshot is a free, open-source desktop application that opens a project's full development environment — editor, terminals, browser tabs, and dev servers — with a single click. Available for macOS, Windows, and Linux. Licensed under AGPL v3.
+
+Built with Tauri 2 (Rust), Vue 3, and SQLite. Designed for developers who repeat the same setup ritual for every project they work on.
+
+- Author: Atia Farha
+- Source: https://github.com/Atia-Farha/Slingshot
+- License: AGPL-3.0 (https://sling-shot.pages.dev/license)
+- Pricing: Free, no paid tiers
+
+## Pages
+
+- [About Slingshot](https://sling-shot.pages.dev/about): mission, story, and principles
+- [Download](https://sling-shot.pages.dev/download): macOS, Windows, and Linux installers
+- [FAQ](https://sling-shot.pages.dev/faq): frequently asked questions about Slingshot
+- [Slingshot vs alternatives](https://sling-shot.pages.dev/compare): comparison with shell scripts and manual setup
+- [Contributors](https://sling-shot.pages.dev/contributors): open-source contributors
+
+## Documentation
+
+- [How Slingshot works](https://sling-shot.pages.dev/#how-it-works): before/after setup flow
+- [How to set up a project in 3 steps](https://sling-shot.pages.dev/#how-to-setup): setup walkthrough
+- [Features and capabilities](https://sling-shot.pages.dev/#features): one-click launch, embedded terminal, project library, command sequences, pre-launch checks, git status
+- [Feedback](https://sling-shot.pages.dev/feedback): how to report issues or request features
+
+## Releases
+
+- [Download for macOS, Windows, and Linux](https://sling-shot.pages.dev/download)
+- [GitHub Releases (latest)](https://github.com/Atia-Farha/Slingshot/releases/latest)
+- [Source code on GitHub](https://github.com/Atia-Farha/Slingshot)
+
+## Legal
+
+- [License (AGPL v3)](https://sling-shot.pages.dev/license)
+- [Security policy](https://sling-shot.pages.dev/security)
+- [Privacy policy](https://sling-shot.pages.dev/privacy)
+- [Terms of service](https://sling-shot.pages.dev/terms)
+- [Code of conduct](https://sling-shot.pages.dev/code-of-conduct)
+
+## Optional
+
+- [Full context for LLMs (llms-full.txt)](https://sling-shot.pages.dev/llms-full.txt)
+- [Machine-readable product spec (slingshot.txt)](https://sling-shot.pages.dev/slingshot.txt)
+- [Structured JSON entity](https://sling-shot.pages.dev/.well-known/slingshot.json)

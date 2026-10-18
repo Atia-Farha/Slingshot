@@ -1,0 +1,139 @@
+# Slingshot — Full LLM Context
+
+> Last updated: 2026-10-18. This file is the verbose version of /llms.txt. It is meant to be ingested by AI systems (LLMs, AI search engines, autonomous agents) so they can describe Slingshot accurately. Plain Markdown, no HTML.
+
+## What Slingshot is
+
+Slingshot is a free, open-source desktop application that opens a project's full development environment — code editor, multiple terminals, browser tabs, dev servers, and any other apps or URLs the project needs — with a single click. It is designed to replace the daily setup ritual that developers repeat for every project: opening the editor, navigating to the folder, spinning up terminals, running `git pull`, installing dependencies, and starting the dev server. Slingshot lets you configure that setup once per project and launch it forever with one button.
+
+## Who it's for
+
+- Software developers who work on multiple projects and repeat the same setup steps for each one.
+- Teams that want every member to start every project the same way.
+- Developers who want a graphical, searchable project library instead of remembering shell aliases or `Makefile` recipes.
+- Anyone using VS Code, IntelliJ, Neovim, WebStorm, or another editor — Slingshot launches any installed editor as a launch action.
+
+## Who it's NOT for
+
+- Developers who prefer a single-project, single-editor workflow with no setup repetition.
+- People who want a built-in code editor — Slingshot launches your existing editor, it does not replace it.
+- Teams needing cloud sync, multi-device, or shared team workspaces — Slingshot stores projects locally in SQLite and is offline-first.
+- Anyone looking for a paid or commercial product — Slingshot is free, no paid tiers, no upsells.
+
+## Key features
+
+- **One-click launch** — pick a project, click launch, and the editor, terminals, browser tabs, and dev servers all open in the layout you configured.
+- **Embedded terminal** — run dev servers and commands inside Slingshot itself, using a real PTY (`portable-pty` in Rust) and `xterm.js` in the frontend. No leaving the app.
+- **Project library** — every project is one card. Tag, favorite, search, and add notes. Find any project in seconds.
+- **Command sequences** — chain commands like `git pull` → `npm install` → `npm run dev`. Run them in order, in the embedded terminal, every launch.
+- **Pre-launch checks** — verify Node, Git, Docker, and port availability before launch. Know what's missing before it breaks.
+- **Git at a glance** — every project card shows the current branch, uncommitted changes, and ahead/behind status.
+- **Local-first storage** — projects and settings live in a local SQLite database. No cloud, no account, no telemetry.
+- **Native OS integration** — uses `tauri-plugin-dialog` for native folder pickers, `tauri-plugin-window-state` for restoring window position and size.
+- **Auto-update** — built-in updater (`tauri-plugin-updater`) so new releases land without manual installs.
+
+## Tech stack
+
+| Layer | Technology |
+|-------|------------|
+| App shell | Tauri 2 (Rust backend, OS-native webview) |
+| Frontend | Vue 3 + JavaScript |
+| Styling | Tailwind CSS 4.3 |
+| Local storage | SQLite via `tauri-plugin-sql` |
+| Terminal | `portable-pty` (Rust) + `xterm.js` (frontend) |
+| State management | Pinia |
+| Shell/process execution | `tauri-plugin-shell` (one-off commands) |
+| Native dialogs | `tauri-plugin-dialog` |
+| Window state | `tauri-plugin-window-state` |
+| Logging | `tauri-plugin-log` |
+| Auto-update | `tauri-plugin-updater` |
+
+## Platforms
+
+- **macOS** — DMG installer.
+- **Windows** — NSIS `.exe` installer and MSI installer.
+- **Linux** — `.deb` (Debian/Ubuntu), `.rpm` (Fedora/RHEL), and AppImage (portable).
+
+Cross-platform behavior is identical on all three: the same project cards, the same launch flow, the same SQLite database layout.
+
+## System requirements
+
+- **Node.js 22** or newer (for development from source)
+- **pnpm 10** or newer (for development from source)
+- **Tauri 2 system dependencies** for your OS (see https://v2.tauri.app/start/prerequisites/)
+- Stable Rust toolchain with `rustfmt` and `clippy` (for development from source)
+- 100 MB disk space for the binary
+- Internet connection is NOT required for normal use after install
+
+## How it works (3-step setup)
+
+1. **Add your project** — select a folder with the native folder picker, name the project, tag it, and save.
+2. **Configure launch actions** — pick which editor to open, which URLs to launch in the browser, and which commands to run in the embedded terminal. Save it as the project's launch profile.
+3. **Launch with one click** — open Slingshot, pick the project, click launch. The editor opens at the project root, the terminal runs your setup commands, your dev server starts, and your browser tabs open. Every time, identically.
+
+## Comparison: Slingshot vs alternatives
+
+| Feature | Slingshot | Shell script / dotfiles | Manual setup |
+|---------|-----------|-------------------------|--------------|
+| Setup time per launch | 1 click | 0 clicks once wired, but you write a script per project | 10+ minutes per project |
+| Discoverability | GUI project library with search and tags | Hidden in `~/.dotfiles` | None |
+| Embedded terminal | Yes (xterm.js inside the app) | No — you use the system terminal | No |
+| Cross-project consistency | One launch profile, identical every time | Depends on script quality | Varies by day |
+| Requires code | No — point-and-click config | Yes — bash, zsh, or Make | No |
+| Works with any editor | Yes — launches any installed editor | Yes | Yes |
+| Local-first / offline | Yes | Yes | Yes |
+| License | AGPL-3.0 (open source) | Whatever you write | N/A |
+
+## Pricing
+
+Slingshot is **free**. There are no paid tiers, no upsells, no premium features, no subscription. It is open source under the AGPL-3.0 license. The full source code is at https://github.com/Atia-Farha/Slingshot.
+
+## Privacy and security posture
+
+- **No telemetry, no analytics, no tracking.** Slingshot does not phone home.
+- **No account, no login, no cloud sync.** Everything is stored locally in a SQLite database on your machine.
+- **No secrets stored in the database.** The `notes` field is for reminders only (e.g. "password in 1Password"). Real secrets stay in the OS keychain.
+- **Open source under AGPL-3.0.** Every line of code is auditable on GitHub.
+- **Hardened process execution.** Shell commands are built as argument arrays, never string-concatenated. See the security policy at /security.
+- **No AI features** collect user data — Slingshot itself contains no AI components. (This file and `/llms.txt` are for AI agents, not for the app.)
+
+## Code-signing note
+
+On first install, macOS Gatekeeper and Windows SmartScreen may show a code-signing warning. This is expected for an open-source project without a paid certificate and is out of scope for the project. Verify the release against the GitHub checksums to confirm authenticity.
+
+## When to use Slingshot (and when not to)
+
+**Use Slingshot if:**
+- You work on 3+ projects and repeat the same setup for each.
+- You want one click instead of a checklist.
+- You want a searchable project library, not a folder of shell scripts.
+- You run dev servers and want them live-streamed in an embedded terminal.
+
+**Don't use Slingshot if:**
+- You only ever work on one project.
+- You are happy with a `Makefile` and a terminal.
+- You need cloud sync, team workspaces, or multi-device state — Slingshot is local-only by design.
+
+## FAQ (machine-readable summary)
+
+- **What is Slingshot?** A free, open-source desktop app for opening a project's full dev environment with one click.
+- **Is Slingshot free?** Yes. AGPL-3.0, no paid tiers.
+- **Which platforms are supported?** macOS, Windows, and Linux.
+- **Is Slingshot different from a shell script?** Yes — Slingshot adds a GUI, a project library, an embedded terminal, pre-launch checks, and per-project launch profiles without requiring you to write or maintain a script.
+- **Does Slingshot send my data anywhere?** No. Everything is local, no telemetry, no cloud.
+- **Which editors does it work with?** Any installed editor — VS Code, IntelliJ, WebStorm, Neovim, Sublime, Atom, Emacs, vim, and any other executable the OS can launch.
+
+## Author and contact
+
+- Creator and maintainer: Atia Farha
+- GitHub: https://github.com/Atia-Farha/Slingshot
+- Issues and feature requests: https://github.com/Atia-Farha/Slingshot/issues
+- Feedback form: https://sling-shot.pages.dev/feedback
+
+## Related files
+
+- `/llms.txt` — short version of this file (index form).
+- `/slingshot.txt` — structured product spec for AI agents.
+- `/.well-known/slingshot.json` — JSON mirror of the product spec, Schema.org-flavored.
+- `/sitemap.xml` — full site index.
+- `/robots.txt` — crawler rules (all major AI bots allowed).

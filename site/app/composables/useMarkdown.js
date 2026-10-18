@@ -1,10 +1,31 @@
-import MarkdownIt from "markdown-it";
+import DOMPurify from 'isomorphic-dompurify';
+import MarkdownIt from 'markdown-it';
 
+// SECURITY:
+//   - `html: false` blocks any raw HTML inside the .md source from being emitted.
+//     Without this, a stray <script> tag in legal/*.md would execute in the browser.
+//   - The output is still sanitized with DOMPurify as defense-in-depth, in case a
+//     future change re-enables raw HTML or the source becomes user-influenced.
+//   - The {{DATE}} substitution is pre-escaped so it cannot be used to inject
+//     Markdown/HTML even if a caller ever passes an untrusted string.
 const md = new MarkdownIt({
-    html: true,
-    linkify: true,
-    typographer: false,
+	html: false,
+	linkify: true,
+	typographer: false,
 });
+
+// Tags actually produced by MarkdownIt with our config.
+const ALLOWED_TAGS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'br', 'hr', 'strong', 'em', 'del', 'ul', 'ol', 'li', 'blockquote', 'code', 'pre', 'a', 'table', 'thead', 'tbody', 'tr', 'th', 'td'];
+
+const ALLOWED_ATTR = ['href', 'title', 'rel', 'target'];
+
+/**
+ * Escape a string for safe substitution into a Markdown body.
+ * Prevents the {{DATE}} token from being used to inject Markdown/HTML.
+ */
+function escapeForMarkdown(value) {
+	return String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+}
 
 /**
  * Post-process rendered HTML:
@@ -12,53 +33,36 @@ const md = new MarkdownIt({
  *  - Convert <!-- SECTION: ... --> comments into styled divider elements
  */
 function postProcess(html) {
-    // External links → new tab
-    html = html.replace(
-        /<a\s+href="(https?:\/\/[^"]*)"/g,
-        '<a href="$1" target="_blank" rel="noopener noreferrer"',
-    );
-
-    // Section divider comments → styled div
-    html = html.replace(
-        /<!-- SECTION: (.+?) -->/g,
-        '<div class="legal-section-divider" aria-hidden="true">$1</div>',
-    );
-
-    return html;
+	return html.replace(/<a\s+href="(https?:\/\/[^"]*)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"').replace(/<!-- SECTION: (.+?) -->/g, '<div class="legal-section-divider" aria-hidden="true">$1</div>');
 }
 
 /**
- * Parse a Markdown file with optional YAML frontmatter and render to HTML.
+ * Parse a Markdown file and render it to sanitized HTML.
  *
  * @param {string} raw - raw Markdown string (imported via ?raw)
  * @param {object} [opts]
  * @param {string} [opts.date] - replaces every {{DATE}} token in the body
- * @returns {{ html: string, frontmatter: Record<string, string> }}
+ * @returns {{ html: string }}
  */
 export function useMarkdown(raw, { date } = {}) {
-    let frontmatter = {};
-    let body = raw;
+	let body = raw;
 
-    // Extract YAML frontmatter delimited by ---
-    const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
-    if (fmMatch) {
-        const rawFm = fmMatch[1];
-        for (const line of rawFm.split("\n")) {
-            const idx = line.indexOf(":");
-            if (idx > 0) {
-                const key = line.slice(0, idx).trim();
-                const val = line.slice(idx + 1).trim();
-                if (key) frontmatter[key] = val;
-            }
-        }
-        body = raw.slice(fmMatch[0].length);
-    }
+	// Strip optional YAML frontmatter delimited by ---
+	const fmMatch = raw.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n/);
+	if (fmMatch) body = raw.slice(fmMatch[0].length);
 
-    if (date) {
-        body = body.replaceAll("{{DATE}}", date);
-    }
+	if (date) body = body.replaceAll('{{DATE}}', escapeForMarkdown(date));
 
-    const html = postProcess(md.render(body));
+	// 1. Render Markdown to HTML (raw HTML in the source is escaped because html:false)
+	// 2. Apply project-specific post-processing (target=_blank, section dividers)
+	// 3. Sanitize with DOMPurify to strip anything dangerous that slipped through
+	const html = DOMPurify.sanitize(postProcess(md.render(body)), {
+		ALLOWED_TAGS,
+		ALLOWED_ATTR,
+		ALLOW_DATA_ATTR: false,
+		FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form'],
+		FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover', 'style'],
+	});
 
-    return { html, frontmatter };
+	return { html };
 }

@@ -8,14 +8,14 @@ The official website for [Slingshot](https://sling-shot.pages.dev) — a free, o
 
 ## Quick Reference
 
-| Task                       | Command                                                  |
-| -------------------------- | -------------------------------------------------------- |
-| Install dependencies       | `pnpm install`                                           |
-| Start dev server           | `pnpm dev` → `http://localhost:3000`                     |
-| Build for production       | `pnpm build`                                             |
-| Preview production build   | `pnpm preview`                                           |
-| Generate static site       | `pnpm generate`                                          |
-| Deploy to Cloudflare Pages | `pnpm build && npx wrangler pages deploy .output/public` |
+| Task                       | Command                                                     |
+| -------------------------- | ----------------------------------------------------------- |
+| Install dependencies       | `pnpm install`                                              |
+| Start dev server           | `pnpm dev` → `http://localhost:3000`                        |
+| Build for production       | `pnpm build`                                                |
+| Preview production build   | `pnpm preview`                                              |
+| Generate static site       | `pnpm generate`                                             |
+| Deploy to Cloudflare Pages | `pnpm generate && npx wrangler pages deploy .output/public` |
 
 ## Table of Contents
 
@@ -157,14 +157,16 @@ Copy the template and fill in your values:
 cp .env.example .env
 ```
 
-| Variable                         | Where to get it                                                 | Required | Description                                      |
-| -------------------------------- | --------------------------------------------------------------- | -------- | ------------------------------------------------ |
-| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | [Cloudflare Dashboard → Turnstile](https://dash.cloudflare.com) | Yes      | Public site key for the feedback form widget     |
-| `TURNSTILE_SECRET`               | [Cloudflare Dashboard → Turnstile](https://dash.cloudflare.com) | Yes      | Secret key for server-side verification          |
-| `RESEND_API_KEY`                 | [resend.com → API Keys](https://resend.com/api-keys)            | No       | API key for sending feedback notification emails |
-| `RESEND_TO_EMAIL`                | Your email address                                              | No       | Recipient address for feedback notifications     |
+| Variable                         | Where to get it                                                 | Required   | Description                                           |
+| -------------------------------- | --------------------------------------------------------------- | ---------- | ----------------------------------------------------- |
+| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | [Cloudflare Dashboard → Turnstile](https://dash.cloudflare.com) | Yes        | Public site key for the feedback form widget          |
+| `TURNSTILE_SECRET`               | [Cloudflare Dashboard → Turnstile](https://dash.cloudflare.com) | Yes        | Secret key for server-side verification               |
+| `RESEND_API_KEY`                 | [resend.com → API Keys](https://resend.com/api-keys)            | No         | API key for sending feedback notification emails      |
+| `RESEND_TO_EMAIL`                | Your email address                                              | No         | Recipient address for feedback notifications          |
+| `ALLOWED_ORIGIN`                 | Your prod domain                                                | Yes (prod) | CORS allowlist for the feedback API (comma-separated) |
 
 > **Note:** The site runs without `RESEND_*` variables — feedback is still stored in D1, but no email notification is sent.
+> `ALLOWED_ORIGIN` is only consumed by `functions/api/feedback.js` and must be set in the Pages dashboard (not in `.env`). Default if unset: `https://sling-shot.pages.dev`.
 
 ### Development
 
@@ -240,9 +242,9 @@ API routes (/api/*)
 
 ```vue
 <template>
-    <NuxtLayout>
-        <NuxtPage />
-    </NuxtLayout>
+	<NuxtLayout>
+		<NuxtPage />
+	</NuxtLayout>
 </template>
 ```
 
@@ -293,10 +295,10 @@ Each page sets its own `useSeoMeta()` tags and `useHead()` with JSON-LD structur
 Parses Markdown files with YAML frontmatter into HTML:
 
 ```js
-import rawMd from "~/legal/privacy.md?raw";
-import { useMarkdown } from "~/composables/useMarkdown";
+import rawMd from '~/legal/privacy.md?raw';
+import { useMarkdown } from '~/composables/useMarkdown';
 
-const { html, frontmatter } = useMarkdown(rawMd, { date: "July 17, 2026" });
+const { html, frontmatter } = useMarkdown(rawMd, { date: 'July 17, 2026' });
 ```
 
 **Features:**
@@ -314,8 +316,8 @@ Global toast notification system:
 ```js
 const { success, error, remove, toasts } = useToast();
 
-success("Saved successfully!"); // Auto-dismiss after 6s
-error("Something went wrong.", 10000); // Custom duration
+success('Saved successfully!'); // Auto-dismiss after 6s
+error('Something went wrong.', 10000); // Custom duration
 remove(toastId); // Manual dismiss
 ```
 
@@ -402,7 +404,7 @@ Legal pages follow a Markdown-based content pipeline:
 ---
 title: Privacy Policy
 description: How Slingshot handles your data...
-lastUpdated: "July 17, 2026"
+lastUpdated: 'July 17, 2026'
 ---
 ```
 
@@ -454,7 +456,7 @@ curl -X POST https://sling-shot.pages.dev/api/feedback \
 
 ```json
 {
-    "success": true
+	"success": true
 }
 ```
 
@@ -462,11 +464,11 @@ curl -X POST https://sling-shot.pages.dev/api/feedback \
 
 ```json
 {
-    "error": "Validation failed.",
-    "errors": {
-        "email": "Please use a permanent email address.",
-        "message": "Message contains disallowed content."
-    }
+	"error": "Validation failed.",
+	"errors": {
+		"email": "Please use a permanent email address.",
+		"message": "Message contains disallowed content."
+	}
 }
 ```
 
@@ -474,7 +476,7 @@ curl -X POST https://sling-shot.pages.dev/api/feedback \
 
 ```json
 {
-    "error": "Verification failed. Please try again."
+	"error": "Verification failed. Please try again."
 }
 ```
 
@@ -482,7 +484,7 @@ curl -X POST https://sling-shot.pages.dev/api/feedback \
 
 ```json
 {
-    "error": "Service temporarily unavailable. Please try again later."
+	"error": "Service temporarily unavailable. Please try again later."
 }
 ```
 
@@ -584,10 +586,11 @@ To test the full feedback pipeline locally:
     npx wrangler d1 execute slingshot-feedback --file=functions/schemas/001_feedback.sql
     ```
 
-4. **Run with Wrangler dev** (emulates Cloudflare Functions locally):
+4. **Run with Wrangler dev** (emulates Cloudflare Functions locally — discovers `functions/` automatically):
     ```bash
-    npx wrangler pages dev .output/public --d1=DB=slingshot-feedback
+    npx wrangler pages dev .output/public --d1=DB=slingshot-feedback --compatibility-date=2025-07-15
     ```
+    > `wrangler pages dev` reads Functions from the project root's `functions/` directory, not from the static output. The `.output/public` argument points it at the static assets to serve.
 
 ### Testing Legal Content
 
@@ -625,15 +628,61 @@ curl http://localhost:3000/robots.txt
 
 ## Deployment
 
+### First-Time Cloudflare Pages Setup (runbook)
+
+> Run these steps once per Cloudflare account / project. After the first successful deploy, subsequent deploys only need the `git push` (if connected) or `wrangler pages deploy`.
+
+1. **Create the Pages project**
+
+    ```bash
+    npx wrangler pages project create sling-shot --production-branch=main
+    ```
+
+2. **Create the D1 database** (or reuse an existing one)
+
+    ```bash
+    npx wrangler d1 create slingshot-feedback
+    # → copy the printed database_id
+    ```
+
+3. **Apply the schema to the remote D1**
+
+    ```bash
+    npx wrangler d1 execute slingshot-feedback \
+        --file=functions/schemas/001_feedback.sql \
+        --remote
+    ```
+
+4. **Set the Pages project build configuration** (in the Cloudflare Dashboard → Workers & Pages → sling-shot → Settings → Builds):
+    - Build command: `pnpm generate`
+    - Build output directory: `.output/public`
+    - Root directory: `site` (if deploying from the monorepo root)
+    - Compatibility date: `2025-07-15`
+    - Environment variables: `NODE_VERSION=20`, `PNPM_VERSION=9`
+
+5. **Bind D1 and set env vars** (Settings → Bindings):
+    - **D1 binding** → Variable name: `DB`, D1 database: `slingshot-feedback`
+    - **Environment variable** → `NUXT_PUBLIC_TURNSTILE_SITE_KEY` (public)
+    - **Environment variable (encrypted)** → `TURNSTILE_SECRET`
+    - **Environment variable (encrypted)** → `RESEND_API_KEY`
+    - **Environment variable** → `RESEND_TO_EMAIL`
+    - **Environment variable** → `ALLOWED_ORIGIN` (e.g. `https://sling-shot.pages.dev`)
+
+6. **Connect Git** (optional but recommended) for automatic deploys on push to `main`.
+
+7. **Add a custom domain** (optional) in Settings → Custom domains.
+
 ### Cloudflare Pages
 
 The site deploys to Cloudflare Pages. The build output is a static site served from Cloudflare's global CDN.
 
 ```bash
-# Build and deploy
-pnpm build
-npx wrangler pages deploy .output/public
+# Generate static output and deploy to Pages
+pnpm generate                # writes .output/public/ (Nuxt 4 output dir)
+npx wrangler pages deploy .output/public --project-name=sling-shot
 ```
+
+> **Note:** Nuxt 4 emits static output to `.output/public/`. The repo also has a `dist/` symlink pointing there for backwards compatibility with older tooling — both paths resolve to the same content.
 
 #### Required Cloudflare Bindings
 
@@ -650,7 +699,7 @@ In the Cloudflare Dashboard:
 
 1. Go to **Workers & Pages → Slingshot → Settings → Bindings**
 2. Add the D1 database binding (name: `DB`)
-3. Add environment variables for `TURNSTILE_SECRET`, `RESEND_API_KEY`, `RESEND_TO_EMAIL`
+3. Add environment variables for `TURNSTILE_SECRET`, `RESEND_API_KEY`, `RESEND_TO_EMAIL`, `ALLOWED_ORIGIN`, and `NUXT_PUBLIC_TURNSTILE_SITE_KEY`
 
 Or via `wrangler.toml`:
 
@@ -665,6 +714,20 @@ TURNSTILE_SECRET = "your-secret"
 RESEND_API_KEY = "your-key"
 RESEND_TO_EMAIL = "your-email"
 ```
+
+### Functions Routing (`_routes.json`)
+
+`public/_routes.json` restricts the Pages Functions runtime to `/api/*` only, so static asset requests (`/_nuxt/*`, `/fonts/*`, `/favicons/*`, `/og-image.png`, `/robots.txt`, `/sitemap.xml`, `/llms*.txt`, `/slingshot.txt`, `/.well-known/*`) are served directly from the CDN and never invoke a Worker. This keeps the site inside the **Cloudflare Pages free tier** (100,000 Function requests/day) by preventing every page view from counting against the quota.
+
+```json
+{
+	"version": 1,
+	"include": ["/api/*"],
+	"exclude": ["/_nuxt/*", "/fonts/*", "/favicons/*", "/og-image.png", "/robots.txt", "/sitemap.xml", "/llms.txt", "/llms-full.txt", "/slingshot.txt", "/.well-known/*"]
+}
+```
+
+**Add a new static path?** If you add a new top-level static asset (e.g. `/foo.png`), either (a) add it to `exclude`, or (b) rely on the `include` allowlist. The middleware in `functions/_middleware.js` already short-circuits for `/api/*` paths, but `_routes.json` prevents the Worker from being invoked at all on the CDN edge.
 
 ### Security Headers
 
@@ -908,19 +971,19 @@ pnpm dev
 Ensure the Vite plugin is configured in `nuxt.config.ts`:
 
 ```ts
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineNuxtConfig({
-    vite: {
-        plugins: [tailwindcss()],
-    },
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });
 ```
 
 And the CSS file is imported:
 
 ```ts
-css: ["~/assets/css/main.css"];
+css: ['~/assets/css/main.css'];
 ```
 
 ### API returns 503 "Service temporarily unavailable"

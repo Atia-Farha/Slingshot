@@ -49,13 +49,13 @@ A good report includes:
 
 ### What to expect
 
-| Step | What happens |
-|---|---|
-| Acknowledgment | We confirm receipt of your report |
-| Assessment | We investigate, confirm the issue, and assign a severity |
-| Fix development | We develop and test a fix |
-| Coordinated disclosure | We work with you on timing; we will not disclose until a fix is available |
-| Credit | With your permission, we credit you by name or handle in the release notes |
+| Step                   | What happens                                                               |
+| ---------------------- | -------------------------------------------------------------------------- |
+| Acknowledgment         | We confirm receipt of your report                                          |
+| Assessment             | We investigate, confirm the issue, and assign a severity                   |
+| Fix development        | We develop and test a fix                                                  |
+| Coordinated disclosure | We work with you on timing; we will not disclose until a fix is available  |
+| Credit                 | With your permission, we credit you by name or handle in the release notes |
 
 We will keep you updated throughout the process. If you do not hear back, please follow up — your initial message may have been missed.
 
@@ -237,7 +237,7 @@ The `{NONCE}` is replaced per-request by a cryptographically random value genera
 #### Code integrity
 
 - Release binaries are built via GitHub Actions using `tauri-action`
-- Binaries are signed where possible (code signing certificates are not yet purchased — see [Known Hard Constraints](../AGENTS.md#known-hard-constraints))
+- Binaries are signed where possible (code signing certificates are not yet purchased)
 - The auto-updater verifies signatures before applying updates
 
 #### CI/CD security

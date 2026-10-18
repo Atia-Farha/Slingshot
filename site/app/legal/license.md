@@ -1,7 +1,7 @@
 ---
 title: License
 description: Human-readable summary of the Slingshot license (AGPL v3).
-lastUpdated: "July 17, 2026"
+lastUpdated: 'July 17, 2026'
 ---
 
 **In short:** Slingshot is free and open source software licensed under the [GNU Affero General Public License v3 (AGPL v3)](https://github.com/Atia-Farha/Slingshot/blob/main/LICENSE). You can use, modify, distribute, and even charge for it — but if you deploy a modified version as a network service, you must share your source code under the same license. The [full license text](https://github.com/Atia-Farha/Slingshot/blob/main/LICENSE) is the authoritative legal document.

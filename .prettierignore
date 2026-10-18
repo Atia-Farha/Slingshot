@@ -1,7 +1,70 @@
-dist/
+# Dependencies
 node_modules/
-pnpm-lock.yaml
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+build/
+out/
+**/out/
+
+# Tauri (Rust) — formatted with rustfmt, not Prettier
+src-tauri/target/
+src-tauri/gen/
+src-tauri/Cargo.lock
+src-tauri/icons/
+
+# Nuxt (site/) build outputs and caches
 site/.nuxt/
 site/.output/
-src-tauri/gen/
-src-tauri/target/
+site/dist/
+site/node_modules/
+
+# Lockfiles and lockfile-like files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Coverage reports
+coverage/
+**/coverage/
+
+# Generated/auto-generated files
+**/*.min.js
+**/*.min.css
+**/*.map
+**/components.d.ts
+**/.nuxt/types/**
+**/.output/**
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS / editor scratch
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files (often contain secrets and should not be reformatted)
+.env
+.env.*
+!.env.example
+
+# Public/static assets that should not be reformatted
+public/**/*.svg
+public/**/*.png
+public/**/*.ico
+public/**/*.icns
+public/**/*.webp
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.gif

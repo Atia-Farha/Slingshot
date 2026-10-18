@@ -1,7 +1,7 @@
 ---
 title: Terms of Service
 description: Terms governing the use of the Slingshot desktop application, website, and feedback form.
-lastUpdated: "July 17, 2026"
+lastUpdated: 'July 17, 2026'
 ---
 
 **In short:** Slingshot is free and open source under the [AGPL v3](https://github.com/Atia-Farha/Slingshot/blob/main/LICENSE). You own your data. Do not store secrets in the Application. Feedback you submit grants us a license to use it for improving Slingshot. Slingshot is provided "as is" — we are not liable for any damages.

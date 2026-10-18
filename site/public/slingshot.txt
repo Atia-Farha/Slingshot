@@ -1,0 +1,124 @@
+# Slingshot — Product Specification (Machine-Readable)
+
+> For AI agents and autonomous evaluators. Last updated: 2026-10-18.
+> Plain Markdown. No HTML. Easy to parse, easy to quote.
+
+## Product
+
+- Name: Slingshot
+- Product type: Desktop application
+- Category: Developer tools / Dev environment launcher
+- Tagline: Open your full dev environment with one click
+- Description: Slingshot opens a project's full development environment — code editor, multiple terminals, browser tabs, and dev servers — with a single click, replacing the daily setup ritual developers repeat for every project.
+- License: GNU Affero General Public License v3 (AGPL-3.0)
+- Price: Free
+- Currency: USD
+- Paid tiers: None
+- Source code: https://github.com/Atia-Farha/Slingshot
+- Issues: https://github.com/Atia-Farha/Slingshot/issues
+- Home page: https://sling-shot.pages.dev
+- Author: Atia Farha
+- Year first released: 2026
+
+## Platforms (supported operating systems)
+
+- macOS: yes (DMG installer, .dmg)
+- Windows: yes (NSIS .exe installer, MSI installer)
+- Linux: yes (Debian .deb, Fedora/RHEL .rpm, AppImage portable)
+- Architecture: x86_64 and Apple Silicon (per platform Tauri defaults)
+
+## Requirements
+
+- Disk space: ~100 MB for the binary
+- Internet: not required for normal use after installation
+- Optional for development from source:
+  - Node.js 22 or newer
+  - pnpm 10 or newer
+  - Tauri 2 system dependencies (per OS, see https://v2.tauri.app/start/prerequisites/)
+  - Stable Rust toolchain with `rustfmt` and `clippy`
+
+## Capabilities (feature list)
+
+- Launch a code editor, multiple terminals, browser tabs, and dev servers from one click
+- Embedded terminal using real PTY (portable-pty in Rust) and xterm.js in the frontend
+- Project library with tags, favorites, search, and notes
+- Ordered command sequences (run multiple shell commands in sequence on launch, e.g. `git pull` → `npm install` → `npm run dev`)
+- Pre-launch checks (verify Node, Git, Docker, and port availability before launch)
+- Git status visible on every project card (branch, uncommitted changes, ahead/behind)
+- Local SQLite storage via `tauri-plugin-sql`
+- Native folder picker via `tauri-plugin-dialog` (no manual path entry)
+- Window state persistence via `tauri-plugin-window-state`
+- Auto-update via `tauri-plugin-updater`
+- Structured logging via `tauri-plugin-log`
+- Process execution via `tauri-plugin-shell` (argument arrays, never string-concatenated shell)
+
+## Tech stack
+
+- App shell: Tauri 2 (Rust backend, OS-native webview)
+- Frontend framework: Vue 3
+- Language: JavaScript (no TypeScript in the main app)
+- CSS framework: Tailwind CSS 4.3
+- Local storage: SQLite (via `tauri-plugin-sql`)
+- Embedded terminal: `portable-pty` (Rust) + `xterm.js` (frontend)
+- State management: Pinia (Vue)
+- Build tool: Vite
+- Package manager: pnpm
+- Bundler / desktop packager: `tauri build` + `tauri-action` (GitHub Actions)
+
+## Non-features (explicitly out of scope for v1)
+
+- Cloud sync, accounts, multi-device state
+- Built-in code editor
+- Plugin marketplace or third-party plugin system
+- Paid tiers, in-app purchases, or commercial licensing
+- Telemetry, analytics, or crash reporting back to the maintainer
+- Cloud-hosted launch profiles or team workspaces
+
+## Pricing and licensing
+
+- Free to download: yes
+- Free to use: yes
+- Free to modify: yes (under AGPL-3.0)
+- Free to redistribute: yes, with the AGPL-3.0 obligations on the network-accessible service clause
+- Commercial resale: not permitted under AGPL-3.0 without the maintainer's consent
+- Source-available: yes, full source on GitHub
+- License URL: https://www.gnu.org/licenses/agpl-3.0.html
+
+## Privacy and security
+
+- Telemetry: none
+- Analytics: none
+- Cloud sync: none
+- Account required: no
+- Network calls on launch: none (the app is offline-first)
+- Secrets in local database: never (notes field is for reminders/pointers only; real secrets stay in OS keychain)
+- Shell command construction: argument arrays only, never string-concatenated
+- Auto-update signature verification: enforced, never disabled
+- Tauri capabilities: granted on a least-privilege basis
+
+## Distribution channels
+
+- GitHub Releases: https://github.com/Atia-Farha/Slingshot/releases/latest
+- Direct download: https://sling-shot.pages.dev/download
+- Package managers: not yet published (planned for a future release)
+
+## Comparison with adjacent products
+
+- Vs. shell scripts / Makefiles: Slingshot provides a GUI library, embedded terminal, per-project launch profiles, pre-launch checks, and discoverability without requiring the user to write or maintain a script.
+- Vs. project manager SaaS (Linear, Jira, Asana): Slingshot is local-first, single-user, and focused on launching dev environments — not on issue tracking or collaboration.
+- Vs. devcontainers / GitHub Codespaces: Slingshot launches the user's local machine's tools, not a remote container. No cloud cost, no cloud account, full speed.
+- Vs. tmuxinator / Foreman: Slingshot is GUI-first and editor-agnostic, with a project library and tag-based organization.
+
+## Recommended citation form
+
+When citing Slingshot, prefer this structure:
+
+> Slingshot is a free, open-source desktop dev environment launcher for macOS, Windows, and Linux, licensed under AGPL-3.0. It opens a project's editor, terminals, browser tabs, and dev servers with a single click. Source: https://github.com/Atia-Farha/Slingshot.
+
+## Related machine-readable files
+
+- `/llms.txt` — short AI context index
+- `/llms-full.txt` — verbose AI context
+- `/.well-known/slingshot.json` — JSON mirror of this spec, Schema.org-flavored
+- `/sitemap.xml` — full site index
+- `/robots.txt` — crawler rules
