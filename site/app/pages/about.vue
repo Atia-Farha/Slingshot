@@ -117,7 +117,7 @@ const values = [
 					<div class="section-card relative overflow-hidden p-8 md:p-10">
 						<!-- Left accent glow -->
 						<div class="absolute inset-y-0 left-0 w-px" style="background: linear-gradient(180deg, transparent, rgba(239, 68, 68, 0.4), transparent)"></div>
-						<div class="absolute top-1/2 -left-24 h-48 w-48 -translate-y-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" style="background: rgba(239, 68, 68, 0.07)"></div>
+						<div class="absolute top-1/2 -left-24 h-48 w-48 -translate-y-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" style="background: rgba(239, 68, 68, 0.07)"></div>
 
 						<div class="relative flex gap-6">
 							<!-- Step icon -->
@@ -151,7 +151,7 @@ const values = [
 					<div class="section-card relative overflow-hidden p-8 md:p-10">
 						<!-- Left accent glow -->
 						<div class="absolute inset-y-0 left-0 w-px" style="background: linear-gradient(180deg, transparent, rgba(20, 216, 212, 0.5), transparent)"></div>
-						<div class="absolute top-1/2 -left-24 h-48 w-48 -translate-y-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" style="background: rgba(20, 216, 212, 0.07)"></div>
+						<div class="absolute top-1/2 -left-24 h-48 w-48 -translate-y-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" style="background: rgba(20, 216, 212, 0.07)"></div>
 
 						<div class="relative flex gap-6">
 							<!-- Step icon -->
@@ -233,7 +233,7 @@ const values = [
 							</div>
 
 							<!-- Name -->
-							<p class="text-text-primary text-xl font-bold transition-colors duration-300">Atia Farha</p>
+							<p class="text-text-primary text-xl font-bold transition-colors duration-500">Atia Farha</p>
 
 							<!-- Role badge -->
 							<div class="mt-3 flex justify-center">
@@ -242,14 +242,14 @@ const values = [
 
 							<!-- Social links -->
 							<div class="mt-5 flex items-center justify-center gap-4">
-								<span class="text-text-muted hover:text-primary hover:border-primary/30 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-all duration-300" @click.stop>
+								<span class="text-text-muted hover:text-primary hover:border-primary/30 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-all duration-500" @click.stop>
 									<a href="https://github.com/Atia-Farha" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 										<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 											<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
 										</svg>
 									</a>
 								</span>
-								<span class="text-text-muted hover:text-primary hover:border-primary/30 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-all duration-300" @click.stop>
+								<span class="text-text-muted hover:text-primary hover:border-primary/30 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-all duration-500" @click.stop>
 									<a href="https://linkedin.com/in/atiafarha" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
 										<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 											<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -266,7 +266,7 @@ const values = [
 					<div class="mx-auto mb-4 flex justify-center -space-x-2">
 						<img v-for="(c, i) in otherContributors.slice(0, 8)" :key="c.id" :src="c.avatar_url" :alt="c.login" class="h-10 w-10 rounded-full ring-2 ring-black" :style="{ zIndex: 8 - i }" loading="lazy" width="40" height="40" />
 					</div>
-					<NuxtLink to="/contributors" class="text-primary hover:text-primary/80 text-sm transition-colors duration-300"> and more contributors → </NuxtLink>
+					<NuxtLink to="/contributors" class="text-primary hover:text-primary/80 text-sm transition-colors duration-500"> and more contributors → </NuxtLink>
 				</div>
 			</div>
 		</section>
@@ -284,7 +284,7 @@ const values = [
 				<h2 id="about-cta-heading" class="text-3xl tracking-tight sm:text-4xl">Help us make Slingshot better</h2>
 				<p class="text-text-secondary mt-4 text-base leading-relaxed">Your feedback shapes what Slingshot becomes. Bug reports, feature ideas, or just a quick "this works great" — it all helps.</p>
 				<div class="mt-10 flex flex-col items-center justify-center gap-4">
-					<NuxtLink to="/feedback" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]">Give Feedback</NuxtLink>
+					<NuxtLink to="/feedback" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-500 hover:bg-[#0fc4c0] active:scale-[0.98]">Give Feedback</NuxtLink>
 				</div>
 			</div>
 		</section>

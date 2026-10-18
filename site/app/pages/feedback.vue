@@ -416,7 +416,7 @@ async function handleSubmit() {
 							<div id="cf-turnstile" class="cf-turnstile"></div>
 							<span v-if="turnstileError" class="text-danger mt-1 text-xs" role="alert">{{ turnstileError }}</span>
 						</div>
-						<button type="submit" :disabled="isSubmitting || !turnstileLoaded" :aria-busy="isSubmitting" class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-300 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50">
+						<button type="submit" :disabled="isSubmitting || !turnstileLoaded" :aria-busy="isSubmitting" class="border-primary/60 bg-primary inline-flex h-9 items-center justify-center gap-2 rounded-lg border px-3.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(20,216,212,0.2)] transition-all duration-500 hover:bg-[#0fc4c0] hover:shadow-[0_0_28px_rgba(20,216,212,0.3)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50">
 							<svg v-if="!isSubmitting" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 								<line x1="22" y1="2" x2="11" y2="13" />
 								<polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -430,9 +430,9 @@ async function handleSubmit() {
 
 						<span class="text-text-muted text-xs"
 							>By submitting, you agree to our
-							<NuxtLink to="/terms" class="text-primary/60 hover:text-primary transition-colors duration-300">Terms of Service</NuxtLink>
+							<NuxtLink to="/terms" class="text-primary/60 hover:text-primary transition-colors duration-500">Terms of Service</NuxtLink>
 							and
-							<NuxtLink to="/privacy" class="text-primary/60 hover:text-primary transition-colors duration-300">Privacy Policy</NuxtLink>.</span
+							<NuxtLink to="/privacy" class="text-primary/60 hover:text-primary transition-colors duration-500">Privacy Policy</NuxtLink>.</span
 						>
 					</footer>
 				</div>
@@ -452,7 +452,7 @@ async function handleSubmit() {
 				<h2 id="feedback-cta-heading" class="text-3xl tracking-tight sm:text-4xl">Prefer GitHub?</h2>
 				<p class="text-text-secondary mt-4 text-base leading-relaxed">Open an issue directly on GitHub for feature requests or bug reports with your OS, app version, and steps to reproduce.</p>
 				<div class="mt-10 flex flex-col items-center justify-center gap-4">
-					<a href="https://github.com/Atia-Farha/Slingshot/issues/new" target="_blank" rel="noopener noreferrer" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]">
+					<a href="https://github.com/Atia-Farha/Slingshot/issues/new" target="_blank" rel="noopener noreferrer" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-500 hover:bg-[#0fc4c0] active:scale-[0.98]">
 						Open an Issue
 						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 							<path d="M7 17L17 7M17 7H7M17 7v10" />

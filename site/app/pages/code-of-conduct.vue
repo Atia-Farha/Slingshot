@@ -42,5 +42,5 @@ useHead({
 </script>
 
 <template>
-	<LegalPage title="Code of Conduct" :last-updated="lastUpdated" :html="html" />
+	<LegalPage title="Code of Conduct" title-accent="Conduct" :last-updated="lastUpdated" :html="html" />
 </template>

@@ -79,9 +79,7 @@ watch(searchQuery, () => {
 			</div>
 
 			<div class="relative mx-auto max-w-4xl px-6 text-center">
-				<h1 id="contributors-hero-heading" class="animate-fade-in-up text-5xl font-extrabold tracking-tight uppercase sm:text-6xl">
-					<span class="text-primary">Contributors</span>
-				</h1>
+				<h1 id="contributors-hero-heading" class="animate-fade-in-up animate-delay-100 text-5xl font-extrabold tracking-tight uppercase sm:text-6xl"><span class="text-text-primary">The </span><span class="text-primary">Contributors</span></h1>
 
 				<p class="animate-fade-in-up animate-delay-100 text-text-secondary mx-auto mt-6 max-w-xl text-lg leading-relaxed">Slingshot is built by amazing people from around the world. Every contribution matters.</p>
 			</div>
@@ -93,9 +91,9 @@ watch(searchQuery, () => {
 				<div class="flex flex-col items-center gap-10 md:flex-row md:justify-between">
 					<!-- Creator -->
 					<a href="https://github.com/Atia-Farha" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4">
-						<img src="https://avatars.githubusercontent.com/u/119663174?v=4" alt="Atia Farha" class="group-hover:ring-primary/30 h-16 w-16 rounded-full ring-2 ring-white/10 transition-all duration-300" loading="lazy" width="64" height="64" />
+						<img src="https://avatars.githubusercontent.com/u/119663174?v=4" alt="Atia Farha" class="group-hover:ring-primary/30 h-16 w-16 rounded-full ring-2 ring-white/10 transition-all duration-500" loading="lazy" width="64" height="64" />
 						<div>
-							<p class="text-text-primary group-hover:text-primary font-semibold transition-colors duration-300">Atia Farha</p>
+							<p class="text-text-primary group-hover:text-primary font-semibold transition-colors duration-500">Atia Farha</p>
 							<p class="text-text-muted text-sm">Creator & Maintainer</p>
 						</div>
 					</a>
@@ -125,13 +123,13 @@ watch(searchQuery, () => {
 						<template v-else-if="filteredContributors.length > 0"> Top {{ filteredContributors.length }} contributor{{ filteredContributors.length !== 1 ? 's' : '' }} </template>
 						<template v-else> No other contributors yet! </template>
 					</p>
-					<a href="https://github.com/atia-farha/Slingshot/graphs/contributors" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 text-sm transition-colors duration-300"> View all on GitHub → </a>
+					<a href="https://github.com/atia-farha/Slingshot/graphs/contributors" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 text-sm transition-colors duration-500"> View all on GitHub → </a>
 				</div>
 
 				<!-- Grid -->
 				<div v-if="paginatedContributors.length" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-					<a v-for="contributor in paginatedContributors" :key="contributor.id" :href="contributor.html_url" target="_blank" rel="noopener noreferrer" class="section-card group hover:border-primary/20 relative overflow-hidden p-5 text-center transition-all duration-300 hover:shadow-[0_0_40px_-15px_rgba(20,216,212,0.15)]">
-						<img :src="contributor.avatar_url" :alt="contributor.login" class="group-hover:ring-primary/30 mx-auto mb-3 h-16 w-16 rounded-full ring-2 ring-white/10 transition-all duration-300" loading="lazy" width="64" height="64" />
+					<a v-for="contributor in paginatedContributors" :key="contributor.id" :href="contributor.html_url" target="_blank" rel="noopener noreferrer" class="section-card group hover:border-primary/20 relative overflow-hidden p-5 text-center transition-all duration-500 hover:shadow-[0_0_40px_-15px_rgba(20,216,212,0.15)]">
+						<img :src="contributor.avatar_url" :alt="contributor.login" class="group-hover:ring-primary/30 mx-auto mb-3 h-16 w-16 rounded-full ring-2 ring-white/10 transition-all duration-500" loading="lazy" width="64" height="64" />
 						<p class="text-text-primary truncate text-sm font-medium">
 							{{ contributor.login }}
 						</p>
@@ -148,20 +146,20 @@ watch(searchQuery, () => {
 
 				<!-- Pagination -->
 				<div v-if="totalPages > 1" class="mt-10 flex items-center justify-center gap-2">
-					<button :disabled="currentPage === 1" class="section-card hover:border-primary/20 flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-30" @click="goToPage(currentPage - 1)">
+					<button :disabled="currentPage === 1" class="section-card hover:border-primary/20 flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-500 disabled:cursor-not-allowed disabled:opacity-30" @click="goToPage(currentPage - 1)">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 							<path d="m15 18-6-6 6-6" />
 						</svg>
 					</button>
 
 					<template v-for="page in totalPages" :key="page">
-						<button v-if="page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)" :class="['section-card hover:border-primary/20 flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-colors duration-300', page === currentPage ? 'border-primary/30 bg-primary/10 text-primary' : 'text-text-secondary']" @click="goToPage(page)">
+						<button v-if="page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)" :class="['section-card hover:border-primary/20 flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-colors duration-500', page === currentPage ? 'border-primary/30 bg-primary/10 text-primary' : 'text-text-secondary']" @click="goToPage(page)">
 							{{ page }}
 						</button>
 						<span v-else-if="page === currentPage - 2 || page === currentPage + 2" class="text-text-muted px-1"> ... </span>
 					</template>
 
-					<button :disabled="currentPage === totalPages" class="section-card hover:border-primary/20 flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-30" @click="goToPage(currentPage + 1)">
+					<button :disabled="currentPage === totalPages" class="section-card hover:border-primary/20 flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-500 disabled:cursor-not-allowed disabled:opacity-30" @click="goToPage(currentPage + 1)">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 							<path d="m9 18 6-6-6-6" />
 						</svg>
@@ -181,7 +179,7 @@ watch(searchQuery, () => {
 				<h2 id="contributors-cta-heading" class="text-3xl tracking-tight sm:text-4xl">Want to contribute?</h2>
 				<p class="text-text-secondary mt-4 text-base leading-relaxed">Slingshot is open source and welcomes contributions. Check out the repository and start contributing today.</p>
 				<div class="mt-10 flex flex-col items-center justify-center gap-4">
-					<a href="https://github.com/Atia-Farha/Slingshot" target="_blank" rel="noopener noreferrer" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]"> View on GitHub </a>
+					<a href="https://github.com/Atia-Farha/Slingshot" target="_blank" rel="noopener noreferrer" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-500 hover:bg-[#0fc4c0] active:scale-[0.98]"> View on GitHub </a>
 				</div>
 			</div>
 		</section>

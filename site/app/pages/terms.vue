@@ -42,5 +42,5 @@ useHead({
 </script>
 
 <template>
-	<LegalPage title="Terms of Service" :last-updated="lastUpdated" :html="html" />
+	<LegalPage title="Terms of Service" title-accent="Service" :last-updated="lastUpdated" :html="html" />
 </template>

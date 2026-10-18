@@ -1,9 +1,21 @@
 <script setup>
-defineProps({
+const props = defineProps({
 	title: { type: String, required: true },
+	titleAccent: { type: String, default: '' },
 	subtitle: { type: String, default: '' },
 	lastUpdated: { type: String, default: '' },
 	html: { type: String, required: true },
+});
+
+const titleParts = computed(() => {
+	const full = props.title.trim();
+	if (!props.titleAccent) return { lead: full, accent: '' };
+	const idx = full.toLowerCase().indexOf(props.titleAccent.toLowerCase());
+	if (idx === -1) return { lead: full, accent: '' };
+	return {
+		lead: full.slice(0, idx).trim(),
+		accent: full.slice(idx, idx + props.titleAccent.length),
+	};
 });
 </script>
 
@@ -18,7 +30,8 @@ defineProps({
 
 			<div class="relative mx-auto max-w-4xl px-6 text-center">
 				<h1 id="legal-hero-heading" class="animate-fade-in-up text-5xl font-extrabold tracking-tight uppercase sm:text-6xl">
-					{{ title }}
+					<span v-if="titleParts.accent" class="text-text-primary">{{ titleParts.lead }} </span>
+					<span :class="titleParts.accent ? 'text-primary' : 'text-text-primary'">{{ titleParts.accent || title }}</span>
 				</h1>
 				<p v-if="lastUpdated" class="animate-fade-in-up animate-delay-100 text-text-muted mx-auto mt-4 text-sm">Last updated: {{ lastUpdated }}</p>
 				<p v-if="subtitle" class="animate-fade-in-up animate-delay-100 text-text-muted mx-auto mt-4 text-sm">{{ subtitle }}</p>
@@ -98,7 +111,7 @@ defineProps({
 	text-decoration: underline;
 	text-underline-offset: 3px;
 	text-decoration-thickness: 1px;
-	transition: color 0.2s;
+	transition: color 0.5s;
 }
 
 :deep(.legal-content a:hover) {

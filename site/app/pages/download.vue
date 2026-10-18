@@ -158,7 +158,7 @@ const platforms = [
 				<h2 id="download-cta-heading" class="text-3xl tracking-tight sm:text-4xl">Open source</h2>
 				<p class="text-text-secondary mt-4 text-base leading-relaxed">Slingshot is free and open source. View the source code on GitHub.</p>
 				<div class="mt-10 flex flex-col items-center justify-center gap-4">
-					<a href="https://github.com/Atia-Farha/Slingshot" target="_blank" rel="noopener noreferrer" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-300 hover:bg-[#0fc4c0] active:scale-[0.98]">
+					<a href="https://github.com/Atia-Farha/Slingshot" target="_blank" rel="noopener noreferrer" class="cta-glow border-primary/60 bg-primary inline-flex h-12 items-center gap-2.5 rounded-lg border px-7 text-sm font-bold text-black transition-all duration-500 hover:bg-[#0fc4c0] active:scale-[0.98]">
 						View on GitHub
 						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 							<path d="M7 17L17 7M17 7H7M17 7v10" />
